@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://d0nli7fikwkrr"]
 
-[ext_resource type="Script" path="res://scrips/hud.gd" id="1_10lh8"]
+[ext_resource type="Script" uid="uid://dyo7bvj7puxoq" path="res://scrips/hud.gd" id="1_10lh8"]
 [ext_resource type="Texture2D" uid="uid://cmaqtule8dspn" path="res://assets/Hotbar.png" id="1_pmtsm"]
 [ext_resource type="Texture2D" uid="uid://coqocwhnl554b" path="res://assets/selector.png" id="6_vpngi"]
 [ext_resource type="Texture2D" uid="uid://budepvfqr6ayb" path="res://assets/crosshair.png" id="8_q53yv"]
@@ -31,6 +31,8 @@ position = Vector2(1113, 479)
 texture = ExtResource("6_vpngi")
 
 [node name="Crosshair" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 1
 position = Vector2(576, 324)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_q53yv")
