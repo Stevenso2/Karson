@@ -10,6 +10,9 @@ const sensitivity = 1
 var rot_x = 0
 var rot_y = 0
 
+var devPos: Vector3
+var devspeed = 0.1
+
 func _ready():
 	# Hide the mouse cursor and keep it centered.
 	set_process_input(true)
@@ -27,8 +30,12 @@ func _input(event):
 			rot_x = clamp(rot_x, -90, 90)
 			
 			# Apply the rotation to the camera.
-			camera_3d.rotation_degrees.x = rot_x
-			rotation_degrees.y = rot_y
+			if global.DEV:
+				camera_3d.rotation_degrees.x = rot_x
+				camera_3d.rotation_degrees.y = rot_y
+			else:
+				camera_3d.rotation_degrees.x = rot_x
+				rotation_degrees.y = rot_y
 
 
 func _process(_delta):
@@ -40,7 +47,9 @@ func _process(_delta):
 			global.pause = true
 
 func _physics_process(delta: float) -> void:
-	if not global.pause:
+	if not global.pause && not global.DEV:
+		camera_3d.position = Vector3(0,1.65,0)
+		camera_3d.rotation_degrees.y = 0
 		# Add the gravity.
 		if not is_on_floor():
 			velocity += get_gravity() * delta
@@ -62,3 +71,18 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 		
 		move_and_slide()
+
+	if global.DEV:
+		if Input.is_action_pressed("U") and is_on_floor():
+			devPos.y += delta
+		
+		# Get the input direction and handle the movement/deceleration.
+		# As good practice, you should replace UI actions with custom gameplay actions.
+		var dir = Input.get_vector("L", "R", "F", "B", 0).normalized()
+		var zdir = Vector2(dir.y, 0).rotated(-camera_3d.rotation.x-90)
+		dir = Vector2(dir.x, dir.y).rotated(-camera_3d.rotation.y)
+		devPos.x += dir.x * devspeed
+		devPos.z += dir.y * devspeed
+		devPos.y += zdir.x * devspeed
+		camera_3d.position = devPos
+		
