@@ -12,6 +12,8 @@ var current_Block = 0
 var pause = false
 
 var DEV = false
+
+signal PObj_Button
 	
 
 func _process(delta: float) -> void:

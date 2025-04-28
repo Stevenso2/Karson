@@ -9,7 +9,7 @@ size = Vector3(2, 0.25, 2)
 size = Vector3(2, 0.25, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m221e"]
-size = Vector3(1, 0.01, 1)
+size = Vector3(1, 0.05, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dcs6f"]
 size = Vector3(1, 0.25, 1)
@@ -22,7 +22,7 @@ material = SubResource("StandardMaterial3D_uxbfs")
 size = Vector3(1, 0.25, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6fwqn"]
-size = Vector3(1, 0.01, 1)
+size = Vector3(1, 0.05, 1)
 
 [node name="Button" type="StaticBody3D"]
 collision_mask = 0
@@ -40,7 +40,7 @@ shape = SubResource("BoxShape3D_4nlf2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 
 [node name="ContactCollision" type="CollisionShape3D" parent="ContactArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.005, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
 shape = SubResource("BoxShape3D_m221e")
 
 [node name="ButtonFace" type="StaticBody3D" parent="."]
@@ -49,11 +49,9 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="ButtonFaceMesh" type="CollisionShape3D" parent="ButtonFace"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_dcs6f")
 
 [node name="ButtonFaceCollision" type="MeshInstance3D" parent="ButtonFace"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_w8v3l")
 skeleton = NodePath("")
 
@@ -61,7 +59,10 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0)
 
 [node name="MoveCollision" type="CollisionShape3D" parent="ButtonFace/MoveArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)
 shape = SubResource("BoxShape3D_6fwqn")
 
-[connection signal="area_entered" from="ButtonFace/MoveArea" to="." method="_on_move_area_area_entered"]
+[connection signal="body_entered" from="ContactArea" to="." method="contact_area_entered"]
+[connection signal="body_exited" from="ContactArea" to="." method="contact_area_exited"]
+[connection signal="body_entered" from="ButtonFace/MoveArea" to="." method="move_area_entered"]
+[connection signal="body_exited" from="ButtonFace/MoveArea" to="." method="move_area_exited"]

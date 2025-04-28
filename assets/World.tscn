@@ -47,5 +47,5 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain"]
 shape = SubResource("HeightMapShape3D_p3buv")
 
-[node name="Base_Plate" parent="." instance=ExtResource("2_j6cc0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.29197, -0.00944346, -3.83648)
+[node name="Button" parent="." instance=ExtResource("2_j6cc0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -7)
