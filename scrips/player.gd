@@ -4,6 +4,9 @@ extends CharacterBody3D
 
 const SPEED = 500.0
 const JUMP_VELOCITY = 300.0
+const SLIDE_SPEED = 1000.0  # increased speed during sliding
+const SLIDE_HEIGHT = 0.5    # lower height when sliding
+const NORMAL_HEIGHT = 1.66  # normal height when not sliding
 
 const sensitivity = 0.55
 
@@ -12,6 +15,10 @@ var rot_y = 0
 
 var devPos: Vector3
 var devspeed = 0.1
+
+var direction:int = 0
+var is_sliding: bool = false
+var is_crouching: bool = false  # track if the player is crouching
 
 func _ready():
 	# Hide the mouse cursor and keep it centered.
@@ -39,17 +46,35 @@ func _input(event):
 
 
 func _process(_delta):
+	
 	# If the escape key is pressed, release the mouse.
 	if Input.is_action_just_pressed("Esc"):
 		if global.pause:
 			global.pause = false
 		else:
 			global.pause = true
+	
+	#Character slide test VERY WIP
+	
+	if Input.is_action_pressed("sliding test") and is_on_floor() and not is_sliding:  # "ui_select" maps to Ctrl by default.
+		is_sliding = true
+		camera_3d.position.y = SLIDE_HEIGHT  # Lower camera position to simulate crouch
+
+	# Stop sliding when the Ctrl key is released.
+	elif Input.is_action_just_released("sliding test") and is_sliding:
+		is_sliding = false
+		camera_3d.position.y = NORMAL_HEIGHT  # Reset camera position
 
 func _physics_process(delta: float) -> void:
-	if not global.pause && not global.DEV:
-		camera_3d.position = Vector3(0,1.65,0)
-		camera_3d.rotation_degrees.y = 0
+	if not global.pause and not global.DEV:
+		
+		#Still Sliding test
+		# Adjust camera height based on sliding state
+		if is_sliding:
+			camera_3d.position.y = SLIDE_HEIGHT
+		else:
+			camera_3d.position.y = NORMAL_HEIGHT
+		
 		# Add the gravity.
 		if not is_on_floor():
 			velocity += get_gravity() * delta
@@ -59,16 +84,20 @@ func _physics_process(delta: float) -> void:
 			velocity.y = JUMP_VELOCITY * delta
 		
 		# Get the input direction and handle the movement/deceleration.
-		# As good practice, you should replace UI actions with custom gameplay actions.
 		var direction := Input.get_vector("L", "R", "F", "B", 0).normalized()
 		
-		if direction:
-			var ground_vel = Vector2(direction.x, direction.y).rotated(-rotation.y) * SPEED * delta
-			velocity = Vector3(ground_vel.x, velocity.y, ground_vel.y)
+		#Slide test thing 3 xD (yes i add these to find it later if smt goes horribly wrong lol)
+		# If the player is sliding, increase the speed.
+		var move_speed = SPEED
+		if is_sliding:
+			move_speed = SLIDE_SPEED
 
+		if direction:
+			var ground_vel = Vector2(direction.x, direction.y).rotated(-rotation.y) * move_speed * delta
+			velocity = Vector3(ground_vel.x, velocity.y, ground_vel.y)
 		else:
-			velocity.z = move_toward(velocity.z, 0, SPEED)
-			velocity.x = move_toward(velocity.x, 0, SPEED)
+			velocity.z = move_toward(velocity.z, 0, move_speed)
+			velocity.x = move_toward(velocity.x, 0, move_speed)
 		
 		move_and_slide()
 
@@ -77,7 +106,6 @@ func _physics_process(delta: float) -> void:
 			devPos.y += delta
 		
 		# Get the input direction and handle the movement/deceleration.
-		# As good practice, you should replace UI actions with custom gameplay actions.
 		var dir = Input.get_vector("L", "R", "F", "B", 0).normalized()
 		var zdir = Vector2(dir.y, 0).rotated(-camera_3d.rotation.x-90)
 		dir = Vector2(dir.x, dir.y).rotated(-camera_3d.rotation.y)
@@ -85,4 +113,3 @@ func _physics_process(delta: float) -> void:
 		devPos.z += dir.y * devspeed
 		devPos.y += zdir.x * devspeed
 		camera_3d.position = devPos
-		
