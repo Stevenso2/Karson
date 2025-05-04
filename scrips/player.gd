@@ -8,7 +8,7 @@ const SLIDE_SPEED = 1000.0  # increased speed during sliding
 const SLIDE_HEIGHT = 0.5    # lower height when sliding
 const NORMAL_HEIGHT = 1.66  # normal height when not sliding
 
-const sensitivity = 0.55
+const sensitivity = 0.35 # 0.55 for school mouse, 0,4 for my own mouse -Pizzi
 
 var rot_x = 0
 var rot_y = 0
@@ -16,6 +16,7 @@ var rot_y = 0
 var devPos: Vector3
 var devspeed = 0.1
 
+var move_speed = SPEED
 var direction:int = 0
 var is_sliding: bool = false
 var is_crouching: bool = false  # track if the player is crouching
@@ -43,6 +44,8 @@ func _input(event):
 			else:
 				camera_3d.rotation_degrees.x = rot_x
 				rotation_degrees.y = rot_y
+	if is_sliding:
+		move_speed = SLIDE_SPEED
 
 
 func _process(_delta):
@@ -56,7 +59,7 @@ func _process(_delta):
 	
 	#Character slide test VERY WIP
 	
-	if Input.is_action_pressed("sliding test") and is_on_floor() and not is_sliding:  # "ui_select" maps to Ctrl by default.
+	if Input.is_action_pressed("sliding test") and is_on_floor() and not is_sliding and not global.DEV:
 		is_sliding = true
 		camera_3d.position.y = SLIDE_HEIGHT  # Lower camera position to simulate crouch
 
@@ -67,13 +70,18 @@ func _process(_delta):
 
 func _physics_process(delta: float) -> void:
 	if not global.pause and not global.DEV:
+		#WHY IS THIS FIXING THE DEVCAM BUG AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA [note 1 hour later: i dont wanna do this anymore, i think there is a easy fix but i am tryin for the past 2hours :C]
+		camera_3d.position.y = 1.68
+		camera_3d.position.x = 0
+		camera_3d.position.z = -0.162
 		
 		#Still Sliding test
 		# Adjust camera height based on sliding state
-		if is_sliding:
-			camera_3d.position.y = SLIDE_HEIGHT
+		if is_sliding and not global.DEV:
+			Vector3(0,SLIDE_HEIGHT,0) 
 		else:
-			camera_3d.position.y = NORMAL_HEIGHT
+			Vector3(0,NORMAL_HEIGHT,0)
+		
 		
 		# Add the gravity.
 		if not is_on_floor():
@@ -102,7 +110,7 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 
 	if global.DEV:
-		if Input.is_action_pressed("U") and is_on_floor():
+		if Input.is_action_pressed("U") and is_on_floor() and not is_crouching and not is_sliding:
 			devPos.y += delta
 		
 		# Get the input direction and handle the movement/deceleration.
