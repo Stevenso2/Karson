@@ -5,7 +5,7 @@ extends CharacterBody3D
 const SPEED = 500.0
 const JUMP_VELOCITY = 300.0
 
-const sensitivity = 0.55
+const sensitivity = 1
 
 var rot_x = 0
 var rot_y = 0

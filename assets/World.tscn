@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bt6sc561jqijy"]
+[gd_scene load_steps=10 format=3 uid="uid://bt6sc561jqijy"]
 
 [ext_resource type="PackedScene" uid="uid://4r8al3ot2h5v" path="res://assets/player.tscn" id="1_321kd"]
 [ext_resource type="PackedScene" uid="uid://bg3ivkj56s7pu" path="res://assets/Button.tscn" id="2_j6cc0"]
+[ext_resource type="PackedScene" uid="uid://dnfu5hv4qqhid" path="res://assets/door.tscn" id="3_sp64g"]
+[ext_resource type="PackedScene" uid="uid://mta7k70g720y" path="res://assets/timer.tscn" id="4_1favq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lkl0i"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -16,8 +18,10 @@ sky = SubResource("Sky_vmpgl")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_c4wb8"]
-size = Vector3(30, 30, 1)
+[sub_resource type="QuadMesh" id="QuadMesh_xgn34"]
+size = Vector2(20, 20)
+subdivide_width = 21
+subdivide_depth = 21
 
 [sub_resource type="HeightMapShape3D" id="HeightMapShape3D_p3buv"]
 map_width = 21
@@ -38,13 +42,24 @@ environment = SubResource("Environment_4k3r8")
 [node name="Terrain" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.5, 0)
-mesh = SubResource("BoxMesh_c4wb8")
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("QuadMesh_xgn34")
 skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain"]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 shape = SubResource("HeightMapShape3D_p3buv")
 
 [node name="Button" parent="." instance=ExtResource("2_j6cc0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -7)
+id = 1
+
+[node name="Door" parent="." instance=ExtResource("3_sp64g")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7, 0, -7)
+TestIDs = [2]
+OpenHeight = 3
+
+[node name="Timer" parent="." instance=ExtResource("4_1favq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
+TestIds = [1]
+Own_Id = 2
+Falling_edge = 5

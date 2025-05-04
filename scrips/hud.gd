@@ -4,7 +4,7 @@ extends Control
 @onready var menu: Sprite2D = $Menu
 @onready var quit: Button = $Menu/Quit
 
-var offset = 475
+var offset = 304
 var jump_by = 68
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("3"):
 		global.current_Block = 2
 	if Input.is_action_just_pressed("4"):
-		pass
+		global.current_Block = 3
 	if Input.is_action_just_pressed("5"):
 		pass
 	if Input.is_action_just_pressed("6"):
@@ -30,18 +30,18 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("SU"):
 		global.current_Block += 1
-		if global.current_Block >= 2:
+		if global.current_Block >= 3:
 			global.current_Block = 0
 	if Input.is_action_just_pressed("SD"):
 		global.current_Block -= 1
 		if global.current_Block <= 0:
-			global.current_Block = 2
-#	somehow fix the scroll problem i am a dum dum to fix it
+			global.current_Block = 3
+			
 	if global.pause:
 		menu.show()
-		if quit.button_pressed || Input.is_action_just_pressed("Enter"):
+		if quit.button_pressed:
 			get_tree().quit()
 	else:
 		menu.hide()
 	
-	selector.position.y = offset + global.current_Block * jump_by
+	selector.position.x = offset * jump_by
