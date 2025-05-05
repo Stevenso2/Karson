@@ -69,11 +69,11 @@ func _process(_delta):
 		camera_3d.position.y = NORMAL_HEIGHT  # Reset camera position
 
 func _physics_process(delta: float) -> void:
+	#Only Remove "global.DEV" when it is not needed anymore [finally this is fixed god]
 	if not global.pause and not global.DEV:
-		#WHY IS THIS FIXING THE DEVCAM BUG AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA [note 1 hour later: i dont wanna do this anymore, i think there is a easy fix but i am tryin for the past 2hours :C]
-		camera_3d.position.y = 1.68
-		camera_3d.position.x = 0
-		camera_3d.position.z = -0.162
+		if not is_sliding and not global.DEV and not is_crouching: #idk to why i need to add "and not global.DEV" here. but it is fixing the cam for now. which is good
+			camera_3d.position = Vector3(0,1.65,-0.165)
+			camera_3d.rotation.y = 0
 		
 		#Still Sliding test
 		# Adjust camera height based on sliding state
