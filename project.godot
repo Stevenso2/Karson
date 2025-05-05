@@ -25,6 +25,10 @@ global="*res://scrips/global.gd"
 
 window/stretch/mode="viewport"
 
+[global_group]
+
+PObj="Physics Object"
+
 [input]
 
 U={
