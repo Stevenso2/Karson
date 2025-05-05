@@ -48,8 +48,8 @@ func _process(_delta):
 
 func _physics_process(delta: float) -> void:
 	if not global.pause && not global.DEV:
-		camera_3d.position = Vector3(0,1.65,-0.162)
-		camera_3d.rotation.y = 0
+		camera_3d.position = Vector3(0,1.65,0)
+		camera_3d.rotation_degrees.y = 0
 		# Add the gravity.
 		if not is_on_floor():
 			velocity += get_gravity() * delta

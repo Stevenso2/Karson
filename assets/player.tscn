@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://4r8al3ot2h5v"]
 
-[ext_resource type="Script" uid="uid://coxis1sim8qyc" path="res://scrips/player.gd" id="1_enlmb"]
+[ext_resource type="Script" uid="uid://bkgl375chs7hs" path="res://scrips/player.gd" id="1_enlmb"]
 [ext_resource type="PackedScene" uid="uid://d0nli7fikwkrr" path="res://assets/hud.tscn" id="2_2tde0"]
 [ext_resource type="PackedScene" uid="uid://iky2s84x7o3w" path="res://Models/Karlson Himself.gltf" id="2_insbl"]
 
@@ -8,7 +8,7 @@
 radius = 0.3
 height = 1.8
 
-[node name="Player" type="CharacterBody3D" groups=["PObj"]]
+[node name="Player" type="CharacterBody3D"]
 disable_mode = 1
 collision_layer = 3
 collision_mask = 3
@@ -27,6 +27,4 @@ shape = SubResource("CapsuleShape3D_irju7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6804, -0.16235)
 current = true
 
-[node name="Hud" parent="." instance=ExtResource("2_2tde0")]
-offset_right = -1152.0
-offset_bottom = -648.0
+[node name="Hud" parent="Camera3D" instance=ExtResource("2_2tde0")]

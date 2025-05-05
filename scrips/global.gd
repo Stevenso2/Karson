@@ -13,7 +13,8 @@ var pause = false
 
 var DEV = false
 
-signal PObj_IDTunnel(id, OnOff)
+signal PObj_Button
+	
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("REMOVE ON FINAL"):
