@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://mta7k70g720y"]
+
+[ext_resource type="Shader" uid="uid://duevvs3ojkyoh" path="res://shader/Timer.gdshader" id="1_e5suj"]
+[ext_resource type="Script" uid="uid://7l14ork74h6d" path="res://timer.gd" id="1_n802f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_604e0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5jrx4"]
+material = SubResource("StandardMaterial3D_604e0")
+size = Vector3(1, 0.2, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bn1a4"]
+render_priority = 1
+shader = ExtResource("1_e5suj")
+shader_parameter/shape_position = Vector2(0.5, 0.5)
+shader_parameter/shape_radius = 0.1
+shader_parameter/shape_color = Vector3(1, 0, 0)
+shader_parameter/background_color = Vector3(0, 1, 0)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e7xey"]
+material = SubResource("ShaderMaterial_bn1a4")
+size = Vector2(1, 1)
+
+[node name="Timer" type="Node3D"]
+script = ExtResource("1_n802f")
+
+[node name="Tile" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+mesh = SubResource("BoxMesh_5jrx4")
+
+[node name="Timer" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.201, 0)
+mesh = SubResource("PlaneMesh_e7xey")
