@@ -32,4 +32,5 @@ func contact_area_entered(body: Node3D) -> void:
 	if body.is_in_group("PObj"):
 		global.PObj_IDTunnel.emit(id, true)
 func contact_area_exited(body: Node3D) -> void:
-	global.PObj_IDTunnel.emit(id, false)
+	if body.is_in_group("PObj"):
+		global.PObj_IDTunnel.emit(id, false)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://mta7k70g720y"]
 
-[ext_resource type="Shader" path="res://shader/Timer.gdshader" id="1_e5suj"]
-[ext_resource type="Script" path="res://timer.gd" id="1_n802f"]
+[ext_resource type="Shader" uid="uid://duevvs3ojkyoh" path="res://shader/Timer.gdshader" id="1_e5suj"]
+[ext_resource type="Script" uid="uid://7l14ork74h6d" path="res://timer.gd" id="1_n802f"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_604e0"]
 
