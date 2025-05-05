@@ -1,9 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0nli7fikwkrr"]
+[gd_scene load_steps=7 format=3 uid="uid://d0nli7fikwkrr"]
 
-[ext_resource type="Script" path="res://scrips/hud.gd" id="1_10lh8"]
+[ext_resource type="Script" uid="uid://dyo7bvj7puxoq" path="res://scrips/hud.gd" id="1_10lh8"]
 [ext_resource type="Texture2D" uid="uid://cmaqtule8dspn" path="res://assets/Hotbar.png" id="1_pmtsm"]
 [ext_resource type="Texture2D" uid="uid://coqocwhnl554b" path="res://assets/selector.png" id="6_vpngi"]
 [ext_resource type="Texture2D" uid="uid://budepvfqr6ayb" path="res://assets/crosshair.png" id="8_q53yv"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_18kdl"]
+device = -1
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_cwq6o"]
+events = [SubResource("InputEventKey_18kdl")]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -15,15 +22,19 @@ grow_vertical = 2
 script = ExtResource("1_10lh8")
 
 [node name="Hotbar" type="Sprite2D" parent="."]
-position = Vector2(576, 608)
+position = Vector2(1113, 545)
+rotation = 1.5708
 texture = ExtResource("1_pmtsm")
 
 [node name="Selector" type="Sprite2D" parent="."]
-position = Vector2(304, 608)
+position = Vector2(1113, 479)
 texture = ExtResource("6_vpngi")
 
 [node name="Crosshair" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 1
 position = Vector2(576, 324)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_q53yv")
 
 [node name="Menu" type="Sprite2D" parent="."]
@@ -42,5 +53,6 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2.74, 2.74)
 pivot_offset = Vector2(90.95, 15.5)
+shortcut = SubResource("Shortcut_cwq6o")
 text = "QUIT"
 clip_text = true
