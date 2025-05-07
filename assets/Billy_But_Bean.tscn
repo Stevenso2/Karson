@@ -1,19 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://dfsdc63gs83bi"]
 
-[ext_resource type="Script" path="res://scrips/billy_but_bean.gd" id="1_dpmv7"]
+[ext_resource type="Script" uid="uid://m6ai10xyiny0" path="res://scrips/billy.gd" id="1_dpmv7"]
+[ext_resource type="PackedScene" uid="uid://cw2ckd031msr" path="res://Models/Some Version Of Billy.gltf" id="2_sy7ag"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_dlxjm"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_m6rbt"]
+size = Vector3(1, 1.82782, 1)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xtbet"]
-
-[node name="Billy but it\'s a Bean for rn" type="CharacterBody3D"]
+[node name="Billy" type="CharacterBody3D"]
 script = ExtResource("1_dpmv7")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0)
-mesh = SubResource("CapsuleMesh_dlxjm")
-skeleton = NodePath("../CollisionShape3D")
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("2_sy7ag")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0)
-shape = SubResource("CapsuleShape3D_xtbet")
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.458817, 0)
+shape = SubResource("BoxShape3D_m6rbt")

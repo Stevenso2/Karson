@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://4r8al3ot2h5v"]
 
-[ext_resource type="Script" path="res://scrips/player.gd" id="1_enlmb"]
+[ext_resource type="Script" uid="uid://bkgl375chs7hs" path="res://scrips/player.gd" id="1_enlmb"]
 [ext_resource type="PackedScene" uid="uid://d0nli7fikwkrr" path="res://assets/hud.tscn" id="2_2tde0"]
 [ext_resource type="PackedScene" uid="uid://iky2s84x7o3w" path="res://Models/Karlson Himself.gltf" id="2_insbl"]
 

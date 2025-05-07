@@ -3,12 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cwdkn7orgiu50"
-valid=false
+uid="uid://cw2ckd031msr"
+path="res://.godot/imported/Some Version Of Billy.gltf-05c1bc329b0039d48f150e8af1d63c8b.scn"
 
 [deps]
 
-source_file="res://assets/scene.gltf"
+source_file="res://Models/Some Version Of Billy.gltf"
+dest_files=["res://.godot/imported/Some Version Of Billy.gltf-05c1bc329b0039d48f150e8af1d63c8b.scn"]
 
 [params]
 
