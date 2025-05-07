@@ -8,7 +8,7 @@ const SLIDE_SPEED = 1000.0  # increased speed during sliding
 const SLIDE_HEIGHT = 0.5    # lower height when sliding
 const NORMAL_HEIGHT = 1.66  # normal height when not sliding
 
-const sensitivity = 0.35 # 0.55 for school mouse, 0,4 for my own mouse -Pizzi
+const sensitivity = 0.35 # 0.55 for school mouse, 0,35 for my own mouse -Pizzi
 
 var rot_x = 0
 var rot_y = 0
@@ -24,6 +24,7 @@ var is_crouching: bool = false  # track if the player is crouching
 func _ready():
 	# Hide the mouse cursor and keep it centered.
 	set_process_input(true)
+	add_to_group("Player")
 	
 
 func _input(event):

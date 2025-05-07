@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://d0nli7fikwkrr"]
 
-[ext_resource type="Script" uid="uid://dyo7bvj7puxoq" path="res://scrips/hud.gd" id="1_10lh8"]
-[ext_resource type="Texture2D" uid="uid://cmaqtule8dspn" path="res://assets/Hotbar.png" id="1_pmtsm"]
-[ext_resource type="Texture2D" uid="uid://coqocwhnl554b" path="res://assets/selector.png" id="6_vpngi"]
-[ext_resource type="Texture2D" uid="uid://budepvfqr6ayb" path="res://assets/crosshair.png" id="8_q53yv"]
+[ext_resource type="Script" path="res://scrips/hud.gd" id="1_10lh8"]
+[ext_resource type="Texture2D" uid="uid://cmaqtule8dspn" path="res://assets/pictures/Hotbar.png" id="1_pmtsm"]
+[ext_resource type="Texture2D" uid="uid://coqocwhnl554b" path="res://assets/pictures/selector.png" id="6_vpngi"]
+[ext_resource type="Texture2D" uid="uid://budepvfqr6ayb" path="res://assets/pictures/crosshair.png" id="8_q53yv"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_18kdl"]
 device = -1

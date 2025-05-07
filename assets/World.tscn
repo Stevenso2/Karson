@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bt6sc561jqijy"]
+[gd_scene load_steps=10 format=3 uid="uid://bt6sc561jqijy"]
 
 [ext_resource type="PackedScene" uid="uid://4r8al3ot2h5v" path="res://assets/player.tscn" id="1_321kd"]
 [ext_resource type="PackedScene" uid="uid://bg3ivkj56s7pu" path="res://assets/Button.tscn" id="2_j6cc0"]
+[ext_resource type="PackedScene" uid="uid://dfsdc63gs83bi" path="res://assets/Billy_But_Bean.tscn" id="3_dq45t"]
+[ext_resource type="PackedScene" uid="uid://cqes48qd4mb6" path="res://assets/Builds/Box for Billy.tscn" id="3_xckp5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lkl0i"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -48,3 +50,9 @@ shape = SubResource("HeightMapShape3D_p3buv")
 
 [node name="Button" parent="." instance=ExtResource("2_j6cc0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -7)
+
+[node name="Billy\'s box" parent="." instance=ExtResource("3_xckp5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.49125, -0.493259, 22.4664)
+
+[node name="Billy but it\'s a Bean for rn" parent="Billy\'s box" instance=ExtResource("3_dq45t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.89679, 0.433632, 0.997591)
