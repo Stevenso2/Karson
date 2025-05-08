@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dn4yb2ytejqla"
-path="res://.godot/imported/Billy the one.gltf-201b66ea7bd441df2c08eb56682f920c.scn"
+uid="uid://8e8hsvffv1m8"
+path="res://.godot/imported/Karlson himself.gltf-6906842e3e248a72c097ca5546ab64d2.scn"
 
 [deps]
 
-source_file="res://Models/Billy the one.gltf"
-dest_files=["res://.godot/imported/Billy the one.gltf-201b66ea7bd441df2c08eb56682f920c.scn"]
+source_file="res://Models/Karlson himself.gltf"
+dest_files=["res://.godot/imported/Karlson himself.gltf-6906842e3e248a72c097ca5546ab64d2.scn"]
 
 [params]
 
