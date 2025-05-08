@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://erooj15k8tku"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h5bnm"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_qj2j7"]
+material = SubResource("StandardMaterial3D_h5bnm")
+size = Vector3(0.1, 0.053, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_58j56"]
+albedo_color = Color(0.129558, 0.129558, 0.129558, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_quaka"]
+material = SubResource("StandardMaterial3D_58j56")
+size = Vector3(0.02, 0.02, 0.02)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_60ete"]
+albedo_color = Color(0.385493, 0.385493, 0.385492, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_v7tcj"]
+material = SubResource("StandardMaterial3D_60ete")
+size = Vector3(0.05, 0.125, 0.05)
+
+[node name="Shotgun" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_qj2j7")
+
+[node name="Barrel" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.025, 0, -0.2)
+mesh = SubResource("BoxMesh_quaka")
+
+[node name="Barrel2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025, 0, -0.2)
+mesh = SubResource("BoxMesh_quaka")
+
+[node name="Handle" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, -0.081, 0.121)
+mesh = SubResource("BoxMesh_v7tcj")
+skeleton = NodePath("../..")
