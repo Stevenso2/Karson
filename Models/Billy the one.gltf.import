@@ -3,12 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cwdkn7orgiu50"
-valid=false
+uid="uid://cgqq1tdtneqib"
+path="res://.godot/imported/Billy the one.gltf-201b66ea7bd441df2c08eb56682f920c.scn"
 
 [deps]
 
-source_file="res://assets/scene.gltf"
+source_file="res://Models/Billy the one.gltf"
+dest_files=["res://.godot/imported/Billy the one.gltf-201b66ea7bd441df2c08eb56682f920c.scn"]
 
 [params]
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://4r8al3ot2h5v" path="res://assets/player.tscn" id="1_321kd"]
 [ext_resource type="PackedScene" uid="uid://bg3ivkj56s7pu" path="res://assets/Button.tscn" id="2_j6cc0"]
-[ext_resource type="PackedScene" uid="uid://dfsdc63gs83bi" path="res://assets/Billy_But_Bean.tscn" id="3_dq45t"]
+[ext_resource type="PackedScene" uid="uid://dfsdc63gs83bi" path="res://assets/Billy.tscn" id="3_dq45t"]
 [ext_resource type="PackedScene" uid="uid://cqes48qd4mb6" path="res://assets/Builds/Box for Billy.tscn" id="3_xckp5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lkl0i"]

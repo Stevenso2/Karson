@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfsdc63gs83bi"]
+
+[ext_resource type="Script" path="res://scrips/billy.gd" id="1_pncx1"]
+[ext_resource type="PackedScene" uid="uid://cgqq1tdtneqib" path="res://Models/Billy the one.gltf" id="2_ym6nf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7gc28"]
+size = Vector3(1, 1.80713, 1)
+
+[node name="Billy" type="CharacterBody3D"]
+script = ExtResource("1_pncx1")
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("2_ym6nf")]
+transform = Transform3D(-0.2, 0, -1.74846e-08, 0, 0.2, 0, 1.74846e-08, 0, -0.2, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.455444, 0)
+shape = SubResource("BoxShape3D_7gc28")

@@ -1,11 +1,18 @@
 extends CharacterBody3D
 
 @export var speed: float = 2.0
-@export var HP = 5
-@export var stun_duration: float = 1.0 #this was meant to be used to stun billy for a second so he wont move when you are ontop of him
 
-var player: Node3D
-var stun_timer := 0.0 #this is part 2 of it, basically the main timer "Stun_duration" adds the 1.0 into "stun_timer" which then counts the one second down
+var player: Node3D 
+
+func _ready():
+	
+	# Find the player in the "player" group
+	var players = get_tree().get_nodes_in_group("Player")
+	
+	if players.size() > 0:
+		player = players[0] # Assume there is only one player, for right now it is but soon will be changed
+	else:
+		print("No player found in the group")
 
 func _physics_process(delta):
 	if not global.pause:
@@ -18,6 +25,7 @@ func _physics_process(delta):
 			var target_pos = player.global_transform.origin
 			target_pos.y = global_transform.origin.y
 			look_at(target_pos, Vector3.UP)
+			rotation_degrees.y += 90
 
 			# Set velocity and apply movement
 			velocity = direction * speed
