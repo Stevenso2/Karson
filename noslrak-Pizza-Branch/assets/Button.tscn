@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=3 uid="uid://bg3ivkj56s7pu"]
+
+[ext_resource type="Script" uid="uid://b2j40r5nm3l2b" path="res://scrips/button.gd" id="1_1xver"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0vhju"]
+size = Vector3(2, 0.25, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4nlf2"]
+size = Vector3(2.00049, 0.25, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m221e"]
+size = Vector3(1, 0.05, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dcs6f"]
+size = Vector3(1, 0.25, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uxbfs"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_w8v3l"]
+material = SubResource("StandardMaterial3D_uxbfs")
+size = Vector3(1, 0.25, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6fwqn"]
+size = Vector3(1, 0.05, 1)
+
+[node name="Button" type="StaticBody3D"]
+collision_mask = 0
+script = ExtResource("1_1xver")
+
+[node name="ButtonBaseMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+mesh = SubResource("BoxMesh_0vhju")
+
+[node name="ButtonBaseCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000244141, 0.125286, 0)
+shape = SubResource("BoxShape3D_4nlf2")
+
+[node name="ContactArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+
+[node name="ContactCollision" type="CollisionShape3D" parent="ContactArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+shape = SubResource("BoxShape3D_m221e")
+
+[node name="ButtonFace" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="ButtonFaceMesh" type="CollisionShape3D" parent="ButtonFace"]
+shape = SubResource("BoxShape3D_dcs6f")
+
+[node name="ButtonFaceCollision" type="MeshInstance3D" parent="ButtonFace"]
+mesh = SubResource("BoxMesh_w8v3l")
+skeleton = NodePath("")
+
+[node name="MoveArea" type="Area3D" parent="ButtonFace"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0)
+
+[node name="MoveCollision" type="CollisionShape3D" parent="ButtonFace/MoveArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)
+shape = SubResource("BoxShape3D_6fwqn")
+
+[connection signal="body_entered" from="ContactArea" to="." method="contact_area_entered"]
+[connection signal="body_exited" from="ContactArea" to="." method="contact_area_exited"]
+[connection signal="body_entered" from="ButtonFace/MoveArea" to="." method="move_area_entered"]
+[connection signal="body_exited" from="ButtonFace/MoveArea" to="." method="move_area_exited"]

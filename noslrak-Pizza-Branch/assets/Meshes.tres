@@ -1,0 +1,55 @@
+[gd_resource type="MeshLibrary" load_steps=10 format=3 uid="uid://r45pctl51j1"]
+
+[ext_resource type="Texture2D" uid="uid://dw4ygpjwowphe" path="res://blocks/grass_block.png" id="1_cvp2c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ylarh"]
+albedo_color = Color(0.196078, 0.560784, 0.219608, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_a2egu"]
+material = SubResource("StandardMaterial3D_ylarh")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8dk2b"]
+albedo_color = Color(0.33, 0.33, 0.33, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_f36hr"]
+material = SubResource("StandardMaterial3D_8dk2b")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8mqkd"]
+albedo_color = Color(0.25579, 0.124526, 0.0809863, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dy0wg"]
+material = SubResource("StandardMaterial3D_8mqkd")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vqqu2"]
+albedo_color = Color(0.1972, 0.68, 0.663907, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mmkpm"]
+material = SubResource("StandardMaterial3D_vqqu2")
+
+[resource]
+item/0/name = "venso:grass_block"
+item/0/mesh = SubResource("BoxMesh_a2egu")
+item/0/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/0/shapes = []
+item/0/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/0/navigation_layers = 1
+item/0/preview = ExtResource("1_cvp2c")
+item/1/name = "venso:cobblestone"
+item/1/mesh = SubResource("BoxMesh_f36hr")
+item/1/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/1/shapes = []
+item/1/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/1/navigation_layers = 1
+item/2/name = "venso:dirt"
+item/2/mesh = SubResource("BoxMesh_dy0wg")
+item/2/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/2/shapes = []
+item/2/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/2/navigation_layers = 1
+item/3/name = "venso:ice"
+item/3/mesh = SubResource("BoxMesh_mmkpm")
+item/3/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/3/shapes = []
+item/3/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/3/navigation_layers = 1
+metadata/_editor_source_scene = "res://Blocks/grass_block.tscn"
