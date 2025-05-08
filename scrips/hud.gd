@@ -8,7 +8,7 @@ var offset = 475
 var jump_by = 68
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("1"):
 		global.current_Block = 0
 	if Input.is_action_just_pressed("2"):

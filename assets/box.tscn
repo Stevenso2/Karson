@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://m1rb473hgphq"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_s3o5f"]
+absorbent = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_s3o5f"]
+size = Vector3(0.8, 0.8, 0.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ertg"]
+size = Vector3(0.8, 0.8, 0.8)
+
+[node name="Box" type="RigidBody3D" groups=["PObj"]]
+collision_layer = 68
+collision_mask = 129
+mass = 3.0
+physics_material_override = SubResource("PhysicsMaterial_s3o5f")
+angular_damp = 10.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_s3o5f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_2ertg")
