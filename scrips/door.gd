@@ -17,7 +17,7 @@ func Button_detect(id, OnOff):
 		if test == id:
 			isOpen = OnOff
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	#Move the door
 	if isOpen && door.position.y <= OpenHeight:
 		door.position.y += 0.1

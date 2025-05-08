@@ -1,12 +1,26 @@
-[gd_scene load_steps=9 format=3 uid="uid://bg3ivkj56s7pu"]
+[gd_scene load_steps=13 format=3 uid="uid://bg3ivkj56s7pu"]
 
 [ext_resource type="Script" uid="uid://dnlorwncir1kt" path="res://scrips/button.gd" id="1_1xver"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_0vhju"]
-size = Vector3(2, 0.25, 2)
+[sub_resource type="PrismMesh" id="PrismMesh_ljk1j"]
+size = Vector3(0.71, 0.535, 0.1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_4nlf2"]
-size = Vector3(2, 0.25, 2)
+[sub_resource type="PrismMesh" id="PrismMesh_53hk0"]
+left_to_right = 1.0
+size = Vector3(0.5, 0.4, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_axxdl"]
+left_to_right = 0.0
+size = Vector3(0.5, 0.4, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0vhju"]
+size = Vector3(1, 0.25, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ljk1j"]
+size = Vector3(1, 0.25, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_53hk0"]
+points = PackedVector3Array(1, 0, 0.5, -0.5, 0, 0.5, 0.5, 0, 1, -0.5, 0, 1, 0.5, 0.4, 0.5, -0.5, 0.4, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m221e"]
 size = Vector3(1, 0.05, 1)
@@ -28,16 +42,72 @@ size = Vector3(1, 0.05, 1)
 collision_mask = 0
 script = ExtResource("1_1xver")
 
+[node name="ButtonBaseMesh8" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.707107, 0.469983, -0.528314, -2.10734e-08, 0.747149, 0.664657, 0.707107, 0.469983, -0.528314, -0.599392, 0.167, -0.599)
+mesh = SubResource("PrismMesh_ljk1j")
+skeleton = NodePath("../ButtonBaseMesh2")
+
+[node name="ButtonBaseMesh9" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.707106, -0.469983, 0.528314, 0, 0.747149, 0.664657, -0.707107, 0.469983, -0.528314, 0.599, 0.166687, -0.599)
+mesh = SubResource("PrismMesh_ljk1j")
+skeleton = NodePath("../ButtonBaseMesh2")
+
+[node name="ButtonBaseMesh7" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707106, -0.469983, 0.528314, 0, 0.747149, 0.664657, -0.707107, -0.469983, 0.528314, 0.599, 0.167, 0.599)
+mesh = SubResource("PrismMesh_ljk1j")
+skeleton = NodePath("../ButtonBaseMesh2")
+
+[node name="ButtonBaseMesh6" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707106, 0.469983, -0.528314, 0, 0.747149, 0.664657, 0.707106, -0.469983, 0.528314, -0.599392, 0.166687, 0.599392)
+mesh = SubResource("PrismMesh_ljk1j")
+skeleton = NodePath("../ButtonBaseMesh2")
+
+[node name="ButtonBaseMesh4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.2, -0.75)
+mesh = SubResource("PrismMesh_53hk0")
+skeleton = NodePath(".")
+
+[node name="ButtonBaseMesh5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.2, 0.75)
+mesh = SubResource("PrismMesh_axxdl")
+skeleton = NodePath("../ButtonBaseMesh2")
+
+[node name="ButtonBaseMesh3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0.2, 0)
+mesh = SubResource("PrismMesh_53hk0")
+skeleton = NodePath("../ButtonBaseMesh2")
+
 [node name="ButtonBaseMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00440001, 0.125, 0.00178695)
 mesh = SubResource("BoxMesh_0vhju")
 
+[node name="ButtonBaseMesh2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.2, 0)
+mesh = SubResource("PrismMesh_axxdl")
+
 [node name="ButtonBaseCollision" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
-shape = SubResource("BoxShape3D_4nlf2")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, -0.009)
+shape = SubResource("BoxShape3D_ljk1j")
+
+[node name="ButtonBaseCollision2" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_53hk0")
+
+[node name="ButtonBaseCollision3" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_53hk0")
+
+[node name="ButtonBaseCollision4" type="CollisionShape3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_53hk0")
+
+[node name="ButtonBaseCollision5" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_53hk0")
 
 [node name="ContactArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+collision_layer = 65
+collision_mask = 5
 
 [node name="ContactCollision" type="CollisionShape3D" parent="ContactArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
@@ -57,6 +127,8 @@ skeleton = NodePath("")
 
 [node name="MoveArea" type="Area3D" parent="ButtonFace"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0)
+collision_layer = 65
+collision_mask = 5
 
 [node name="MoveCollision" type="CollisionShape3D" parent="ButtonFace/MoveArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)

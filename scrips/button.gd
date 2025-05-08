@@ -23,9 +23,9 @@ func _physics_process(delta: float) -> void:
 
 
 
-func move_area_entered(body: Node3D) -> void:
+func move_area_entered(_body: Node3D) -> void:
 	move = true
-func move_area_exited(body: Node3D) -> void:
+func move_area_exited(_body: Node3D) -> void:
 	move = false
 	
 func contact_area_entered(body: Node3D) -> void:
