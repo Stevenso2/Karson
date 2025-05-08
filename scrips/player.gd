@@ -1,12 +1,17 @@
 extends CharacterBody3D
 
 @onready var camera_3d: Camera3D = $Camera3D
+@onready var shotgun_view: MeshInstance3D = $Camera3D/Shotgun_View
+@onready var ray_cast_3d: RayCast3D = $Camera3D/RayCast3D
+@export var accelaration = 10
 
 const SPEED = 500.0
 const JUMP_VELOCITY = 300.0
 const SLIDE_SPEED = 1000.0  # increased speed during sliding
 const SLIDE_HEIGHT = 0.5    # lower height when sliding
 const NORMAL_HEIGHT = 1.66  # normal height when not sliding
+
+var accel = accelaration
 
 const sensitivity = 0.35 # 0.55 for school mouse, 0,35 for my own mouse -Pizzi
 
@@ -50,7 +55,12 @@ func _input(event):
 
 
 func _process(_delta):
-	
+	if Input.is_action_just_pressed("Shoot"):
+		var SeenObj = ray_cast_3d.get_collider()
+		if SeenObj:
+			print(SeenObj)
+			nudge_object(SeenObj, ray_cast_3d.get_collision_point())
+
 	# If the escape key is pressed, release the mouse.
 	if Input.is_action_just_pressed("Esc"):
 		if global.pause:
@@ -83,7 +93,6 @@ func _physics_process(delta: float) -> void:
 		else:
 			Vector3(0,NORMAL_HEIGHT,0)
 		
-		
 		# Add the gravity.
 		if not is_on_floor():
 			velocity += get_gravity() * delta
@@ -103,8 +112,11 @@ func _physics_process(delta: float) -> void:
 
 		if direction:
 			var ground_vel = Vector2(direction.x, direction.y).rotated(-rotation.y) * move_speed * delta
-			velocity = Vector3(ground_vel.x, velocity.y, ground_vel.y)
+			velocity = Vector3(ground_vel.x, velocity.y, ground_vel.y) / accel
+      if accel > 1:
+				accel -= 1
 		else:
+      accel = accelaration
 			velocity.z = move_toward(velocity.z, 0, move_speed)
 			velocity.x = move_toward(velocity.x, 0, move_speed)
 		
@@ -122,3 +134,15 @@ func _physics_process(delta: float) -> void:
 		devPos.z += dir.y * devspeed
 		devPos.y += zdir.x * devspeed
 		camera_3d.position = devPos
+		
+func nudge_object(collider, collision_point: Vector3):
+	if collider is RigidBody3D:
+		# Apply an impulse at the collision point
+		var direction = (collision_point - ray_cast_3d.global_transform.origin).normalized()
+		collider.apply_impulse(collision_point - collider.global_transform.origin, direction * -20)  # Adjust the force magnitude (10)
+		var movement = (camera_3d.global_transform.origin - collider.global_transform.origin).normalized()
+		collider.apply_central_impulse(Vector3(movement.x, 0.1, movement.z) * -20)
+	else:
+		# If it's not a RigidBody3D, adjust its position slightly
+		collider.global_transform.origin += Vector3(0, 0.1, 0)  # Example: nudges upward slightly
+ 

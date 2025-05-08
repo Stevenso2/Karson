@@ -1,13 +1,11 @@
 extends StaticBody3D
 
 @onready var button_face: StaticBody3D = $ButtonFace
+
 @export var id: int = 0
 @export var ButtonSpeed: float = 0.8
 
 var move = false
-var Contact = false
-# Called when the node enters the scene tree for the first time.
-
 
 func _physics_process(delta: float) -> void:
 	if move:
@@ -22,18 +20,17 @@ func _physics_process(delta: float) -> void:
 		
 	if button_face.position.y < 0.15:
 		button_face.position.y = 0.15
-		
-	if Contact:
-		global.PObj_Button.emit(id)
-		
 
 
 
-func move_area_entered(body: Node3D) -> void:
+func move_area_entered(_body: Node3D) -> void:
 	move = true
-func move_area_exited(body: Node3D) -> void:
+func move_area_exited(_body: Node3D) -> void:
 	move = false
+	
 func contact_area_entered(body: Node3D) -> void:
-	Contact = true
+	if body.is_in_group("PObj"):
+		global.PObj_IDTunnel.emit(id, true)
 func contact_area_exited(body: Node3D) -> void:
-	Contact = false
+	if body.is_in_group("PObj"):
+		global.PObj_IDTunnel.emit(id, false)

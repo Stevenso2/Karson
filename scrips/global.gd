@@ -7,16 +7,24 @@ var TranslationMap = {
 	"venso:ice" = 3
 }
 
+enum GateType {AND,NOR,XOR}
+
 var current_Block = 0
 
 var pause = false
 
 var DEV = false
 
-signal PObj_Button
-	
+signal PObj_IDTunnel(id, OnOff)
 
-func _process(delta: float) -> void:
+func _ready() -> void:
+	PObj_IDTunnel.connect(DebugLoging)
+
+func DebugLoging(Key, Value):
+	if DEV == true:
+		print("[DEV] (noslraK) " + str(Key) + "-" + str(Value))
+
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("REMOVE ON FINAL"):
 		DEV = !DEV
 	

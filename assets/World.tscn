@@ -1,7 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bt6sc561jqijy"]
+[gd_scene load_steps=14 format=3 uid="uid://bt6sc561jqijy"]
 
 [ext_resource type="PackedScene" uid="uid://4r8al3ot2h5v" path="res://assets/player.tscn" id="1_321kd"]
 [ext_resource type="PackedScene" uid="uid://bg3ivkj56s7pu" path="res://assets/Button.tscn" id="2_j6cc0"]
+[ext_resource type="PackedScene" uid="uid://dnfu5hv4qqhid" path="res://assets/door.tscn" id="3_sp64g"]
+[ext_resource type="PackedScene" uid="uid://mta7k70g720y" path="res://assets/timer.tscn" id="4_1favq"]
+[ext_resource type="PackedScene" uid="uid://m1rb473hgphq" path="res://assets/box.tscn" id="5_xun4y"]
+[ext_resource type="PackedScene" uid="uid://b1yr3xke4n4bu" path="res://assets/LogicGate.tscn" id="6_8gvu8"]
 [ext_resource type="PackedScene" uid="uid://dfsdc63gs83bi" path="res://assets/Billy.tscn" id="3_dq45t"]
 [ext_resource type="PackedScene" uid="uid://cqes48qd4mb6" path="res://assets/Builds/Box for Billy.tscn" id="3_xckp5"]
 
@@ -38,6 +42,8 @@ environment = SubResource("Environment_4k3r8")
 [node name="Player" parent="." instance=ExtResource("1_321kd")]
 
 [node name="Terrain" type="StaticBody3D" parent="."]
+collision_layer = 128
+collision_mask = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, -0.5, 0)
@@ -50,9 +56,51 @@ shape = SubResource("HeightMapShape3D_p3buv")
 
 [node name="Button" parent="." instance=ExtResource("2_j6cc0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -7)
+id = 1
+
+[node name="Door" parent="." instance=ExtResource("3_sp64g")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7, 0, -7)
+TestIDs = [2]
+OpenHeight = 3
 
 [node name="Billy\'s box" parent="." instance=ExtResource("3_xckp5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.49125, -0.493259, 22.4664)
 
 [node name="Billy but it\'s a Bean for rn" parent="Billy\'s box" instance=ExtResource("3_dq45t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.89679, 0.433632, 0.997591)
+
+[node name="Timer" parent="." instance=ExtResource("4_1favq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
+TestIds = [1]
+Own_Id = 2
+Falling_edge = 5
+
+[node name="Box" parent="." instance=ExtResource("5_xun4y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.07533, 0.5, -3.92578)
+
+[node name="Door2" parent="." instance=ExtResource("3_sp64g")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 11, 0, -7)
+TestIDs = [3]
+OpenHeight = 3
+
+[node name="Gate" parent="." instance=ExtResource("6_8gvu8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -7)
+TestIds = [2]
+Own_Id = 3
+Type = 1
+
+[node name="Walls" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1, -5.9)
+use_collision = true
+collision_layer = 128
+collision_mask = 0
+size = Vector3(4, 2, 0.1)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1, -8.1)
+use_collision = true
+collision_layer = 128
+collision_mask = 0
+size = Vector3(4, 2, 0.1)
