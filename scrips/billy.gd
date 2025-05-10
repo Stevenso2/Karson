@@ -1,9 +1,9 @@
-extends CharacterBody3D
+extends RigidBody3D
 
-@export var speed: float = 150.0
+@export var speed: float = 300.0
+@onready var stun = $Timer
 
-var player: Node3D 
-
+var player: Node3D
 func _ready():
 	
 	# Find the player in the "player" group
@@ -16,7 +16,7 @@ func _ready():
 
 func _physics_process(delta):
 	if not global.pause:
-		if player:
+		if player and stun.time_left == 0:
 			var direction = player.global_transform.origin - global_transform.origin
 			direction.y = 0
 			direction = direction.normalized()
@@ -25,10 +25,16 @@ func _physics_process(delta):
 			var target_pos = player.global_transform.origin
 			target_pos.y = global_transform.origin.y
 			look_at(target_pos, Vector3.UP)
-			rotation_degrees.y += 90
 
 			# Set velocity and apply movement
-			velocity = direction * speed * delta
-			move_and_slide()
+			var dist = global_transform.origin.distance_to(player.global_transform.origin)
+			if dist > 2:
+				linear_velocity = direction * speed * delta
+			else:
+				linear_velocity.x = move_toward(linear_velocity.x, 0, speed/1000)
+				linear_velocity.z = move_toward(linear_velocity.z, 0, speed/1000)
 		else:
 			print("Player not assigned")
+	if stun.time_left != 0:
+		print(stun.time_left)
+	

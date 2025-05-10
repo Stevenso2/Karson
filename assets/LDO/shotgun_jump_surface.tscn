@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dm131e14e5471"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_meask"]
+albedo_color = Color(0, 0.397902, 0.6696, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_sclrr"]
+material = SubResource("StandardMaterial3D_meask")
+center_offset = Vector3(0, 0.001, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iegup"]
+size = Vector3(2, 0.2, 2)
+
+[node name="ShotgunJumpSurface" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_sclrr")
+
+[node name="Jump" type="Area3D" parent="." groups=["SG-Jump"]]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Jump"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("BoxShape3D_iegup")

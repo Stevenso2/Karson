@@ -11,7 +11,7 @@ size = Vector3(0.8, 0.8, 0.8)
 
 [node name="Box" type="RigidBody3D" groups=["PObj"]]
 collision_layer = 68
-collision_mask = 129
+collision_mask = 133
 mass = 3.0
 physics_material_override = SubResource("PhysicsMaterial_s3o5f")
 angular_damp = 10.0

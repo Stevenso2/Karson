@@ -12,7 +12,7 @@ void vertex() {
 void fragment() {
     // Calculate the distance from the current fragment to the shape's position
     float distance = distance(UV, shape_position);
-    
+
     // If the distance is less than the shape radius, use the shape color; otherwise, use the background color
     if (distance < shape_radius) {
         ALBEDO = shape_color;

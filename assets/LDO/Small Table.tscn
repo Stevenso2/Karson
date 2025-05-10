@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjwo5tevf8j0v"]
+
+[ext_resource type="Shader" uid="uid://c2m7cmlyutdm4" path="res://shader/StandardBlockTexture.gdshader" id="1_wum5j"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s6mw7"]
+render_priority = 0
+shader = ExtResource("1_wum5j")
+shader_parameter/LineW = 0.1
+shader_parameter/texSize = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nd40m"]
+render_priority = 0
+shader = ExtResource("1_wum5j")
+shader_parameter/LineW = 0.2
+shader_parameter/texSize = 5.0
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+use_collision = true
+collision_layer = 128
+collision_mask = 0
+size = Vector3(2, 0.2, 2)
+material = SubResource("ShaderMaterial_s6mw7")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0.5, 0.9)
+use_collision = true
+collision_layer = 128
+collision_mask = 0
+size = Vector3(0.2, 1, 0.2)
+material = SubResource("ShaderMaterial_nd40m")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0.5, 0.9)
+use_collision = true
+collision_layer = 128
+collision_mask = 0
+size = Vector3(0.2, 1, 0.2)
+material = SubResource("ShaderMaterial_nd40m")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0.5, -0.9)
+use_collision = true
+collision_layer = 128
+collision_mask = 0
+size = Vector3(0.2, 1, 0.2)
+material = SubResource("ShaderMaterial_nd40m")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0.5, -0.9)
+use_collision = true
+collision_layer = 128
+collision_mask = 0
+size = Vector3(0.2, 1, 0.2)
+material = SubResource("ShaderMaterial_nd40m")

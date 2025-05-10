@@ -1,6 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://erooj15k8tku"]
+[gd_scene load_steps=9 format=3 uid="uid://erooj15k8tku"]
+
+[ext_resource type="Script" uid="uid://ceuwlgv4rrmyr" path="res://scrips/shotgun.gd" id="1_qj2j7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h5bnm"]
+albedo_color = Color(0.633757, 0.633757, 0.633757, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_qj2j7"]
 material = SubResource("StandardMaterial3D_h5bnm")
@@ -20,18 +23,39 @@ albedo_color = Color(0.385493, 0.385493, 0.385492, 1)
 material = SubResource("StandardMaterial3D_60ete")
 size = Vector3(0.05, 0.125, 0.05)
 
-[node name="Shotgun" type="MeshInstance3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_58j56"]
+size = Vector3(0.15, 0.22, 0.49)
+
+[node name="Shotgun" type="RigidBody3D"]
+collision_layer = 68
+collision_mask = 129
+script = ExtResource("1_qj2j7")
+
+[node name="ShotgunBody" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_qj2j7")
 
-[node name="Barrel" type="MeshInstance3D" parent="."]
+[node name="Barrel" type="MeshInstance3D" parent="ShotgunBody"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.025, 0, -0.2)
 mesh = SubResource("BoxMesh_quaka")
 
-[node name="Barrel2" type="MeshInstance3D" parent="."]
+[node name="Barrel2" type="MeshInstance3D" parent="ShotgunBody"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025, 0, -0.2)
 mesh = SubResource("BoxMesh_quaka")
 
-[node name="Handle" type="MeshInstance3D" parent="."]
+[node name="Handle" type="MeshInstance3D" parent="ShotgunBody"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, -0.081, 0.121)
 mesh = SubResource("BoxMesh_v7tcj")
 skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0529827, 0)
+shape = SubResource("BoxShape3D_58j56")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0529827, 0)
+shape = SubResource("BoxShape3D_58j56")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

@@ -1,12 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://b1yr3xke4n4bu"]
+[gd_scene load_steps=8 format=3 uid="uid://b1yr3xke4n4bu"]
 
 [ext_resource type="Script" uid="uid://dmae8aexbd35k" path="res://scrips/logic_gate.gd" id="1_4hamq"]
 [ext_resource type="Shader" uid="uid://baif78fc5ryog" path="res://shader/LogicGate.gdshader" id="2_4hamq"]
+[ext_resource type="Shader" uid="uid://c2m7cmlyutdm4" path="res://shader/StandardBlockTexture.gdshader" id="2_xq2c7"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_604e0"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ffami"]
+render_priority = 0
+shader = ExtResource("2_xq2c7")
 
 [sub_resource type="BoxMesh" id="BoxMesh_5jrx4"]
-material = SubResource("StandardMaterial3D_604e0")
+material = SubResource("ShaderMaterial_ffami")
 size = Vector3(1, 0.2, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xq2c7"]
