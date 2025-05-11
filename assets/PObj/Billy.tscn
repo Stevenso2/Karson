@@ -1,6 +1,9 @@
-[gd_scene load_steps=35 format=4 uid="uid://d2djyky5dsmv4"]
+[gd_scene load_steps=34 format=4 uid="uid://d2djyky5dsmv4"]
 
 [ext_resource type="Script" uid="uid://m6ai10xyiny0" path="res://scrips/billy.gd" id="1_pncx1"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_t5s1w"]
+absorbent = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pnl44"]
 resource_name = "Material.005"
@@ -416,22 +419,21 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_bj42n")
 
-[sub_resource type="Animation" id="Animation_r53gw"]
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_rvd3e"]
-_data = {
-&"RESET": SubResource("Animation_r53gw")
-}
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_7gc28"]
 size = Vector3(1, 1.47699, 1)
 
-[node name="Billy" type="CharacterBody3D"]
-transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 0, 0, 0)
+[node name="Billy" type="RigidBody3D" groups=["PObj", "Stunable"]]
+collision_layer = 68
+collision_mask = 133
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+mass = 4.0
+physics_material_override = SubResource("PhysicsMaterial_t5s1w")
+linear_damp = 1.0
 script = ExtResource("1_pncx1")
 
 [node name="Billy" type="Skeleton3D" parent="."]
-transform = Transform3D(-0.2, -1.74846e-08, 0, -7.64274e-16, 8.74228e-09, 0.2, -1.74846e-08, 0.2, -8.74228e-09, 0.0138605, 0.518674, -0.171223)
+transform = Transform3D(-8.74228e-09, 0.2, 8.74228e-09, 0, -8.74228e-09, 0.2, 0.2, 8.74228e-09, 3.82137e-16, -0.16, 0.519, 0)
 bones/0/name = "Sketchfab_model"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -673,12 +675,9 @@ bone_idx = 19
 mesh = SubResource("ArrayMesh_t1nwt")
 skeleton = NodePath("")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Billy"]
-root_node = NodePath("")
-libraries = {
-&"": SubResource("AnimationLibrary_rvd3e")
-}
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.372909, 0)
 shape = SubResource("BoxShape3D_7gc28")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

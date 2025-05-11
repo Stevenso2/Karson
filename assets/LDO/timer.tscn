@@ -1,12 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://mta7k70g720y"]
+[gd_scene load_steps=8 format=3 uid="uid://mta7k70g720y"]
 
 [ext_resource type="Shader" uid="uid://duevvs3ojkyoh" path="res://shader/Timer.gdshader" id="1_e5suj"]
 [ext_resource type="Script" uid="uid://dm6oyisqorago" path="res://scrips/timer.gd" id="1_n802f"]
+[ext_resource type="Shader" uid="uid://c2m7cmlyutdm4" path="res://shader/StandardBlockTexture.gdshader" id="2_qyl5a"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_604e0"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3lkfi"]
+render_priority = 0
+shader = ExtResource("2_qyl5a")
 
 [sub_resource type="BoxMesh" id="BoxMesh_5jrx4"]
-material = SubResource("StandardMaterial3D_604e0")
+material = SubResource("ShaderMaterial_3lkfi")
 size = Vector3(1, 0.2, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bn1a4"]

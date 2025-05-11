@@ -30,6 +30,8 @@ window/stretch/mode="viewport"
 
 PObj="Physics Object"
 Player="Player Group"
+SG-Jump="Shotgun Jump surface"
+Stunable="PObj that can be stuned"
 
 [gui]
 
@@ -149,6 +151,10 @@ Shoot={
 
 [layer_names]
 
+3d_physics/layer_1="Player"
+3d_physics/layer_2="Interactive PObj"
+3d_physics/layer_3="Other PObj"
+3d_physics/layer_5="Ebene 5"
 3d_physics/layer_7="Cast interactable"
 3d_physics/layer_8="Level"
 3d_physics/layer_31="Ebene 31"

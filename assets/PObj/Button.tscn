@@ -39,6 +39,7 @@ size = Vector3(1, 0.25, 1)
 size = Vector3(1, 0.05, 1)
 
 [node name="Button" type="StaticBody3D"]
+collision_layer = 128
 collision_mask = 0
 script = ExtResource("1_1xver")
 
@@ -106,7 +107,7 @@ shape = SubResource("ConvexPolygonShape3D_53hk0")
 
 [node name="ContactArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
-collision_layer = 65
+collision_layer = 66
 collision_mask = 5
 
 [node name="ContactCollision" type="CollisionShape3D" parent="ContactArea"]
@@ -127,7 +128,7 @@ skeleton = NodePath("")
 
 [node name="MoveArea" type="Area3D" parent="ButtonFace"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12, 0)
-collision_layer = 65
+collision_layer = 66
 collision_mask = 5
 
 [node name="MoveCollision" type="CollisionShape3D" parent="ButtonFace/MoveArea"]

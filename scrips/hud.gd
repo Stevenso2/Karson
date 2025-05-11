@@ -4,7 +4,7 @@ extends Control
 @onready var menu: Sprite2D = $Menu
 @onready var quit: Button = $Menu/Quit
 
-var offset = 475
+var offset = 471.5
 var jump_by = 68
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

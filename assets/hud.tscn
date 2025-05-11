@@ -22,12 +22,12 @@ grow_vertical = 2
 script = ExtResource("1_10lh8")
 
 [node name="Hotbar" type="Sprite2D" parent="."]
-position = Vector2(1113, 545)
+position = Vector2(1111.5, 539.5)
 rotation = 1.5708
 texture = ExtResource("2_gudfk")
 
 [node name="Selector" type="Sprite2D" parent="."]
-position = Vector2(1113, 479)
+position = Vector2(1111.5, 470.5)
 texture = ExtResource("3_1m68m")
 
 [node name="Crosshair" type="Sprite2D" parent="."]

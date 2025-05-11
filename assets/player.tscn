@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://4r8al3ot2h5v"]
+[gd_scene load_steps=28 format=4 uid="uid://4r8al3ot2h5v"]
 
 [ext_resource type="Script" uid="uid://coxis1sim8qyc" path="res://scrips/player.gd" id="1_enlmb"]
 [ext_resource type="PackedScene" uid="uid://d0nli7fikwkrr" path="res://assets/hud.tscn" id="2_2tde0"]
@@ -7,6 +7,98 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_irju7"]
 radius = 0.3
 height = 1.8
+
+[sub_resource type="Animation" id="Animation_rug40"]
+resource_name = "SG Ready"
+length = 0.083335
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shotgun_View:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0833333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.04, -0.12, -0.058), Vector3(0.14, -0.094, -0.058)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shotgun_View:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0833333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.113825, 1.09947, 0.0374423), Vector3(0.113446, 0.139626, 0.0366519)]
+}
+
+[sub_resource type="Animation" id="Animation_mxi64"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shotgun_View:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.04, -0.12, -0.058)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shotgun_View:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.113825, 1.09947, 0.0374423)]
+}
+
+[sub_resource type="Animation" id="Animation_nsdob"]
+resource_name = "SG Chill"
+length = 0.500002
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shotgun_View:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.500002),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.14, -0.094, -0.058), Vector3(0.04, -0.12, -0.058)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shotgun_View:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.500002),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.113446, 0.139626, 0.0366519), Vector3(0.113825, 1.09947, 0.0374423)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yceh7"]
+_data = {
+&"RESET": SubResource("Animation_mxi64"),
+&"SG Chill": SubResource("Animation_nsdob"),
+&"SG Ready": SubResource("Animation_rug40")
+}
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hdc84"]
 resource_name = "Orange"
@@ -1068,7 +1160,6 @@ _data = {
 
 [node name="Player" type="CharacterBody3D" groups=["PObj", "Player"]]
 disable_mode = 1
-collision_layer = 3
 collision_mask = 131
 axis_lock_angular_x = true
 axis_lock_angular_z = true
@@ -1079,13 +1170,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_irju7")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6804, -0.16235)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.69, -0.19)
 current = true
 
 [node name="Shotgun_View" parent="Camera3D" instance=ExtResource("4_rug40")]
-transform = Transform3D(0.990177, -0.021283, 0.138191, 0.0371913, 0.992833, -0.113579, -0.134783, 0.117603, 0.983872, 0.139969, -0.0942136, -0.0584777)
-layers = 2
-skeleton = NodePath("../..")
+transform = Transform3D(0.457534, 0.0841273, 0.885204, 0.0371913, 0.992833, -0.113579, -0.888414, 0.0848883, 0.451127, 0.04, -0.12, -0.058)
+ShouldColide = false
 
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
 target_position = Vector3(0, 0, -20)
@@ -1094,6 +1184,14 @@ hit_from_inside = true
 collide_with_areas = true
 debug_shape_custom_color = Color(0.723534, 0.0189381, 4.81307e-07, 1)
 debug_shape_thickness = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera3D"]
+libraries = {
+&"": SubResource("AnimationLibrary_yceh7")
+}
+
+[node name="Timer" type="Timer" parent="Camera3D"]
+one_shot = true
 
 [node name="Hud" parent="." instance=ExtResource("2_2tde0")]
 offset_right = -1152.0
