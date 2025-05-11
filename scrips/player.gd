@@ -20,7 +20,7 @@ var accel = accelaration
 var HasSG = false
 var AllowInteractions = true
 
-const sensitivity = 0.35 # 0.55 for school mouse, 0,35 for my own mouse -Pizzi
+const sensitivity = 0.35 # 0.55 for school mouse, 0.35 for my own mouse -Pizzi
 
 var rot_x = 0
 var rot_y = 0
@@ -29,7 +29,6 @@ var devPos: Vector3
 var devspeed = 0.1
 
 var move_speed = SPEED
-#var direction:int = 0
 var is_sliding: bool = false
 var is_crouching: bool = false  # track if the player is crouching
 
@@ -60,8 +59,51 @@ func _input(event):
 	if is_sliding:
 		move_speed = SLIDE_SPEED
 
-
 func _process(delta):
+	# Controller camera control (right stick only, no RT/LT)
+	var right_stick_x = Input.get_joy_axis(0, 4)  # Right Stick X (horizontal look)
+	var right_stick_y = Input.get_joy_axis(0, 5)  # Right Stick Y (vertical look)
+
+	# Additional control axes for up/down looking (you can map them to a different axis or button if you like)
+	var right_stick_up = Input.get_joy_axis(0, 6)  # New axis for looking up
+	var right_stick_down = Input.get_joy_axis(0, 7)  # New axis for looking down
+
+	# Apply deadzone to prevent camera drift
+	var deadzone = 0.2
+	if abs(right_stick_x) < deadzone:
+		right_stick_x = 0
+	if abs(right_stick_y) < deadzone:
+		right_stick_y = 0
+	if abs(right_stick_up) < deadzone:
+		right_stick_up = 0
+	if abs(right_stick_down) < deadzone:
+		right_stick_down = 0
+
+	# Modify the Y-axis to invert the vertical look behavior
+	# When moving down (positive y), look up (decrease rot_x)
+	# When moving up (negative y), look down (increase rot_x)
+	rot_x += right_stick_y * sensitivity * 5  # Invert the Y-axis movement for up/down looking
+
+	# Add controls for looking up and down with new axes (right_stick_up and right_stick_down)
+	if right_stick_up != 0:
+		rot_x -= right_stick_up * sensitivity * 5  # Adjust for up looking
+	if right_stick_down != 0:
+		rot_x += right_stick_down * sensitivity * 5  # Adjust for down looking
+
+	# The X-axis should behave as expected, right stick right = look right, left = look left
+	rot_y += right_stick_x * sensitivity * 5  # Right Stick X controls left/right
+
+	# Clamp vertical rotation to avoid flipping
+	rot_x = clamp(rot_x, -90, 90)
+
+	# Apply rotation to camera
+	if global.DEV:
+		camera_3d.rotation_degrees.x = rot_x
+		camera_3d.rotation_degrees.y = rot_y
+	else:
+		camera_3d.rotation_degrees.x = rot_x
+		rotation_degrees.y = rot_y
+
 	if HasSG:
 		shotgun_view.show()
 		if Input.is_action_just_pressed("Shoot"):
@@ -124,7 +166,13 @@ func _physics_process(delta: float) -> void:
 			velocity.y += JUMP_VELOCITY * delta
 		
 		# Get the input direction and handle the movement/deceleration.
-		var direction := Input.get_vector("L", "R", "F", "B", 0).normalized()
+		var direction := Input.get_vector("L", "R", "F", "B", 0)
+
+		# Apply deadzone to movement to fix drift
+		if direction.length() < 0.2:
+			direction = Vector2.ZERO
+		else:
+			direction = direction.normalized()
 		
 		#Slide test thing 3 xD (yes i add these to find it later if smt goes horribly wrong lol)
 		# If the player is sliding, increase the speed.
