@@ -1,17 +1,17 @@
 extends Node
 
-var TranslationMap = {
-	"venso:grass_block" = 0,
-	"venso:cobblestone" = 1,
-	"venso:dirt" = 2,
-	"venso:ice" = 3
+enum INV {
+	ShotGun,
+	GraplingGun,
+	Void
 }
 
 enum GateType {AND,NOR,XOR}
 
-var current_Block = 0
+var current_Block: INV = 0 as global.INV
 
 var pause = false
+var slow = false
 
 var DEV = false
 
@@ -29,6 +29,12 @@ func _process(_delta: float) -> void:
 		DEV = !DEV
 	
 	if pause:
+		Engine.time_scale = 0
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	else:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		if slow:
+			Engine.time_scale = 0.25
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		else:
+			Engine.time_scale = 1
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

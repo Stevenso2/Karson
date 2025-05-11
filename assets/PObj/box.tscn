@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://m1rb473hgphq"]
+[gd_scene load_steps=5 format=3 uid="uid://m1rb473hgphq"]
+
+[ext_resource type="Script" uid="uid://s2g67vbjn4r1" path="res://scrips/standard POBJ.gd" id="1_hgn81"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_s3o5f"]
 absorbent = true
@@ -9,12 +11,13 @@ size = Vector3(0.8, 0.8, 0.8)
 [sub_resource type="BoxShape3D" id="BoxShape3D_2ertg"]
 size = Vector3(0.8, 0.8, 0.8)
 
-[node name="Box" type="RigidBody3D" groups=["PObj"]]
+[node name="Box" type="RigidBody3D" groups=["PObj", "Respawnable"]]
 collision_layer = 68
-collision_mask = 133
+collision_mask = 135
 mass = 3.0
 physics_material_override = SubResource("PhysicsMaterial_s3o5f")
 angular_damp = 10.0
+script = ExtResource("1_hgn81")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_s3o5f")

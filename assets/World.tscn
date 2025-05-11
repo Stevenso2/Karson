@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bt6sc561jqijy"]
+[gd_scene load_steps=24 format=3 uid="uid://bt6sc561jqijy"]
 
 [ext_resource type="PackedScene" uid="uid://4r8al3ot2h5v" path="res://assets/player.tscn" id="1_321kd"]
 [ext_resource type="PackedScene" uid="uid://bg3ivkj56s7pu" path="res://assets/PObj/Button.tscn" id="2_j6cc0"]
@@ -12,6 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://b1yr3xke4n4bu" path="res://assets/LDO/LogicGate.tscn" id="6_8gvu8"]
 [ext_resource type="PackedScene" uid="uid://dm131e14e5471" path="res://assets/LDO/shotgun_jump_surface.tscn" id="10_syi7k"]
 [ext_resource type="PackedScene" uid="uid://bjwo5tevf8j0v" path="res://assets/LDO/Small Table.tscn" id="12_ks3hr"]
+[ext_resource type="PackedScene" uid="uid://b7yvb51yo2bbm" path="res://assets/LDO/live_area.tscn" id="13_ks3hr"]
+[ext_resource type="PackedScene" uid="uid://yin8d5biltck" path="res://assets/grapple.tscn" id="14_yrx4r"]
+[ext_resource type="PackedScene" uid="uid://cyu7vqyj32sg5" path="res://assets/LDO/grapple_pull_surface.tscn" id="15_lp28i"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lkl0i"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -40,6 +43,12 @@ size = Vector3(30, 30, 1)
 map_width = 21
 map_depth = 21
 map_data = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x3gwp"]
+render_priority = 0
+shader = ExtResource("2_lnj3o")
+shader_parameter/LineW = 0.1
+shader_parameter/texSize = 1.5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lnj3o"]
 render_priority = 0
@@ -71,11 +80,13 @@ skeleton = NodePath("../..")
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 shape = SubResource("HeightMapShape3D_p3buv")
 
-[node name="Shotgun" parent="Terrain" instance=ExtResource("3_nnxh6")]
-transform = Transform3D(-3.78552e-08, -0.866025, 0.5, 1, -4.37114e-08, 0, 2.18557e-08, 0.5, 0.866025, 6.6, 1.25, 4)
-
-[node name="Shotgun2" parent="Terrain" instance=ExtResource("3_nnxh6")]
-transform = Transform3D(-3.78552e-08, -0.866025, 0.5, 1, -4.37114e-08, 0, 2.18557e-08, 0.5, 0.866025, 6.6, 1.25, 3.3)
+[node name="CSGBox3D" type="CSGBox3D" parent="Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.3, 19, -3.7)
+use_collision = true
+collision_layer = 128
+collision_mask = 0
+size = Vector3(3, 1, 3)
+material = SubResource("ShaderMaterial_x3gwp")
 
 [node name="Button" parent="." instance=ExtResource("2_j6cc0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -7)
@@ -83,18 +94,17 @@ id = 1
 
 [node name="Door" parent="." instance=ExtResource("3_sp64g")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7, 0, -7)
-TestIDs = [2]
-OpenHeight = 3
+TestIDs = PackedInt32Array(2)
 
 [node name="Billy\'s box" parent="." instance=ExtResource("3_xckp5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.49125, -0.493259, 22.4664)
 
 [node name="Billy" parent="Billy\'s box" instance=ExtResource("5_rh5yp")]
-transform = Transform3D(-1.2, 0, 1.81195e-07, 0, 1.2, 0, -1.81195e-07, 0, -1.2, 1.91463, 0.499999, -7.93142)
+transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 1, 0.5, 2.069)
 
 [node name="Timer" parent="." instance=ExtResource("4_1favq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
-TestIds = [1]
+TestIds = PackedInt32Array(1)
 Own_Id = 2
 Falling_edge = 5
 
@@ -103,8 +113,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.07533, 0.5, -3.92578)
 
 [node name="Door2" parent="." instance=ExtResource("3_sp64g")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 11, 0, -7)
-TestIDs = [3]
-OpenHeight = 3
+TestIDs = PackedInt32Array(3)
 
 [node name="Gate" parent="." instance=ExtResource("6_8gvu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -7)
@@ -133,5 +142,26 @@ material = SubResource("ShaderMaterial_lnj3o")
 [node name="ShotgunJumpSurface" parent="." instance=ExtResource("10_syi7k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -3.8)
 
-[node name="Node3D" parent="." instance=ExtResource("12_ks3hr")]
+[node name="Live area" parent="." instance=ExtResource("13_ks3hr")]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+
+[node name="Table" parent="." instance=ExtResource("12_ks3hr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6, 0, 3.6)
+
+[node name="Shotgun" parent="." instance=ExtResource("3_nnxh6")]
+transform = Transform3D(-3.78552e-08, -0.866025, 0.5, 1, -4.37114e-08, 0, 2.18557e-08, 0.5, 0.866025, 6.6, 1.25, 4)
+
+[node name="Shotgun2" parent="." instance=ExtResource("3_nnxh6")]
+transform = Transform3D(-3.78552e-08, -0.866025, 0.5, 1, -4.37114e-08, 0, 2.18557e-08, 0.5, 0.866025, 6.6, 1.25, 3.3)
+
+[node name="Table2" parent="." instance=ExtResource("12_ks3hr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6, 0, 3.6)
+
+[node name="Grapple" parent="." instance=ExtResource("14_yrx4r")]
+transform = Transform3D(-3.78552e-08, -0.866025, 0.5, 1, -4.37114e-08, 2.08426e-14, 2.18557e-08, 0.5, 0.866025, -6.6, 1.25, 4)
+
+[node name="Grapple2" parent="." instance=ExtResource("14_yrx4r")]
+transform = Transform3D(-3.78552e-08, -0.866025, 0.5, 1, -4.37114e-08, 2.08426e-14, 2.18557e-08, 0.5, 0.866025, -6.6, 1.25, 3.3)
+
+[node name="GrapplePullSurface" parent="." instance=ExtResource("15_lp28i")]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, -5.2, 18.5, -3.7)

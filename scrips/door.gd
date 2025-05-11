@@ -1,8 +1,8 @@
 extends Node3D
 @onready var door: StaticBody3D = $Door
 
-@export var TestIDs: PackedInt32Array = []
-@export var OpenHeight = 4
+@export var TestIDs: PackedInt32Array
+@export var OpenHeight = 3
 @export var CloseHeight = 1
 
 var isOpen = false
@@ -17,12 +17,12 @@ func Button_detect(id, OnOff):
 		if test == id:
 			isOpen = OnOff
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	#Move the door
 	if isOpen && door.position.y <= OpenHeight:
-		door.position.y += 0.1
+		door.position.y += 4 * delta
 	if !isOpen && door.position.y >= CloseHeight:
-		door.position.y -= 0.1
+		door.position.y -= 4 * delta
 		
 	#Limit the positions
 	if door.position.y >= OpenHeight:

@@ -420,11 +420,11 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_bj42n")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7gc28"]
-size = Vector3(1, 1.47699, 1)
+size = Vector3(1.4, 2.2, 1.4)
 
-[node name="Billy" type="RigidBody3D" groups=["PObj", "Stunable"]]
-collision_layer = 68
-collision_mask = 133
+[node name="Billy" type="RigidBody3D" groups=["PObj", "Respawnable", "Stunable"]]
+collision_layer = 70
+collision_mask = 135
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 mass = 4.0
@@ -433,7 +433,7 @@ linear_damp = 1.0
 script = ExtResource("1_pncx1")
 
 [node name="Billy" type="Skeleton3D" parent="."]
-transform = Transform3D(-8.74228e-09, 0.2, 8.74228e-09, 0, -8.74228e-09, 0.2, 0.2, 8.74228e-09, 3.82137e-16, -0.16, 0.519, 0)
+transform = Transform3D(-1.31134e-08, 0.3, 1.31134e-08, 0, -1.31134e-08, 0.3, 0.3, 1.31134e-08, 5.73206e-16, -0.25, 0.78, 0)
 bones/0/name = "Sketchfab_model"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -590,6 +590,7 @@ bone_name = "Billy_Head_Material.001_0"
 bone_idx = 6
 
 [node name="Billy_Head_Material_001_0" type="MeshInstance3D" parent="Billy/Billy_Head_Material_001_0"]
+transform = Transform3D(1, 0, 0, 0, 1, 7.04695e-22, 0, 7.04695e-22, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_3aj7q")
 skeleton = NodePath("")
 
@@ -676,7 +677,7 @@ mesh = SubResource("ArrayMesh_t1nwt")
 skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.372909, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -4.47035e-08, 0.553662, 4.47035e-08)
 shape = SubResource("BoxShape3D_7gc28")
 
 [node name="Timer" type="Timer" parent="."]

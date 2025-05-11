@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7yvb51yo2bbm"]
+
+[ext_resource type="Script" uid="uid://b4jhk88dap054" path="res://scrips/live_area.gd" id="1_ybcai"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1hrdc"]
+size = Vector3(2, 1, 2)
+
+[node name="Live area" type="Area3D"]
+collision_layer = 0
+collision_mask = 255
+script = ExtResource("1_ybcai")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_1hrdc")
+
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

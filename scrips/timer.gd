@@ -1,6 +1,6 @@
 extends Node3D
 
-@export var TestIds: PackedInt32Array = []
+@export var TestIds: PackedInt32Array
 @export var Own_Id: int = 0
 @export var Rising_edge = 0
 @export var Falling_edge = 0
