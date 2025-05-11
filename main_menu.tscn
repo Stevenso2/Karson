@@ -1,0 +1,69 @@
+[gd_scene load_steps=3 format=3 uid="uid://dy4nkntynthgo"]
+
+[ext_resource type="PackedScene" uid="uid://ducyfknjhxuy4" path="res://Models/Karlson.gltf" id="1_06t4h"]
+[ext_resource type="Script" uid="uid://cdyebrlgbjiyi" path="res://scrips/main_menu.gd" id="1_7vrkn"]
+
+[node name="MainMenu" type="Node3D"]
+script = ExtResource("1_7vrkn")
+
+[node name="Karlson" parent="." instance=ExtResource("1_06t4h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.7, -1)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 0.6, 0.8, 1)
+
+[node name="MainMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SP" type="Button" parent="MainMenu"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 171.0
+offset_right = 334.0
+offset_bottom = 227.0
+text = "SinglePlayer"
+
+[node name="MP" type="Button" parent="MainMenu"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 321.0
+offset_right = 334.0
+offset_bottom = 377.0
+text = "MultiPlayer"
+
+[node name="Conf" type="Button" parent="MainMenu"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 471.0
+offset_right = 334.0
+offset_bottom = 527.0
+text = "Settings"
+
+[node name="MPMenu" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Host" type="Button" parent="MPMenu"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 221.0
+offset_right = 334.0
+offset_bottom = 277.0
+text = "Host"
+
+[node name="Join" type="Button" parent="MPMenu"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 371.0
+offset_right = 334.0
+offset_bottom = 427.0
+text = "Join"
+
+[node name="Responce Timeout" type="Timer" parent="."]
+one_shot = true

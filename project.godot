@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Noslrak"
-run/main_scene="res://assets/World.tscn"
+run/main_scene="uid://dy4nkntynthgo"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 config/snap_controls_to_pixels=true
