@@ -59,6 +59,7 @@ clip_text = true
 
 [node name="ShotGun" type="RichTextLabel" parent="."]
 visible = false
+layout_mode = 0
 offset_left = 1079.5
 offset_top = 439.5
 offset_right = 1143.5
@@ -70,6 +71,7 @@ vertical_alignment = 1
 
 [node name="GrapplingGun" type="RichTextLabel" parent="."]
 visible = false
+layout_mode = 0
 offset_left = 1079.5
 offset_top = 507.5
 offset_right = 1143.5

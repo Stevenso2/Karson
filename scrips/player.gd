@@ -131,6 +131,7 @@ func _process(_delta):
 		camera_3d.position.y = NORMAL_HEIGHT  # Reset camera position
 
 func _physics_process(delta: float) -> void:
+	delta += 0.000001
 	var AppliedDelta = ((delta * 4.0) if global.slow else delta)
 	#Only Remove "global.DEV" when it is not needed anymore [finally this is fixed god]
 	if not global.DEV:

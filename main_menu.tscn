@@ -21,26 +21,35 @@ offset_bottom = 40.0
 [node name="SP" type="Button" parent="MainMenu"]
 layout_mode = 0
 offset_left = 140.0
-offset_top = 171.0
+offset_top = 65.0
 offset_right = 334.0
-offset_bottom = 227.0
+offset_bottom = 121.0
 text = "SinglePlayer"
 
 [node name="MP" type="Button" parent="MainMenu"]
 layout_mode = 0
 offset_left = 140.0
-offset_top = 321.0
+offset_top = 215.0
 offset_right = 334.0
-offset_bottom = 377.0
+offset_bottom = 271.0
 text = "MultiPlayer"
 
 [node name="Conf" type="Button" parent="MainMenu"]
 layout_mode = 0
 offset_left = 140.0
-offset_top = 471.0
+offset_top = 365.0
 offset_right = 334.0
-offset_bottom = 527.0
+offset_bottom = 421.0
 text = "Settings"
+
+[node name="Quit" type="Button" parent="MainMenu"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 515.0
+offset_right = 334.0
+offset_bottom = 571.0
+text = "Quit
+"
 
 [node name="MPMenu" type="Control" parent="."]
 visible = false
@@ -52,18 +61,80 @@ offset_bottom = 40.0
 [node name="Host" type="Button" parent="MPMenu"]
 layout_mode = 0
 offset_left = 140.0
-offset_top = 221.0
+offset_top = 215.0
 offset_right = 334.0
-offset_bottom = 277.0
+offset_bottom = 271.0
 text = "Host"
 
 [node name="Join" type="Button" parent="MPMenu"]
 layout_mode = 0
 offset_left = 140.0
-offset_top = 371.0
+offset_top = 365.0
 offset_right = 334.0
-offset_bottom = 427.0
+offset_bottom = 421.0
 text = "Join"
 
-[node name="Responce Timeout" type="Timer" parent="."]
-one_shot = true
+[node name="MPReturn" type="Button" parent="MPMenu"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 515.0
+offset_right = 334.0
+offset_bottom = 571.0
+text = "Return"
+
+[node name="RequestTimer" type="Timer" parent="."]
+
+[node name="Server Search" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SearchReturn" type="Button" parent="Server Search"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 515.0
+offset_right = 334.0
+offset_bottom = 571.0
+text = "Return"
+
+[node name="ItemList" type="ItemList" parent="Server Search"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 65.0
+offset_right = 472.0
+offset_bottom = 497.0
+auto_width = true
+
+[node name="Server Create" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CreateReturn" type="Button" parent="Server Create"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 515.0
+offset_right = 334.0
+offset_bottom = 571.0
+text = "Return"
+
+[node name="CreateServer" type="Button" parent="Server Create"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 215.0
+offset_right = 334.0
+offset_bottom = 271.0
+text = "Return"
+
+[node name="Server Name" type="LineEdit" parent="Server Create"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 121.0
+offset_right = 334.0
+offset_bottom = 152.0
+placeholder_text = "Server Name"
+max_length = 20
