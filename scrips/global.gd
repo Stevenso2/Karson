@@ -15,28 +15,28 @@ var slow = false
 var ingame = false
 
 var peer = ENetMultiplayerPeer.new()
-var Server: String
+var Server = { "Name" = "" }
 var directComs = PacketPeerUDP.new()
-const PORT = 25566
+const SEERVERPORT = 25566
+var PORT: int
 const SCANPORT = 25567
+var LAN = "255.255.255.255"
 var MP: MultiplayerAPI
+
+signal MPRecive(Callback)
+signal MPReciveCompleate()
+signal MPSend(MSG: PackedByteArray, ip: String, port: int)
 
 var DEV = false
 
 signal PObj_IDTunnel(id, OnOff)
 
 func _ready() -> void:
+	GetFreePort()
+	MPRecive.connect(PacketHandler)
+	MPSend.connect(PacketSender)
 	PObj_IDTunnel.connect(DebugLoging)
 	directComs.set_broadcast_enabled(true)
-	directComs.set_dest_address("255.255.255.255", global.SCANPORT + 1)
-	var ok = directComs.bind(global.SCANPORT)
-	if ok == OK:
-		print("directComs ready")
-	else:
-		directComs.set_dest_address("255.255.255.255", global.SCANPORT)
-		ok = directComs.bind(global.SCANPORT + 1)
-		if ok == OK:
-			print("directComs2 ready")
 
 func DebugLoging(Key, Value):
 	if DEV == true:
@@ -47,7 +47,7 @@ func _process(_delta: float) -> void:
 		DEV = !DEV
 	
 	if pause:
-		Engine.time_scale = 0
+		Engine.time_scale = 0.00001
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	elif not ingame:
 		Engine.time_scale = 1
@@ -61,27 +61,77 @@ func _process(_delta: float) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			
 	if MP and MP.is_server():
-		if MP.multiplayer_peer.get_available_packet_count() > 0:
-			var data = MP.multiplayer_peer.get_packet().get_string_from_ascii()
-			print("Server has Recived: " + str(data))
-		if directComs.get_available_packet_count() > 0:
-			var data = directComs.get_packet().get_string_from_ascii()
-			if data == JSON.stringify("GET_SRV"):
-				var responce = JSON.stringify(Server, "Server").to_ascii_buffer()
-				directComs.put_packet(responce)
-				
-			
+		MPRecive.emit()
+
 func MPServer():
 	MP = get_tree().get_multiplayer()
-	var ok = peer.create_server(PORT, 20)
+	var ok = peer.create_server(SEERVERPORT, 20)
 	if ok == OK:
 		print("Server avalable")
 	MP.multiplayer_peer = peer
 	
+func ServerComs():
+	var ok = directComs.bind(SCANPORT)
+	if ok == OK:
+		print("directComs Server ready")
+	
+func ClientComs():
+	#var ok = directComs.bind(PORT)
+	#if ok == OK:
+		print("directComs Client ready")
+		
+func ClearComs():
+	directComs = null
+	
 func MPClient(ip):
 	MP = get_tree().get_multiplayer()
-	var ok = peer.create_client(ip, PORT)
+	var ok = peer.create_client(ip, SEERVERPORT)
 	if ok == OK:
 		print("Client avalable")
 	MP.multiplayer_peer = peer
 	
+	
+	
+	
+func PacketHandler(callback: Callable = print):
+	for i in directComs.get_available_packet_count():
+		var data = directComs.get_packet()
+		var ip = directComs.get_packet_ip()
+		var port = directComs.get_packet_port()
+		
+		var responce = ""
+		var MSG = data.get_string_from_ascii()
+		
+		if MP and MP.is_server():
+			print("Server has Directly Recived: " + str(MSG))
+			if MSG == JSON.stringify("GET_SRV"):
+				print("Sending server ident")
+				responce = "ServerIdent: " + JSON.stringify(Server)
+		else:
+			print("Client has Directly Recived: " + str(MSG))
+			if MSG.begins_with("ServerIdent: "):
+				var NewServer: Dictionary = JSON.parse_string(MSG.erase(0, "ServerIdent: ".length()))
+				responce = NewServer.get("Name")
+		
+		
+		if responce != "":
+			if callback != print:
+				callback.call(responce, ip, port)
+			else:
+				MPSend.emit(responce, ip, port)
+	MPReciveCompleate.emit()
+	
+func PacketSender(MSG: String, ip: String, port: int):
+	var data = MSG.to_ascii_buffer()
+	directComs.set_dest_address(ip, port)
+	directComs.put_packet(data)
+	
+func GetFreePort():
+	var port = (randi() % (65535-49152)) + 49152
+	
+	var ok = directComs.bind(port)
+	if ok == OK:
+		PORT = port
+		directComs.close()
+		print("Port has been set")
+	else: GetFreePort()

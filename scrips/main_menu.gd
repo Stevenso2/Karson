@@ -25,6 +25,9 @@ func _ready() -> void:
 @onready var create_server: Button = $"Server Create/CreateServer"
 @onready var server_name: LineEdit = $"Server Create/Server Name"
 
+var Servers = []
+var NewPackets = []
+
 func _process(_delta: float) -> void:
 	if sp.button_pressed:
 		global.ingame = true
@@ -44,15 +47,16 @@ func _process(_delta: float) -> void:
 	if join.button_pressed:
 		mp_menu.hide()
 		server_search.show()
-		var data = JSON.stringify("GET_SRV").to_ascii_buffer()
-		global.directComs.put_packet(data)
+		global.ClientComs()
+		global.MPReciveCompleate.connect(ListServer)
 		request_timer.start(5)
 		getServs()
 		
 	if create_server.button_pressed:
 		if server_name.text.length() >= 0:
+			global.ServerComs()
 			global.ingame = true
-			global.Server = server_name.text
+			global.Server.set("Name", server_name.text)
 			global.MPServer()
 			get_tree().change_scene_to_file("res://assets/World.tscn")
 		
@@ -67,12 +71,29 @@ func _process(_delta: float) -> void:
 	if search_return.button_pressed:
 		server_search.hide()
 		mp_menu.show()
+		global.MPReciveCompleate.disconnect(ListServer)
 	
 	
 func getServs():
 	#if not request_timer.is_stopped():
 	#	request_timer.start(5)
 	print("getting Servers")
-	for i in global.directComs.get_available_packet_count():
-		var data = global.directComs.get_packet().get_string_from_ascii()
-		print("Client Recived: " + str(data))
+	var request = JSON.stringify("GET_SRV")
+	global.MPSend.emit(request, global.LAN, global.SCANPORT)
+	global.MPRecive.emit(ListPackets)
+
+func ListPackets(Name: String, ip: String, _port: int):
+	var LocalServer = { "Name" = Name, "IP" = ip }
+	NewPackets.append(LocalServer)
+	for Server:Dictionary in Servers:
+		if Server.get("IP") == ip:
+			return
+	Servers.append(LocalServer)
+	item_list.add_item(Name)
+
+func ListServer():
+	for Server:Dictionary in Servers:
+		if not NewPackets.has(Server):
+			item_list.remove_item(Servers.find(Server))
+			Servers.remove_at(Servers.find(Server))
+	NewPackets.clear()
