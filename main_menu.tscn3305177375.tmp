@@ -83,7 +83,6 @@ offset_bottom = 571.0
 text = "Return"
 
 [node name="RequestTimer" type="Timer" parent="."]
-one_shot = true
 
 [node name="Server Search" type="Control" parent="."]
 visible = false

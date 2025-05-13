@@ -45,3 +45,5 @@ func _physics_process(delta):
 func Respawn():
 	position = RESPAWN_POS
 	rotation = RESPAWN_ROT
+	linear_velocity = Vector3.ZERO
+	angular_velocity = Vector3.ZERO

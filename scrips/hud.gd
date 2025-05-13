@@ -31,7 +31,9 @@ func _process(_delta: float) -> void:
 	if global.pause:
 		menu.show()
 		if quit.button_pressed || Input.is_action_just_pressed("Enter"):
-			get_tree().quit()
+			global.ingame = false
+			global.Server.set("Name", "")
+			get_tree().change_scene_to_file("res://main_menu.tscn")
 	else:
 		menu.hide()
 	

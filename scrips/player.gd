@@ -17,6 +17,8 @@ extends CharacterBody3D
 @export var accelaration = 10
 @export var decelaration = 0.02
 
+@onready var multiplayer_synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
+
 const SGJUMP = 600.0
 const SPEED = 500.0
 const JUMP_VELOCITY = 300.0
@@ -32,6 +34,7 @@ var accel = accelaration
 var HasSG = false
 var HasGG = false
 var GGcontact: Vector3
+var GGSeenObj
 var AllowInteractions = true
 
 const sensitivity = 0.35 # 0.55 for school mouse, 0,35 for my own mouse -Pizzi
@@ -50,6 +53,9 @@ var is_crouching: bool = false  # track if the player is crouching
 func _ready():
 	RESPAWN_POS = position
 	RESPAWN_ROT = rotation
+	
+	if global.MP and not global.MP.is_server():
+		multiplayer_synchronizer.set_multiplayer_authority(str(name).to_int())
 	# Hide the mouse cursor and keep it centered.
 	set_process_input(true)
 	ReadyTimer.timeout.connect(SGChill)
@@ -195,15 +201,15 @@ func _physics_process(delta: float) -> void:
 				sg_anim_player.play("SG Ready")
 			if gg_anim_player.assigned_animation == "GG Chill":
 				gg_anim_player.play("GG Ready")
-			var SeenObj = ray_cast_3d.get_collider()
-			if SeenObj:
-				print(SeenObj)
+			GGSeenObj = ray_cast_3d.get_collider()
+			if GGSeenObj:
+				print(GGSeenObj)
 				if HasSG and global.current_Block == global.INV.ShotGun:
-					nudge_object(SeenObj, ray_cast_3d.get_collision_point())
-					if SeenObj.is_in_group("SG-Jump"):
+					nudge_object(GGSeenObj, ray_cast_3d.get_collision_point())
+					if GGSeenObj.is_in_group("SG-Jump"):
 						velocity = -(ray_cast_3d.get_collision_point() - ray_cast_3d.global_position).normalized() * SGJUMP * AppliedDelta
-					if SeenObj.is_in_group("Stunable"):
-						SeenObj.stun.start(1)
+					if GGSeenObj.is_in_group("Stunable"):
+						GGSeenObj.stun.start(1)
 						
 				if HasGG and global.current_Block == global.INV.GraplingGun:
 					GGcontact = ray_cast_3d.get_collision_point()
@@ -215,8 +221,13 @@ func _physics_process(delta: float) -> void:
 		
 		if Input.is_action_pressed("Shoot"):
 			if HasGG and global.current_Block == global.INV.GraplingGun:
-				if GGcontact != Vector3.ZERO:
-					GGSwing(GGcontact, AppliedDelta)
+				if GGSeenObj:
+					if GGSeenObj.is_in_group("GG-Pull"):
+						if GGcontact != Vector3.ZERO:
+							GGSwing(GGcontact, AppliedDelta)
+					if GGSeenObj.is_in_group("PObj"):
+						
+						GGSwing(GGSeenObj.position, AppliedDelta)
 		move_and_slide()
 
 	if global.DEV:

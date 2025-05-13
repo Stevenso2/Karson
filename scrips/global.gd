@@ -15,17 +15,20 @@ var slow = false
 var ingame = false
 
 var peer = ENetMultiplayerPeer.new()
-var Server = { "Name" = "" }
+var Server = { "Name" = "", "PCount" = 1 }
 var directComs = PacketPeerUDP.new()
 const SEERVERPORT = 25566
 var PORT: int
 const SCANPORT = 25567
 var LAN = "255.255.255.255"
 var MP: MultiplayerAPI
+var Players: Array = [20]
+var PlayerCount = 0
 
 signal MPRecive(Callback)
 signal MPReciveCompleate()
 signal MPSend(MSG: PackedByteArray, ip: String, port: int)
+signal MPPacket()
 
 var DEV = false
 
@@ -45,6 +48,9 @@ func DebugLoging(Key, Value):
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("REMOVE ON FINAL"):
 		DEV = !DEV
+		
+	if directComs and directComs.get_available_packet_count() > 0:
+		MPPacket.emit()
 	
 	if pause:
 		Engine.time_scale = 0.00001
@@ -60,7 +66,7 @@ func _process(_delta: float) -> void:
 			Engine.time_scale = 1
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			
-	if MP and MP.is_server():
+	if MP.multiplayer_peer and MP.is_server():
 		MPRecive.emit()
 
 func MPServer():
@@ -90,16 +96,15 @@ func MPClient(ip):
 		print("Client avalable")
 	MP.multiplayer_peer = peer
 	
-	
-	
-	
-func PacketHandler(callback: Callable = print):
+func PacketHandler(callback: Callable = print, usecallback: bool = false):
+	if directComs.get_available_packet_count() == 0:
+		await MPPacket
 	for i in directComs.get_available_packet_count():
 		var data = directComs.get_packet()
 		var ip = directComs.get_packet_ip()
 		var port = directComs.get_packet_port()
 		
-		var responce = ""
+		var responce
 		var MSG = data.get_string_from_ascii()
 		
 		if MP and MP.is_server():
@@ -107,15 +112,22 @@ func PacketHandler(callback: Callable = print):
 			if MSG == JSON.stringify("GET_SRV"):
 				print("Sending server ident")
 				responce = "ServerIdent: " + JSON.stringify(Server)
+			if MSG == JSON.stringify("CON_HAN"):
+				print("Sending server Player count")
+				var Pcount: int = Server.get("PCount")
+				responce = "Pcount: " + JSON.stringify(Pcount)
+				Server.set("PCount", Pcount + 1)
 		else:
 			print("Client has Directly Recived: " + str(MSG))
 			if MSG.begins_with("ServerIdent: "):
 				var NewServer: Dictionary = JSON.parse_string(MSG.erase(0, "ServerIdent: ".length()))
 				responce = NewServer.get("Name")
+			if MSG.begins_with("Pcount: "):
+				responce = int(JSON.parse_string(MSG.erase(0, "Pcount: ".length())))
 		
 		
-		if responce != "":
-			if callback != print:
+		if responce != null:
+			if usecallback:
 				callback.call(responce, ip, port)
 			else:
 				MPSend.emit(responce, ip, port)
@@ -135,3 +147,6 @@ func GetFreePort():
 		directComs.close()
 		print("Port has been set")
 	else: GetFreePort()
+
+func ChangeLV(file):
+	get_tree().change_scene_to_file(file)

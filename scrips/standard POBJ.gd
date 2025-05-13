@@ -1,4 +1,4 @@
-extends Node3D
+extends RigidBody3D
 
 var RESPAWN_POS: Vector3
 var RESPAWN_ROT: Vector3
@@ -10,3 +10,5 @@ func _ready() -> void:
 func Respawn():
 	position = RESPAWN_POS
 	rotation = RESPAWN_ROT
+	linear_velocity = Vector3.ZERO
+	angular_velocity = Vector3.ZERO

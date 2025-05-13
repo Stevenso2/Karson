@@ -23,7 +23,7 @@ global="*res://scrips/global.gd"
 
 [display]
 
-window/size/mode=3
+window/size/mode=2
 window/stretch/mode="viewport"
 
 [global_group]

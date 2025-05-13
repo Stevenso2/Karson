@@ -22,3 +22,5 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 func Respawn():
 	position = RESPAWN_POS
 	rotation = RESPAWN_ROT
+	linear_velocity = Vector3.ZERO
+	angular_velocity = Vector3.ZERO

@@ -25,8 +25,11 @@ func _ready() -> void:
 @onready var create_server: Button = $"Server Create/CreateServer"
 @onready var server_name: LineEdit = $"Server Create/Server Name"
 
+@onready var connect_server: Button = $"Server Search/ConnectServer"
+
 var Servers = []
-var NewPackets = []
+var NewGetSRVPackets = []
+var serv: Dictionary
 
 func _process(_delta: float) -> void:
 	if sp.button_pressed:
@@ -53,12 +56,12 @@ func _process(_delta: float) -> void:
 		getServs()
 		
 	if create_server.button_pressed:
-		if server_name.text.length() >= 0:
+		if server_name.text.length() > 0:
 			global.ServerComs()
 			global.ingame = true
 			global.Server.set("Name", server_name.text)
 			global.MPServer()
-			get_tree().change_scene_to_file("res://assets/World.tscn")
+			global.ChangeLV("res://assets/World.tscn")
 		
 	if quit.button_pressed:
 		get_tree().quit()
@@ -72,19 +75,67 @@ func _process(_delta: float) -> void:
 		server_search.hide()
 		mp_menu.show()
 		global.MPReciveCompleate.disconnect(ListServer)
+		
+	if item_list.is_anything_selected():
+		connect_server.show()
+	else:
+		connect_server.hide()
+		
+	if item_list.is_anything_selected() && connect_server.button_pressed:
+		var Items = item_list.get_selected_items()
+		if Items.size() == 1:
+			server_search.hide()
+			serv = Servers.get(Items.get(0))
+			request_timer.stop()
+			global.MPReciveCompleate.disconnect(ListServer)
+			await get_tree().create_timer(1).timeout
+			
+			var request = JSON.stringify("CON_HAN")
+			global.MPSend.emit(request, serv.get("IP"), global.SCANPORT)
+			global.MPRecive.emit(ConHANPacket, true)
+			await global.MPReciveCompleate
+			if global.PlayerCount == 0:
+				item_list.deselect_all()
+				global.MPReciveCompleate.connect(ListServer)
+				request_timer.start(5)
+				getServs()
+				server_search.show()
+				return
+			global.ClearComs()
+			global.MPClient(serv.get("IP"))
+			item_list.deselect_all()
+			global.MP.connected_to_server.connect(Connected)
+			global.MP.connection_failed.connect(ConectionFailed)
+			
+func Connected():
+	global.ingame = true
+	global.Server.set("Name", serv.get("Name"))
+	global.ChangeLV("res://assets/World.tscn")
+	
+func ConectionFailed():
+	global.MP.multiplayer_peer = null
+	global.ClientComs()
+	global.MPReciveCompleate.connect(ListServer)
+	request_timer.start(5)
+	getServs()
 	
 	
 func getServs():
-	#if not request_timer.is_stopped():
-	#	request_timer.start(5)
+	if not request_timer.is_stopped():
+		request_timer.start(5)
 	print("getting Servers")
 	var request = JSON.stringify("GET_SRV")
 	global.MPSend.emit(request, global.LAN, global.SCANPORT)
-	global.MPRecive.emit(ListPackets)
-
-func ListPackets(Name: String, ip: String, _port: int):
+	global.MPRecive.emit(ListGetSRVPackets, true)
+	
+func ConHANPacket(Pcount: int, _ip: String, _port: int):
+	if global.PlayerCount == 0:
+		print("Set PCount:" + str(Pcount))
+		global.PlayerCount = Pcount
+	
+func ListGetSRVPackets(Name: String, ip: String, _port: int):
 	var LocalServer = { "Name" = Name, "IP" = ip }
-	NewPackets.append(LocalServer)
+	NewGetSRVPackets.append(LocalServer)
 	for Server:Dictionary in Servers:
 		if Server.get("IP") == ip:
 			return
@@ -92,8 +143,9 @@ func ListPackets(Name: String, ip: String, _port: int):
 	item_list.add_item(Name)
 
 func ListServer():
+	await get_tree().create_timer(0.5).timeout
 	for Server:Dictionary in Servers:
-		if not NewPackets.has(Server):
+		if not NewGetSRVPackets.has(Server):
 			item_list.remove_item(Servers.find(Server))
 			Servers.remove_at(Servers.find(Server))
-	NewPackets.clear()
+	NewGetSRVPackets.clear()
