@@ -88,13 +88,15 @@ func _process(_delta: float) -> void:
 			serv = Servers.get(Items.get(0))
 			request_timer.stop()
 			global.MPReciveCompleate.disconnect(ListServer)
-			await get_tree().create_timer(1).timeout
 			
 			var request = JSON.stringify("CON_HAN")
 			global.MPSend.emit(request, serv.get("IP"), global.SCANPORT)
-			global.MPRecive.emit(ConHANPacket, true)
+			global.isMP = true
+			global.MPRecive.emit(PacketParse, true)
+			get_tree().create_timer(10).timeout.connect(func(): global.MPReciveCompleate.emit())
 			await global.MPReciveCompleate
 			if global.PlayerCount == 0:
+				global.isMP = false
 				item_list.deselect_all()
 				global.MPReciveCompleate.connect(ListServer)
 				request_timer.start(5)
@@ -108,11 +110,14 @@ func _process(_delta: float) -> void:
 			global.MP.connection_failed.connect(ConectionFailed)
 			
 func Connected():
+	print("Client Has Connected")
 	global.ingame = true
 	global.Server.set("Name", serv.get("Name"))
 	global.ChangeLV("res://assets/World.tscn")
 	
 func ConectionFailed():
+	print("Client Has Failed to Connect")
+	global.isMP = false
 	global.MP.multiplayer_peer = null
 	global.ClientComs()
 	global.MPReciveCompleate.connect(ListServer)
@@ -126,14 +131,23 @@ func getServs():
 	print("getting Servers")
 	var request = JSON.stringify("GET_SRV")
 	global.MPSend.emit(request, global.LAN, global.SCANPORT)
-	global.MPRecive.emit(ListGetSRVPackets, true)
+	global.MPRecive.emit(PacketParse, true)
 	
-func ConHANPacket(Pcount: int, _ip: String, _port: int):
+func PacketParse(MSG: String, ip: String, _port: int):
+	if MSG.begins_with("ServerIdent: "):
+		print("got server ident")
+		var NewServer: Dictionary = JSON.parse_string(MSG.erase(0, "ServerIdent: ".length()))
+		ListGetSRVPackets(NewServer.get("Name"), ip)
+	if MSG.begins_with("Pcount: "):
+		print("got server Player count")
+		ConHANPacket(JSON.parse_string(MSG.erase(0, "Pcount: ".length())))
+	
+func ConHANPacket(Pcount: int):
 	if global.PlayerCount == 0:
 		print("Set PCount:" + str(Pcount))
 		global.PlayerCount = Pcount
 	
-func ListGetSRVPackets(Name: String, ip: String, _port: int):
+func ListGetSRVPackets(Name: String, ip: String):
 	var LocalServer = { "Name" = Name, "IP" = ip }
 	NewGetSRVPackets.append(LocalServer)
 	for Server:Dictionary in Servers:

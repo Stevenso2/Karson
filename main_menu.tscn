@@ -147,3 +147,5 @@ offset_right = 334.0
 offset_bottom = 152.0
 placeholder_text = "Server Name"
 max_length = 20
+
+[node name="Timer" type="Timer" parent="."]

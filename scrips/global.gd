@@ -13,6 +13,7 @@ var current_Block: INV = 0 as INV
 var pause = false
 var slow = false
 var ingame = false
+var isMP = false
 
 var peer = ENetMultiplayerPeer.new()
 var Server = { "Name" = "", "PCount" = 1 }
@@ -49,7 +50,7 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("REMOVE ON FINAL"):
 		DEV = !DEV
 		
-	if directComs and directComs.get_available_packet_count() > 0:
+	if isMP and directComs and directComs.get_available_packet_count() > 0:
 		MPPacket.emit()
 	
 	if pause:
@@ -66,7 +67,7 @@ func _process(_delta: float) -> void:
 			Engine.time_scale = 1
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			
-	if MP.multiplayer_peer and MP.is_server():
+	if isMP and MP and MP.is_server():
 		MPRecive.emit()
 
 func MPServer():
@@ -74,6 +75,7 @@ func MPServer():
 	var ok = peer.create_server(SEERVERPORT, 20)
 	if ok == OK:
 		print("Server avalable")
+	isMP = true
 	MP.multiplayer_peer = peer
 	
 func ServerComs():
@@ -94,11 +96,15 @@ func MPClient(ip):
 	var ok = peer.create_client(ip, SEERVERPORT)
 	if ok == OK:
 		print("Client avalable")
+	isMP = true
 	MP.multiplayer_peer = peer
 	
 func PacketHandler(callback: Callable = print, usecallback: bool = false):
 	if directComs.get_available_packet_count() == 0:
+		#print(str(usecallback) + "awaiting packet count")
 		await MPPacket
+	if not directComs:
+		return
 	for i in directComs.get_available_packet_count():
 		var data = directComs.get_packet()
 		var ip = directComs.get_packet_ip()
@@ -119,11 +125,7 @@ func PacketHandler(callback: Callable = print, usecallback: bool = false):
 				Server.set("PCount", Pcount + 1)
 		else:
 			print("Client has Directly Recived: " + str(MSG))
-			if MSG.begins_with("ServerIdent: "):
-				var NewServer: Dictionary = JSON.parse_string(MSG.erase(0, "ServerIdent: ".length()))
-				responce = NewServer.get("Name")
-			if MSG.begins_with("Pcount: "):
-				responce = int(JSON.parse_string(MSG.erase(0, "Pcount: ".length())))
+			responce = MSG
 		
 		
 		if responce != null:

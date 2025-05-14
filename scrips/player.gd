@@ -14,10 +14,10 @@ extends CharacterBody3D
 @onready var ReadyTimer = $Camera3D/ReadySateTimer
 @onready var slomo_timer: Timer = $"Slomo Timer"
 
+var mp_sync 
+
 @export var accelaration = 10
 @export var decelaration = 0.02
-
-@onready var multiplayer_synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
 
 const SGJUMP = 600.0
 const SPEED = 500.0
@@ -53,9 +53,7 @@ var is_crouching: bool = false  # track if the player is crouching
 func _ready():
 	RESPAWN_POS = position
 	RESPAWN_ROT = rotation
-	
-	if global.MP and not global.MP.is_server():
-		multiplayer_synchronizer.set_multiplayer_authority(str(name).to_int())
+
 	# Hide the mouse cursor and keep it centered.
 	set_process_input(true)
 	ReadyTimer.timeout.connect(SGChill)
@@ -67,25 +65,29 @@ func _input(event):
 	# Check if the event is a mouse motion event.
 	if not global.pause:
 		if event is InputEventMouseMotion:
-			# Adjust the rotation based on the mouse movement.
-			rot_x -= event.relative.y * sensitivity
-			rot_y -= event.relative.x * sensitivity
+			Camara.rpc_id(1, event)
 			
-			# Clamp the x rotation to prevent flipping.
-			rot_x = clamp(rot_x, -90, 90)
-			
-			# Apply the rotation to the camera.
-			if global.DEV:
-				camera_3d.rotation_degrees.x = rot_x
-				camera_3d.rotation_degrees.y = rot_y
-			else:
-				camera_3d.rotation_degrees.x = rot_x
-				rotation_degrees.y = rot_y
-	if is_sliding:
-		move_speed = SLIDE_SPEED
 
+@rpc("any_peer", "call_local", "reliable")
+func Camara(event):
+	# Adjust the rotation based on the mouse movement.
+	rot_x -= event.relative.y * sensitivity
+	rot_y -= event.relative.x * sensitivity
+	
+	# Clamp the x rotation to prevent flipping.
+	rot_x = clamp(rot_x, -90, 90)
+	
+	# Apply the rotation to the camera.
+	if global.DEV:
+		camera_3d.rotation_degrees.x = rot_x
+		camera_3d.rotation_degrees.y = rot_y
+	else:
+		camera_3d.rotation_degrees.x = rot_x
+		rotation_degrees.y = rot_y
 
 func _process(_delta):
+	if is_sliding:
+		move_speed = SLIDE_SPEED
 	
 	if HasSG:
 		hud.shot_gun.show()
