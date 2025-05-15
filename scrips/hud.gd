@@ -19,13 +19,13 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("3"):
 		global.current_Block = 2 as global.INV
 	
-	if Input.is_action_just_pressed("SU"):
-		global.current_Block = (global.current_Block as int + 1) as global.INV
-		if global.current_Block >= 2:
-			global.current_Block = 0 as global.INV
 	if Input.is_action_just_pressed("SD"):
+		global.current_Block = (global.current_Block as int + 1) as global.INV
+		if global.current_Block > 2:
+			global.current_Block = 0 as global.INV
+	if Input.is_action_just_pressed("SU"):
 		global.current_Block = (global.current_Block as int - 1) as global.INV
-		if global.current_Block <= 0:
+		if global.current_Block < 0:
 			global.current_Block = 2 as global.INV
 #	somehow fix the scroll problem i am a dum dum to fix it
 	if global.pause:

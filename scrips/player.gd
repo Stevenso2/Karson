@@ -9,8 +9,11 @@ extends CharacterBody3D
 @onready var grapple_view: RigidBody3D = $Camera3D/Grapple_View
 @onready var gg_anim_player: AnimationPlayer = $Camera3D/GGAnimPlayer
 @onready var grapple_rope: MeshInstance3D = $"Camera3D/Grapple Rope"
+@onready var grapple_muzzle: Marker3D = $"Camera3D/Grapple_View/Grapple Muzzle"
 
-@onready var ray_cast_3d: RayCast3D = $Camera3D/RayCast3D
+@onready var grapple_ray: RayCast3D = $Camera3D/GrappleRay
+@onready var shotgun_ray: RayCast3D = $Camera3D/ShotgunRay
+
 @onready var ReadyTimer = $Camera3D/ReadySateTimer
 @onready var slomo_timer: Timer = $"Slomo Timer"
 
@@ -34,7 +37,7 @@ var accel = accelaration
 var HasSG = false
 var HasGG = false
 var GGcontact: Vector3
-var GGSeenObj
+var GGSeenObj: Node3D
 var AllowInteractions = true
 
 const sensitivity = 0.35 # 0.55 for school mouse, 0,35 for my own mouse -Pizzi
@@ -65,10 +68,10 @@ func _input(event):
 	# Check if the event is a mouse motion event.
 	if not global.pause:
 		if event is InputEventMouseMotion:
-			Camara.rpc_id(1, event)
+			Camara(event)
 			
 
-@rpc("any_peer", "call_local", "reliable")
+#@rpc("any_peer", "call_local", "reliable")
 func Camara(event):
 	# Adjust the rotation based on the mouse movement.
 	rot_x -= event.relative.y * sensitivity
@@ -203,19 +206,19 @@ func _physics_process(delta: float) -> void:
 				sg_anim_player.play("SG Ready")
 			if gg_anim_player.assigned_animation == "GG Chill":
 				gg_anim_player.play("GG Ready")
-			GGSeenObj = ray_cast_3d.get_collider()
-			if GGSeenObj:
+			GGSeenObj = grapple_ray.get_collider()
+			if GGSeenObj and HasGG and global.current_Block == global.INV.GraplingGun:
 				print(GGSeenObj)
-				if HasSG and global.current_Block == global.INV.ShotGun:
-					nudge_object(GGSeenObj, ray_cast_3d.get_collision_point())
+				GGcontact = grapple_ray.get_collision_point()
+				grapple_rope.show()
+			
+			var SGSeenObj = shotgun_ray.get_collider()
+			if SGSeenObj and HasSG and global.current_Block == global.INV.ShotGun:
+					nudge_object(GGSeenObj, grapple_ray.get_collision_point())
 					if GGSeenObj.is_in_group("SG-Jump"):
-						velocity = -(ray_cast_3d.get_collision_point() - ray_cast_3d.global_position).normalized() * SGJUMP * AppliedDelta
+						velocity = -(shotgun_ray.get_collision_point() - shotgun_ray.global_position).normalized() * SGJUMP * AppliedDelta
 					if GGSeenObj.is_in_group("Stunable"):
 						GGSeenObj.stun.start(1)
-						
-				if HasGG and global.current_Block == global.INV.GraplingGun:
-					GGcontact = ray_cast_3d.get_collision_point()
-					grapple_rope.show()
 					
 		if Input.is_action_just_released("Shoot"):
 			grapple_rope.hide()
@@ -224,12 +227,24 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_pressed("Shoot"):
 			if HasGG and global.current_Block == global.INV.GraplingGun:
 				if GGSeenObj:
+					var contact
 					if GGSeenObj.is_in_group("GG-Pull"):
 						if GGcontact != Vector3.ZERO:
+							contact = GGcontact
 							GGSwing(GGcontact, AppliedDelta)
 					if GGSeenObj.is_in_group("PObj"):
-						
+						contact = GGSeenObj.position
 						GGSwing(GGSeenObj.position, AppliedDelta)
+						
+					var dir = (contact - grapple_muzzle.global_transform.origin).normalized()
+					var newbasis = Basis()
+					newbasis.z = dir # Forward (+Z)
+					newbasis.x = Vector3.UP.cross(dir).normalized()  # Right (+X)
+					newbasis.y = dir.cross(newbasis.x).normalized()  # Up (+Y)
+					grapple_rope.global_transform.basis = newbasis
+					grapple_rope.rotate_object_local(Vector3.RIGHT, deg_to_rad(-90))
+					grapple_rope.scale = Vector3(0.025,grapple_muzzle.global_transform.origin.distance_to(contact),0.025)
+					grapple_rope.global_position = (grapple_muzzle.global_position + contact)/2
 		move_and_slide()
 
 	if global.DEV:
@@ -248,7 +263,7 @@ func _physics_process(delta: float) -> void:
 func nudge_object(collider, collision_point: Vector3):
 	if collider is RigidBody3D:
 		# Apply an impulse at the collision point
-		var dir = (collision_point - ray_cast_3d.global_transform.origin).normalized()
+		var dir = (collision_point - shotgun_ray.global_transform.origin).normalized()
 		collider.apply_impulse(collision_point - collider.global_transform.origin, dir * -20)  # Adjust the force magnitude (10)
 		var movement = (camera_3d.global_transform.origin - collider.global_transform.origin).normalized()
 		collider.apply_central_impulse(Vector3(movement.x, 0.1, movement.z) * -20)
@@ -273,6 +288,8 @@ func GGSwing(ContactPos: Vector3, AppliedDelta):
 	# Project the velocity onto the tangent plane of the sphere
 	var tangential_velocity = velocity - radial_vector * radial_vector.dot(velocity)
 	velocity = tangential_velocity.normalized() * velocity.length()
+	# Apply gravity
+	velocity += get_gravity() * AppliedDelta
 	if Input.is_action_pressed("U"):
 		position -= radial_vector * 10 * AppliedDelta
 

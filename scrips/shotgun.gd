@@ -24,3 +24,4 @@ func Respawn():
 	rotation = RESPAWN_ROT
 	linear_velocity = Vector3.ZERO
 	angular_velocity = Vector3.ZERO
+	move_and_collide(Vector3.ZERO)
