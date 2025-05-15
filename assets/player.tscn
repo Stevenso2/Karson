@@ -112,10 +112,10 @@ tracks/0/path = NodePath("Grapple_View:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.500002),
+"times": PackedFloat32Array(0, 0.0833333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0.14, -0.094, -0.058), Vector3(0.04, -0.12, -0.058)]
+"values": [Vector3(0.04, -0.12, -0.058), Vector3(0.14, -0.094, -0.058)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -124,10 +124,10 @@ tracks/1/path = NodePath("Grapple_View:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.500002),
+"times": PackedFloat32Array(0, 0.0833333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0.113446, 0.139626, 0.0366519), Vector3(0.113825, 1.09947, 0.0374423)]
+"values": [Vector3(0.113825, 1.09947, 0.0374423), Vector3(0.113446, 0.139626, 0.0366519)]
 }
 
 [sub_resource type="Animation" id="Animation_uovkd"]

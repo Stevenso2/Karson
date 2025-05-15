@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bt6sc561jqijy"]
+[gd_scene load_steps=28 format=3 uid="uid://bt6sc561jqijy"]
 
 [ext_resource type="PackedScene" uid="uid://4r8al3ot2h5v" path="res://assets/player.tscn" id="1_321kd"]
 [ext_resource type="Script" uid="uid://bxtple08e04jh" path="res://scrips/world.gd" id="1_x3gwp"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://b7yvb51yo2bbm" path="res://assets/LDO/live_area.tscn" id="13_ks3hr"]
 [ext_resource type="PackedScene" uid="uid://yin8d5biltck" path="res://assets/grapple.tscn" id="14_yrx4r"]
 [ext_resource type="PackedScene" uid="uid://cyu7vqyj32sg5" path="res://assets/LDO/grapple_pull_surface.tscn" id="15_lp28i"]
+[ext_resource type="PackedScene" uid="uid://di6obffrc7mk4" path="res://assets/Enemy.tscn" id="13_ks3hr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lkl0i"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -186,3 +187,7 @@ transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, -5.2, 
 
 [node name="MPSync" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_tux6n")
+
+[node name="Enemy" parent="." instance=ExtResource("13_ks3hr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.29301, 0.00417213, 23.9094)
+mass = 25.0
