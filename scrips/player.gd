@@ -17,7 +17,7 @@ extends CharacterBody3D
 @onready var ReadyTimer = $Camera3D/ReadySateTimer
 @onready var slomo_timer: Timer = $"Slomo Timer"
 
-var mp_sync 
+var mp_sync
 
 @export var accelaration = 10
 @export var decelaration = 0.02
@@ -218,7 +218,7 @@ func _physics_process(delta: float) -> void:
 					if GGSeenObj.is_in_group("SG-Jump"):
 						velocity = -(shotgun_ray.get_collision_point() - shotgun_ray.global_position).normalized() * SGJUMP * AppliedDelta
 					if GGSeenObj.is_in_group("Stunable"):
-						GGSeenObj.stun.start(1)
+						GGSeenObj.stun.start()
 					
 		if Input.is_action_just_released("Shoot"):
 			grapple_rope.hide()

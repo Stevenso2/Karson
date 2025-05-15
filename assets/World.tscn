@@ -84,7 +84,7 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_4k3r8")
 
-[node name="Player" parent="." instance=ExtResource("1_321kd")]
+[node name="0" parent="." instance=ExtResource("1_321kd")]
 
 [node name="Terrain" type="StaticBody3D" parent="."]
 collision_layer = 128
@@ -119,7 +119,7 @@ TestIDs = PackedInt32Array(2)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.49125, -0.493259, 22.4664)
 
 [node name="Billy" parent="Billy\'s box" instance=ExtResource("5_rh5yp")]
-transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 1, 0.5, 2.069)
+transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, -4, 0, 20.069)
 
 [node name="Timer" parent="." instance=ExtResource("4_1favq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
