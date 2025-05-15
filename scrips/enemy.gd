@@ -1,7 +1,7 @@
 extends RigidBody3D
 
-@export var speed: float = 300.0
-
+@export var speed: float = 200.0
+@onready var stun = $Timer
 
 var player: Node3D
 func _ready():
@@ -16,7 +16,7 @@ func _ready():
 
 func _physics_process(delta):
 	if not global.pause:
-		if player:
+		if player and stun.time_left == 0:
 			var direction = player.global_transform.origin - global_transform.origin
 			direction.y = 0
 			direction = direction.normalized()
@@ -35,5 +35,6 @@ func _physics_process(delta):
 				linear_velocity.z = move_toward(linear_velocity.z, 0, speed/1000)
 		else:
 			print("Player not assigned")
-
+	if stun.time_left != 0:
+		print(stun.time_left)
 	

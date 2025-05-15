@@ -138,4 +138,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -3.8)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6, 0, 3.6)
 
 [node name="Enemy" parent="." instance=ExtResource("13_ks3hr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.29301, 0.00674099, 23.9094)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.29301, 0.00417213, 23.9094)
+mass = 25.0
