@@ -14,10 +14,10 @@
 [ext_resource type="PackedScene" uid="uid://b1yr3xke4n4bu" path="res://assets/LDO/LogicGate.tscn" id="6_8gvu8"]
 [ext_resource type="PackedScene" uid="uid://dm131e14e5471" path="res://assets/LDO/shotgun_jump_surface.tscn" id="10_syi7k"]
 [ext_resource type="PackedScene" uid="uid://bjwo5tevf8j0v" path="res://assets/LDO/Small Table.tscn" id="12_ks3hr"]
-[ext_resource type="PackedScene" uid="uid://b7yvb51yo2bbm" path="res://assets/LDO/live_area.tscn" id="13_ks3hr"]
+[ext_resource type="PackedScene" uid="uid://di6obffrc7mk4" path="res://assets/Enemy.tscn" id="13_ks3hr"]
 [ext_resource type="PackedScene" uid="uid://yin8d5biltck" path="res://assets/grapple.tscn" id="14_yrx4r"]
 [ext_resource type="PackedScene" uid="uid://cyu7vqyj32sg5" path="res://assets/LDO/grapple_pull_surface.tscn" id="15_lp28i"]
-[ext_resource type="PackedScene" uid="uid://di6obffrc7mk4" path="res://assets/Enemy.tscn" id="13_ks3hr"]
+[ext_resource type="PackedScene" uid="uid://b7yvb51yo2bbm" path="res://assets/LDO/live_area.tscn" id="18_r2gn0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lkl0i"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -76,9 +76,6 @@ properties/3/replication_mode = 1
 [node name="World" type="Node3D"]
 script = ExtResource("1_x3gwp")
 MPplayer = ExtResource("2_tux6n")
-
-[node name="Live area" parent="." instance=ExtResource("13_ks3hr")]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
@@ -191,3 +188,6 @@ replication_config = SubResource("SceneReplicationConfig_tux6n")
 [node name="Enemy" parent="." instance=ExtResource("13_ks3hr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.29301, 0.00417213, 23.9094)
 mass = 25.0
+
+[node name="Live area" parent="." instance=ExtResource("18_r2gn0")]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b4jhk88dap054" path="res://scrips/live_area.gd" id="1_ybcai"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1hrdc"]
-size = Vector3(2, 1, 2)
+size = Vector3(2, 2, 2)
 
 [node name="Live area" type="Area3D"]
 collision_layer = 0

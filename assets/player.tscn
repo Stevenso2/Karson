@@ -1567,7 +1567,6 @@ visible = false
 ShouldColide = false
 
 [node name="Grapple_View" parent="Camera3D" instance=ExtResource("3_rug40")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 visible = false
 ShouldColide = false
 
