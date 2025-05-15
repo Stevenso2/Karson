@@ -3,8 +3,13 @@ extends RigidBody3D
 @export var speed: float = 300.0
 @onready var stun = $Timer
 
+var RESPAWN_POS: Vector3
+var RESPAWN_ROT: Vector3
+
 var player: Node3D
 func _ready():
+	RESPAWN_POS = position
+	RESPAWN_ROT = rotation
 	
 	# Find the player in the "player" group
 	var players = get_tree().get_nodes_in_group("Player")
@@ -29,12 +34,16 @@ func _physics_process(delta):
 			# Set velocity and apply movement
 			var dist = global_transform.origin.distance_to(player.global_transform.origin)
 			if dist > 2:
-				linear_velocity = direction * speed * delta
+				linear_velocity.x = direction.x * speed * delta
+				linear_velocity.z = direction.z * speed * delta
 			else:
 				linear_velocity.x = move_toward(linear_velocity.x, 0, speed/1000)
 				linear_velocity.z = move_toward(linear_velocity.z, 0, speed/1000)
-		else:
+		elif not player:
 			print("Player not assigned")
-	if stun.time_left != 0:
-		print(stun.time_left)
-	
+			
+func Respawn():
+	position = RESPAWN_POS
+	rotation = RESPAWN_ROT
+	linear_velocity = Vector3.ZERO
+	angular_velocity = Vector3.ZERO

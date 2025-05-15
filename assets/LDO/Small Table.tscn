@@ -14,7 +14,7 @@ shader = ExtResource("1_wum5j")
 shader_parameter/LineW = 0.2
 shader_parameter/texSize = 5.0
 
-[node name="Node3D" type="Node3D"]
+[node name="Table" type="Node3D"]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)

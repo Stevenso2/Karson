@@ -15,13 +15,10 @@ func _ready() -> void:
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("Player"):
-		if !body.HasSG:
-			body.HasSG = true
+		if !body.HasGG:
+			body.HasGG = true
 			queue_free()
 
 func Respawn():
 	position = RESPAWN_POS
 	rotation = RESPAWN_ROT
-	linear_velocity = Vector3.ZERO
-	angular_velocity = Vector3.ZERO
-	move_and_collide(Vector3.ZERO)

@@ -1,202 +1,8 @@
-[gd_scene load_steps=35 format=4 uid="uid://4r8al3ot2h5v"]
-
-[ext_resource type="Script" uid="uid://coxis1sim8qyc" path="res://scrips/player.gd" id="1_enlmb"]
-[ext_resource type="PackedScene" uid="uid://d0nli7fikwkrr" path="res://assets/hud.tscn" id="2_2tde0"]
-[ext_resource type="PackedScene" uid="uid://yin8d5biltck" path="res://assets/grapple.tscn" id="3_rug40"]
-[ext_resource type="PackedScene" uid="uid://erooj15k8tku" path="res://assets/shotgun.tscn" id="4_rug40"]
+[gd_scene load_steps=21 format=4 uid="uid://dwphjg8071oay"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_irju7"]
 radius = 0.3
 height = 1.8
-
-[sub_resource type="Animation" id="Animation_mxi64"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Shotgun_View:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.04, -0.12, -0.058)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Shotgun_View:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.113825, 1.09947, 0.0374423)]
-}
-
-[sub_resource type="Animation" id="Animation_nsdob"]
-resource_name = "SG Chill"
-length = 0.500002
-step = 0.0166667
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Shotgun_View:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.500002),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.14, -0.094, -0.058), Vector3(0.04, -0.12, -0.058)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Shotgun_View:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.500002),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.113446, 0.139626, 0.0366519), Vector3(0.113825, 1.09947, 0.0374423)]
-}
-
-[sub_resource type="Animation" id="Animation_rug40"]
-resource_name = "SG Ready"
-length = 0.083335
-step = 0.0166667
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Shotgun_View:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0833333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.04, -0.12, -0.058), Vector3(0.14, -0.094, -0.058)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Shotgun_View:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0833333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.113825, 1.09947, 0.0374423), Vector3(0.113446, 0.139626, 0.0366519)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_yceh7"]
-_data = {
-&"RESET": SubResource("Animation_mxi64"),
-&"SG Chill": SubResource("Animation_nsdob"),
-&"SG Ready": SubResource("Animation_rug40")
-}
-
-[sub_resource type="Animation" id="Animation_yceh7"]
-resource_name = "GG Chill"
-length = 0.500002
-step = 0.0166667
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Grapple_View:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0833333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.04, -0.12, -0.058), Vector3(0.14, -0.094, -0.058)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Grapple_View:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0833333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.113825, 1.09947, 0.0374423), Vector3(0.113446, 0.139626, 0.0366519)]
-}
-
-[sub_resource type="Animation" id="Animation_uovkd"]
-resource_name = "GG Ready"
-length = 0.083335
-step = 0.0166667
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Grapple_View:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.083335),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.04, -0.12, -0.058), Vector3(0.14, -0.094, -0.058)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Grapple_View:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.083335),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.113825, 1.09947, 0.0374423), Vector3(0.113446, 0.139626, 0.0366519)]
-}
-
-[sub_resource type="Animation" id="Animation_jeibo"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Grapple_View:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Grapple_View:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_cn88q"]
-_data = {
-&"GG Chill": SubResource("Animation_yceh7"),
-&"GG Ready": SubResource("Animation_uovkd"),
-&"RESET": SubResource("Animation_jeibo")
-}
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_rug40"]
-height = 1.0
-radial_segments = 10
-rings = 0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hdc84"]
 resource_name = "Orange"
@@ -993,18 +799,6 @@ tracks/35/path = NodePath(".:mixamorig_RightToeBase_end_032")
 tracks/35/interp = 1
 tracks/35/loop_wrap = true
 tracks/35/keys = PackedFloat32Array(0, 1, -0.707107, -1.30437e-07, 1.22992e-07, 0.707107)
-tracks/36/type = "value"
-tracks/36/imported = false
-tracks/36/enabled = true
-tracks/36/path = NodePath("%Karlson/../Camera3D:position")
-tracks/36/interp = 1
-tracks/36/loop_wrap = true
-tracks/36/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 1.69, -0.19)]
-}
 
 [sub_resource type="Animation" id="Animation_3mip4"]
 resource_name = "Walk"
@@ -1261,288 +1055,11 @@ tracks/35/interp = 1
 tracks/35/loop_wrap = true
 tracks/35/keys = PackedFloat32Array(0, 1, -0.707107, -1.30437e-07, 1.22992e-07, 0.707107)
 
-[sub_resource type="Animation" id="Animation_cn88q"]
-resource_name = "slide"
-length = 0.166669
-step = 0.0166667
-tracks/0/type = "rotation_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:Karlson")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.166669, 1, -0.326995, -0.15712, -0.0552307, 0.930235)
-tracks/1/type = "rotation_3d"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:Object_39")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, -0.707107, 0, 0, 0.707107, 0.166669, 1, -0.707107, 0, 0, 0.707107)
-tracks/2/type = "rotation_3d"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:Root")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.166669, 1, 0, 0, 0, 1)
-tracks/3/type = "rotation_3d"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:Hips")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.166669, 1, -0.240175, -0.0522573, 0.0651463, 0.96713)
-tracks/4/type = "rotation_3d"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".:Spine")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.166669, 1, 0, 0, 0, 1)
-tracks/5/type = "rotation_3d"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath(".:Chest")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.166669, 1, 0, 0, 0, 1)
-tracks/6/type = "rotation_3d"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath(".:UpperChest")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.166669, 1, 0, 0, 0, 1)
-tracks/7/type = "rotation_3d"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath(".:Neck")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.166669, 1, 0, 0, 0, 1)
-tracks/8/type = "rotation_3d"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath(".:Head")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.166669, 1, 0.382683, 9.61357e-16, 3.34553e-08, 0.92388)
-tracks/9/type = "rotation_3d"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath(".:mixamorig_Head_end_028")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = PackedFloat32Array(0, 1, 6.35279e-09, -9.89062e-15, -4.2455e-16, 1, 0.166669, 1, 6.35279e-09, -9.89062e-15, -4.2455e-16, 1)
-tracks/10/type = "rotation_3d"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath(".:LeftShoulder")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = PackedFloat32Array(0, 1, 0.5, 0.5, 0.5, -0.5, 0.166669, 1, 0.413914, 0.548773, 0.543544, -0.48175)
-tracks/11/type = "rotation_3d"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath(".:LeftUpperArm")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = PackedFloat32Array(0, 1, 0, 1, 0, 0, 0.166669, 1, 0.278814, 0.677254, -0.670273, -0.119682)
-tracks/12/type = "rotation_3d"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath(".:LeftLowerArm")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = PackedFloat32Array(0, 1, 0, -0.707107, 0, 0.707107, 0.166669, 1, 0.314756, -0.453388, 0.1746, 0.815404)
-tracks/13/type = "rotation_3d"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath(".:LeftHand")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = PackedFloat32Array(0, 1, 0, 0.707107, 0, 0.707107, 0.166669, 1, 0, 0.707107, 0, 0.707107)
-tracks/14/type = "rotation_3d"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath(".:mixamorig_LeftHandIndex1_011")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.166669, 1, 0, 0, 0, 1)
-tracks/15/type = "rotation_3d"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath(".:LeftIndexProximal")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.166669, 1, 0, 0, 0, 1)
-tracks/16/type = "rotation_3d"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath(".:LeftIndexIntermediate")
-tracks/16/interp = 1
-tracks/16/loop_wrap = true
-tracks/16/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.166669, 1, 0, 0, 0, 1)
-tracks/17/type = "rotation_3d"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath(".:LeftIndexDistal")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.166669, 1, 0, 0, 0, 1)
-tracks/18/type = "rotation_3d"
-tracks/18/imported = false
-tracks/18/enabled = true
-tracks/18/path = NodePath(".:RightShoulder")
-tracks/18/interp = 1
-tracks/18/loop_wrap = true
-tracks/18/keys = PackedFloat32Array(0, 1, 0.5, -0.5, -0.5, -0.5, 0.166669, 1, 0.5, -0.5, -0.5, -0.5)
-tracks/19/type = "rotation_3d"
-tracks/19/imported = false
-tracks/19/enabled = true
-tracks/19/path = NodePath(".:RightUpperArm")
-tracks/19/interp = 1
-tracks/19/loop_wrap = true
-tracks/19/keys = PackedFloat32Array(0, 1, 0, 1, 0, 0, 0.166669, 1, 0.163359, 0.916657, 0.102421, 0.35009)
-tracks/20/type = "rotation_3d"
-tracks/20/imported = false
-tracks/20/enabled = true
-tracks/20/path = NodePath(".:RightLowerArm")
-tracks/20/interp = 1
-tracks/20/loop_wrap = true
-tracks/20/keys = PackedFloat32Array(0, 1, 0, 0.707107, 0, 0.707107, 0.166669, 1, 0.720207, 0.0571117, -0.448248, 0.526416)
-tracks/21/type = "rotation_3d"
-tracks/21/imported = false
-tracks/21/enabled = true
-tracks/21/path = NodePath(".:RightHand")
-tracks/21/interp = 1
-tracks/21/loop_wrap = true
-tracks/21/keys = PackedFloat32Array(0, 1, 0, -0.707107, 0, 0.707107, 0.166669, 1, 0, -0.707107, 0, 0.707107)
-tracks/22/type = "rotation_3d"
-tracks/22/imported = false
-tracks/22/enabled = true
-tracks/22/path = NodePath(".:mixamorig_RightHandIndex1_018")
-tracks/22/interp = 1
-tracks/22/loop_wrap = true
-tracks/22/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.166669, 1, 0, 0, 0, 1)
-tracks/23/type = "rotation_3d"
-tracks/23/imported = false
-tracks/23/enabled = true
-tracks/23/path = NodePath(".:RightIndexProximal")
-tracks/23/interp = 1
-tracks/23/loop_wrap = true
-tracks/23/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.166669, 1, 0, 0, 0, 1)
-tracks/24/type = "rotation_3d"
-tracks/24/imported = false
-tracks/24/enabled = true
-tracks/24/path = NodePath(".:RightIndexIntermediate")
-tracks/24/interp = 1
-tracks/24/loop_wrap = true
-tracks/24/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.166669, 1, 0, 0, 0, 1)
-tracks/25/type = "rotation_3d"
-tracks/25/imported = false
-tracks/25/enabled = true
-tracks/25/path = NodePath(".:RightIndexDistal")
-tracks/25/interp = 1
-tracks/25/loop_wrap = true
-tracks/25/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.166669, 1, 0, 0, 0, 1)
-tracks/26/type = "rotation_3d"
-tracks/26/imported = false
-tracks/26/enabled = true
-tracks/26/path = NodePath(".:LeftUpperLeg")
-tracks/26/interp = 1
-tracks/26/loop_wrap = true
-tracks/26/keys = PackedFloat32Array(0, 1, 0, 0, 1, 0, 0.166669, 1, -0.0171857, 0.134741, 0.986387, -0.0926834)
-tracks/27/type = "rotation_3d"
-tracks/27/imported = false
-tracks/27/enabled = true
-tracks/27/path = NodePath(".:LeftLowerLeg")
-tracks/27/interp = 1
-tracks/27/loop_wrap = true
-tracks/27/keys = PackedFloat32Array(0, 1, 0, 1, 0, 0, 0.166669, 1, 0, 1, 0, 0)
-tracks/28/type = "rotation_3d"
-tracks/28/imported = false
-tracks/28/enabled = true
-tracks/28/path = NodePath(".:LeftFoot")
-tracks/28/interp = 1
-tracks/28/loop_wrap = true
-tracks/28/keys = PackedFloat32Array(0, 1, 0, 0.707107, -0.707107, 0, 0.166669, 1, 0, 0.707107, -0.707107, 0)
-tracks/29/type = "rotation_3d"
-tracks/29/imported = false
-tracks/29/enabled = true
-tracks/29/path = NodePath(".:LeftToes")
-tracks/29/interp = 1
-tracks/29/loop_wrap = true
-tracks/29/keys = PackedFloat32Array(0, 1, 0, 1, 0, 0, 0.166669, 1, 0, 1, 0, 0)
-tracks/30/type = "rotation_3d"
-tracks/30/imported = false
-tracks/30/enabled = true
-tracks/30/path = NodePath(".:mixamorig_LeftToeBase_end_031")
-tracks/30/interp = 1
-tracks/30/loop_wrap = true
-tracks/30/keys = PackedFloat32Array(0, 1, -0.707107, 8.71439e-08, -4.77274e-08, 0.707107, 0.166669, 1, -0.707107, 8.71439e-08, -4.77274e-08, 0.707107)
-tracks/31/type = "rotation_3d"
-tracks/31/imported = false
-tracks/31/enabled = true
-tracks/31/path = NodePath(".:RightUpperLeg")
-tracks/31/interp = 1
-tracks/31/loop_wrap = true
-tracks/31/keys = PackedFloat32Array(0, 1, 0, 0, 1, 0, 0.166669, 1, 0.0029687, 0.246476, 0.949436, -0.194453)
-tracks/32/type = "rotation_3d"
-tracks/32/imported = false
-tracks/32/enabled = true
-tracks/32/path = NodePath(".:RightLowerLeg")
-tracks/32/interp = 1
-tracks/32/loop_wrap = true
-tracks/32/keys = PackedFloat32Array(0, 1, 0, 1, 0, 0, 0.166669, 1, 0.0526671, 0.969201, -0.240032, -0.0161383)
-tracks/33/type = "rotation_3d"
-tracks/33/imported = false
-tracks/33/enabled = true
-tracks/33/path = NodePath(".:RightFoot")
-tracks/33/interp = 1
-tracks/33/loop_wrap = true
-tracks/33/keys = PackedFloat32Array(0, 1, 0, 0.707107, -0.707107, 0, 0.166669, 1, 0, 0.707107, -0.707107, 0)
-tracks/34/type = "rotation_3d"
-tracks/34/imported = false
-tracks/34/enabled = true
-tracks/34/path = NodePath(".:RightToes")
-tracks/34/interp = 1
-tracks/34/loop_wrap = true
-tracks/34/keys = PackedFloat32Array(0, 1, 0, 1, 0, 0, 0.166669, 1, 0, 1, 0, 0)
-tracks/35/type = "rotation_3d"
-tracks/35/imported = false
-tracks/35/enabled = true
-tracks/35/path = NodePath(".:mixamorig_RightToeBase_end_032")
-tracks/35/interp = 1
-tracks/35/loop_wrap = true
-tracks/35/keys = PackedFloat32Array(0, 1, -0.707107, -1.30437e-07, 1.22992e-07, 0.707107, 0.166669, 1, -0.707107, -1.30437e-07, 1.22992e-07, 0.707107)
-tracks/36/type = "value"
-tracks/36/imported = false
-tracks/36/enabled = true
-tracks/36/path = NodePath("%Karlson/../Camera3D:position")
-tracks/36/interp = 1
-tracks/36/loop_wrap = true
-tracks/36/keys = {
-"times": PackedFloat32Array(0, 0.166669),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 1.69, -0.19), Vector3(0, 0.575, -0.19)]
-}
-tracks/37/type = "position_3d"
-tracks/37/imported = false
-tracks/37/enabled = true
-tracks/37/path = NodePath(".:Hips")
-tracks/37/interp = 1
-tracks/37/loop_wrap = true
-tracks/37/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.166669, 1, 31.849, -281.302, -15.69)
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6ljmh"]
 _data = {
 &"Nod": SubResource("Animation_insbl"),
 &"RESET": SubResource("Animation_p11xj"),
-&"Walk": SubResource("Animation_3mip4"),
-&"slide": SubResource("Animation_cn88q")
+&"Walk": SubResource("Animation_3mip4")
 }
 
 [node name="Player" type="CharacterBody3D" groups=["PObj", "Player", "Respawnable"]]
@@ -1551,67 +1068,10 @@ collision_mask = 131
 collision_priority = 0.1
 axis_lock_angular_x = true
 axis_lock_angular_z = true
-script = ExtResource("1_enlmb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_irju7")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.69, -0.19)
-current = true
-
-[node name="Shotgun_View" parent="Camera3D" instance=ExtResource("4_rug40")]
-transform = Transform3D(0.457538, 0.0841272, 0.885202, 0.0371913, 0.992833, -0.113579, -0.888412, 0.0848887, 0.45113, 0.04, -0.12, -0.058)
-visible = false
-ShouldColide = false
-
-[node name="Grapple_View" parent="Camera3D" instance=ExtResource("3_rug40")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-visible = false
-ShouldColide = false
-
-[node name="Grapple Muzzle" type="Marker3D" parent="Camera3D/Grapple_View"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.174678)
-gizmo_extents = 0.06
-
-[node name="GrappleRay" type="RayCast3D" parent="Camera3D"]
-target_position = Vector3(0, 0, -40)
-collision_mask = 64
-hit_from_inside = true
-collide_with_areas = true
-debug_shape_custom_color = Color(0.723534, 0.0189381, 4.81307e-07, 1)
-debug_shape_thickness = 5
-
-[node name="ShotgunRay" type="RayCast3D" parent="Camera3D"]
-target_position = Vector3(0, 0, -6)
-collision_mask = 64
-hit_from_inside = true
-collide_with_areas = true
-debug_shape_custom_color = Color(0, 0.0196078, 0.72549, 1)
-debug_shape_thickness = 5
-
-[node name="SGAnimPlayer" type="AnimationPlayer" parent="Camera3D"]
-libraries = {
-&"": SubResource("AnimationLibrary_yceh7")
-}
-
-[node name="GGAnimPlayer" type="AnimationPlayer" parent="Camera3D"]
-libraries = {
-&"": SubResource("AnimationLibrary_cn88q")
-}
-
-[node name="ReadySateTimer" type="Timer" parent="Camera3D"]
-one_shot = true
-
-[node name="Grapple Rope" type="MeshInstance3D" parent="Camera3D"]
-transform = Transform3D(0.025, 0, 0, 0, 1, 0, 0, 0, 0.025, 0.120802, 1.59976, -0.915121)
-visible = false
-mesh = SubResource("CylinderMesh_rug40")
-
-[node name="Hud" parent="." instance=ExtResource("2_2tde0")]
-offset_right = -1152.0
-offset_bottom = -648.0
 
 [node name="Karlson" type="Skeleton3D" parent="."]
 unique_name_in_owner = true
@@ -1644,7 +1104,7 @@ bones/3/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.73472e-18, -0.0036832, 
 bones/3/enabled = true
 bones/3/position = Vector3(-1.73472e-18, -0.0036832, -0.000411832)
 bones/3/rotation = Quaternion(0, 0, 0, 1)
-bones/3/scale = Vector3(0.999999, 0.999999, 0.999998)
+bones/3/scale = Vector3(1, 1, 1)
 bones/4/name = "Spine"
 bones/4/parent = 3
 bones/4/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.93889e-18, 0.107442, 0.00346346)
@@ -1698,14 +1158,14 @@ bones/11/name = "LeftUpperArm"
 bones/11/parent = 10
 bones/11/rest = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.000505962, 0.135366, -0.0394781)
 bones/11/enabled = true
-bones/11/position = Vector3(0.00504466, 0.137688, -0.0397161)
+bones/11/position = Vector3(0.000505962, 0.135366, -0.0394781)
 bones/11/rotation = Quaternion(0, 1, 0, 0)
 bones/11/scale = Vector3(1, 1, 1)
 bones/12/name = "LeftLowerArm"
 bones/12/parent = 11
 bones/12/rest = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -0.00105941, 0.293419, 0.0127763)
 bones/12/enabled = true
-bones/12/position = Vector3(0.00677339, 0.290049, 0.0165535)
+bones/12/position = Vector3(-0.00105941, 0.293419, 0.0127763)
 bones/12/rotation = Quaternion(0, -0.707107, 0, 0.707107)
 bones/12/scale = Vector3(1, 1, 1)
 bones/13/name = "LeftHand"
@@ -1902,7 +1362,3 @@ skin = SubResource("Skin_hvdor")
 libraries = {
 &"": SubResource("AnimationLibrary_6ljmh")
 }
-autoplay = "RESET"
-
-[node name="Slomo Timer" type="Timer" parent="."]
-one_shot = true

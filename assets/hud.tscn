@@ -27,7 +27,7 @@ rotation = 1.5708
 texture = ExtResource("2_gudfk")
 
 [node name="Selector" type="Sprite2D" parent="."]
-position = Vector2(1111.5, 470.5)
+position = Vector2(1111.5, 471.5)
 texture = ExtResource("3_1m68m")
 
 [node name="Crosshair" type="Sprite2D" parent="."]
@@ -56,3 +56,27 @@ pivot_offset = Vector2(90.95, 15.5)
 shortcut = SubResource("Shortcut_cwq6o")
 text = "QUIT"
 clip_text = true
+
+[node name="ShotGun" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1079.5
+offset_top = 439.5
+offset_right = 1143.5
+offset_bottom = 503.5
+text = "SG"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GrapplingGun" type="RichTextLabel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 1079.5
+offset_top = 507.5
+offset_right = 1143.5
+offset_bottom = 571.5
+text = "GG"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1

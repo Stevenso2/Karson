@@ -1,0 +1,60 @@
+[gd_scene load_steps=10 format=3 uid="uid://yin8d5biltck"]
+
+[ext_resource type="Script" uid="uid://ctxv2a77pkvxc" path="res://scrips/grapple.gd" id="1_t875q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h5bnm"]
+albedo_color = Color(0.633757, 0.633757, 0.633757, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qj2j7"]
+material = SubResource("StandardMaterial3D_h5bnm")
+size = Vector3(0.053, 0.053, 0.325)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_58j56"]
+albedo_color = Color(0.129558, 0.129558, 0.129558, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_quaka"]
+material = SubResource("StandardMaterial3D_58j56")
+size = Vector3(0.02, 0.02, 0.02)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_60ete"]
+albedo_color = Color(0.385493, 0.385493, 0.385492, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_v7tcj"]
+material = SubResource("StandardMaterial3D_60ete")
+size = Vector3(0.05, 0.125, 0.05)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_58j56"]
+size = Vector3(0.055, 0.19, 0.365)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t875q"]
+size = Vector3(0.155, 0.29, 0.465)
+
+[node name="Grapple" type="RigidBody3D" groups=["Respawnable"]]
+collision_layer = 68
+collision_mask = 129
+script = ExtResource("1_t875q")
+
+[node name="GrappleBody" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_qj2j7")
+
+[node name="Barrel" type="MeshInstance3D" parent="GrappleBody"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, -0.16)
+mesh = SubResource("BoxMesh_quaka")
+
+[node name="Handle" type="MeshInstance3D" parent="GrappleBody"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, -0.081, 0.141)
+mesh = SubResource("BoxMesh_v7tcj")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06, 0)
+shape = SubResource("BoxShape3D_58j56")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06, 0)
+shape = SubResource("BoxShape3D_t875q")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
