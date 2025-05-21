@@ -9,6 +9,7 @@ enum INV {
 enum GateType {AND,NOR,XOR}
 
 var current_Block: INV = 0 as INV
+var transition: AnimationPlayer # used to make the BodyAnimationPlayer callable on every script
 
 var pause = false
 var slow = false

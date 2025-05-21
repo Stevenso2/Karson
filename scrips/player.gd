@@ -17,7 +17,7 @@ extends CharacterBody3D
 @onready var ReadyTimer = $Camera3D/ReadySateTimer
 @onready var slomo_timer: Timer = $"Slomo Timer"
 
-# Used to make the sliding work
+#To make sliding work better
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 @onready var sliding_collision: CollisionShape3D = $Sliding_Collision
 @onready var body_anim_player: AnimationPlayer = $Karlson/BodyAnimationPlayer
@@ -59,6 +59,7 @@ var is_sliding: bool = false
 var is_crouching: bool = false  # track if the player is crouching
 
 func _ready():
+	global.transition = $Karlson/BodyAnimationPlayer # used for making the sliding now work properly 
 	RESPAWN_POS = position
 	RESPAWN_ROT = rotation
 
@@ -74,6 +75,7 @@ func _input(event):
 	if not global.pause:
 		if event is InputEventMouseMotion:
 			Camara(event)
+			
 
 #@rpc("any_peer", "call_local", "reliable")
 func Camara(event):
@@ -129,17 +131,19 @@ func _process(_delta):
 				slomo_timer.start(5.0 / 4.0)
 	
 	#Character slide test VERY WIP
+	
 	if Input.is_action_pressed("sliding test") and is_on_floor() and not is_sliding and not global.DEV:
 		is_sliding = true
-		camera_3d.position.y = SLIDE_HEIGHT  #Lower camera position to simulate crouch [delete if animations are implemented - Pizzi]
-
-		# Play slide animation and switch collision shapes
+		camera_3d.position.y = SLIDE_HEIGHT  # Lower camera position to simulate crouch < del if animation works
 		
-		# body_anim_player.play("slide") right now its broken but this would play the animation
+		#animation play
+		body_anim_player.play("slide")
 		
-		collision_shape.disabled = true
+		#switch collisionshapes (THIS BREAK SLIDE)
 		sliding_collision.disabled = false
-
+		collision_shape.disabled = true
+		
+		
 		if sg_anim_player.assigned_animation == "SG Ready":
 			sg_anim_player.play("SG Chill")
 			AllowInteractions = true
@@ -149,19 +153,17 @@ func _process(_delta):
 
 	# Stop sliding when the Ctrl key is released.
 	elif Input.is_action_just_released("sliding test") and is_sliding:
-		is_sliding = false
-		is_crouching = false
-	
-		# Reset camera height
-		camera_3d.position.y = NORMAL_HEIGHT # < delete if animations are implemented - Pizzi
-
-		# Reset collision shapes
-		collision_shape.disabled = false
+		# reset collision shapes (THIS BREAKS SLIDE)
 		sliding_collision.disabled = true
-
-		#Reset animation
-		# body_anim_player.play("Walk") [enable only if fixing the animations]
-
+		collision_shape.disabled = false
+		
+		is_sliding = false
+		camera_3d.position.y = NORMAL_HEIGHT  # Reset camera position < del if animation works
+		
+		
+		
+		#reset animation
+		body_anim_player.play("Walk")
 
 func _physics_process(delta: float) -> void:
 	delta += 0.000001

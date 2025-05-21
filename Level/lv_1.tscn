@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://dycmlui6ttdsm"]
+
+[ext_resource type="Shader" uid="uid://c2m7cmlyutdm4" path="res://shader/StandardBlockTexture.gdshader" id="1_nbn6y"]
+[ext_resource type="PackedScene" uid="uid://4r8al3ot2h5v" path="res://assets/player.tscn" id="1_wv4wt"]
+[ext_resource type="PackedScene" uid="uid://bjwo5tevf8j0v" path="res://assets/LDO/Small Table.tscn" id="2_nbn6y"]
+[ext_resource type="PackedScene" uid="uid://yin8d5biltck" path="res://assets/grapple.tscn" id="3_pj0pd"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wv4wt"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_vmpgl"]
+sky_material = SubResource("ProceduralSkyMaterial_wv4wt")
+
+[sub_resource type="Environment" id="Environment_nbn6y"]
+background_mode = 2
+sky = SubResource("Sky_vmpgl")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pj0pd"]
+render_priority = 0
+shader = ExtResource("1_nbn6y")
+shader_parameter/LineW = 0.2
+shader_parameter/texSize = 5.0
+
+[node name="Lv1" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_nbn6y")
+
+[node name="World Blocks" type="CSGCombiner3D" parent="."]
+material_override = SubResource("ShaderMaterial_pj0pd")
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="World Blocks"]
+transform = Transform3D(20, 0, 0, 0, 2, 0, 0, 0, 20, 0, 0, 0)
+use_collision = true
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="World Blocks"]
+transform = Transform3D(-8.74228e-07, 0, 1, 0, 1, 0, -20, 0, -4.37114e-08, 9.4971, 5.44311, 0.0939813)
+size = Vector3(1, 8.88306, 1)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="World Blocks"]
+transform = Transform3D(-8.74228e-07, 0, -1, 0, 1, 0, 20, 0, -4.37114e-08, -9.50978, 5.17564, -0.0117202)
+size = Vector3(1, 8.88306, 1)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="World Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.379486, 5.43729, 9.50128)
+size = Vector3(19.3994, 8.87076, 1)
+
+[node name="Player" parent="World Blocks" instance=ExtResource("1_wv4wt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.12632, 2.00931, -0.889618)
+
+[node name="Table" parent="World Blocks" instance=ExtResource("2_nbn6y")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7.93789, 1, -6.44453)
+
+[node name="Grapple" parent="World Blocks" instance=ExtResource("3_pj0pd")]
+transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, -7.92296, 2.22488, -6.4459)
