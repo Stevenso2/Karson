@@ -40,7 +40,6 @@ func _ready() -> void:
 	MPRecive.connect(PacketHandler)
 	MPSend.connect(PacketSender)
 	PObj_IDTunnel.connect(DebugLoging)
-	directComs.set_broadcast_enabled(true)
 
 func DebugLoging(Key, Value):
 	if DEV == true:
@@ -67,7 +66,7 @@ func _process(_delta: float) -> void:
 			Engine.time_scale = 1
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			
-	if isMP and MP and MP.is_server():
+	if isMP and MP and MP.multiplayer_peer and MP.is_server():
 		MPRecive.emit()
 
 func MPServer():
@@ -79,6 +78,7 @@ func MPServer():
 	MP.multiplayer_peer = peer
 	
 func ServerComs():
+	directComs = PacketPeerUDP.new()
 	var ok = directComs.bind(SCANPORT)
 	if ok == OK:
 		print("directComs Server ready")
@@ -113,16 +113,16 @@ func PacketHandler(callback: Callable = print, usecallback: bool = false):
 		var responce
 		var MSG = data.get_string_from_ascii()
 		
-		if MP and MP.is_server():
+		if MP and MP.multiplayer_peer and MP.is_server():
 			print("Server has Directly Recived: " + str(MSG))
 			if MSG == JSON.stringify("GET_SRV"):
 				print("Sending server ident")
 				responce = "ServerIdent: " + JSON.stringify(Server)
 			if MSG == JSON.stringify("CON_HAN"):
 				print("Sending server Player count")
-				var Pcount: int = Server.get("PCount")
+				var Pcount: int = PlayerCount
 				responce = "Pcount: " + JSON.stringify(Pcount)
-				Server.set("PCount", Pcount + 1)
+				PlayerCount += 1
 		else:
 			print("Client has Directly Recived: " + str(MSG))
 			responce = MSG
@@ -142,6 +142,8 @@ func PacketSender(MSG: String, ip: String, port: int):
 	
 func GetFreePort():
 	var port = (randi() % (65535-49152)) + 49152
+	directComs = PacketPeerUDP.new()
+	directComs.set_broadcast_enabled(true)
 	
 	var ok = directComs.bind(port)
 	if ok == OK:

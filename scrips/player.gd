@@ -16,8 +16,9 @@ extends CharacterBody3D
 
 @onready var ReadyTimer = $Camera3D/ReadySateTimer
 @onready var slomo_timer: Timer = $"Slomo Timer"
+@onready var multiplayer_synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
 
-var mp_sync
+#var mp_sync
 
 @export var accelaration = 10
 @export var decelaration = 0.02
@@ -89,6 +90,8 @@ func Camara(event):
 		rotation_degrees.y = rot_y
 
 func _process(_delta):
+	multiplayer_synchronizer.set_multiplayer_authority(0)
+	
 	if is_sliding:
 		move_speed = SLIDE_SPEED
 	
@@ -294,6 +297,7 @@ func GGSwing(ContactPos: Vector3, AppliedDelta):
 		position -= radial_vector * 10 * AppliedDelta
 
 func Respawn():
+	print("Player " + str(name) + " has respawned")
 	position = RESPAWN_POS
 	rotation = RESPAWN_ROT
 	camera_3d.rotation_degrees.x = 0

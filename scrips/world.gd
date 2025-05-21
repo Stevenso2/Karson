@@ -1,15 +1,22 @@
 extends Node3D
 
 @export var MPplayer: PackedScene
-@onready var player: CharacterBody3D = $Player
-@onready var mp_sync: MultiplayerSynchronizer = $MPSync
+@onready var player: CharacterBody3D = $"0"
+
+#@onready var mp_sync: MultiplayerSynchronizer = $MPSync
 
 func _ready() -> void:
 	if global.isMP and global.MP.is_server():
 		print("Server: Loaded the world")
+		
+		if global.Players.size() < global.PlayerCount:
+			global.Players.resize(global.PlayerCount)
+		global.Players.insert(global.PlayerCount, {"UID" = 0, "Name" = 0})
+		print("player Connected: " + str(global.PlayerCount))
 		player.name = str(0)
-		global.MP.peer_connected.connect(PeerMGR.bind(true))
-		global.MP.peer_disconnected.connect(PeerMGR.bind(false))
+		
+		global.MP.peer_connected.connect(PeerCon)
+		global.MP.peer_disconnected.connect(PeerDiscon)
 	elif global.isMP:
 		print("Client: Loaded the world")
 		
@@ -26,17 +33,29 @@ func _process(_delta: float) -> void:
 	pass
 
 
-func PeerMGR(CON_DISCON:bool, peer_ID:int):
-	if CON_DISCON:
-		#Peer Connected
-		print("peer connected: " + str(peer_ID))
-		global.Players.insert(peer_ID, {"Name" = peer_ID})
-		var curPlayer = MPplayer.instantiate()
-		curPlayer.name = str(peer_ID)
-		add_child(curPlayer)
-	else:
-		#Peer Disconnected
-		print("peer disconnected: " + str(peer_ID))
+func PeerCon(peer_ID:int):
+	#Peer Connected
+	print("peer connected: " + str(peer_ID))
+	if global.Players.size() < global.PlayerCount:
+		global.Players.resize(global.PlayerCount)
+	global.Players.insert(global.PlayerCount, {"UID" = peer_ID, "Name" = peer_ID})
+	print("player Connected: " + str(global.PlayerCount))
+	var curPlayer = MPplayer.instantiate()
+	curPlayer.name = str(global.PlayerCount)
+	add_child(curPlayer)
+		
+func PeerDiscon(peer_ID:int):
+	#Peer Disconnected
+	print("peer disconnected: " + str(peer_ID))
+	print("player disconnected: " + str(global.PlayerCount))
+	
+	var curPlayer = get_tree().root.find_child(str(global.PlayerCount), true, false)
+	global.Players.remove_at(global.PlayerCount)
+	curPlayer.Respawn()
+	curPlayer.queue_free()
+	if global.PlayerCount >= 0:
+		global.Players.resize(global.PlayerCount)
+		global.PlayerCount -= 1
 
 func Kicked():
 	global.isMP = false

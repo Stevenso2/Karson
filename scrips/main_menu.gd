@@ -37,6 +37,7 @@ func _process(_delta: float) -> void:
 		get_tree().change_scene_to_file("res://assets/World.tscn")
 	if mp.button_pressed:
 		main_menu.hide()
+		global.GetFreePort()
 		mp_menu.show()
 		
 	if host.button_pressed:
@@ -144,8 +145,8 @@ func PacketParse(MSG: String, ip: String, _port: int):
 	
 func ConHANPacket(Pcount: int):
 	if global.PlayerCount == 0:
-		print("Set PCount:" + str(Pcount))
-		global.PlayerCount = Pcount
+		print("Set PCount:" + str(Pcount + 1))
+		global.PlayerCount = Pcount + 1
 	
 func ListGetSRVPackets(Name: String, ip: String):
 	var LocalServer = { "Name" = Name, "IP" = ip }
@@ -158,6 +159,8 @@ func ListGetSRVPackets(Name: String, ip: String):
 
 func ListServer():
 	await get_tree().create_timer(0.5).timeout
+	if not request_timer.is_stopped():
+		request_timer.start(5)
 	for Server:Dictionary in Servers:
 		if not NewGetSRVPackets.has(Server):
 			item_list.remove_item(Servers.find(Server))

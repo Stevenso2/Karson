@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://4r8al3ot2h5v"]
+[gd_scene load_steps=36 format=4 uid="uid://4r8al3ot2h5v"]
 
 [ext_resource type="Script" uid="uid://coxis1sim8qyc" path="res://scrips/player.gd" id="1_enlmb"]
 [ext_resource type="PackedScene" uid="uid://d0nli7fikwkrr" path="res://assets/hud.tscn" id="2_2tde0"]
@@ -1545,6 +1545,11 @@ _data = {
 &"slide": SubResource("Animation_cn88q")
 }
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rug40"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="Player" type="CharacterBody3D" groups=["PObj", "Player", "Respawnable"]]
 disable_mode = 1
 collision_mask = 131
@@ -1905,3 +1910,6 @@ autoplay = "RESET"
 
 [node name="Slomo Timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_rug40")
