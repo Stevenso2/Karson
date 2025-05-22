@@ -96,7 +96,7 @@ func _process(_delta: float) -> void:
 			global.MPRecive.emit(PacketParse, true)
 			get_tree().create_timer(10).timeout.connect(func(): global.MPReciveCompleate.emit())
 			await global.MPReciveCompleate
-			if global.PlayerCount == 0:
+			if global.PlayerCount <= 1:
 				global.isMP = false
 				item_list.deselect_all()
 				global.MPReciveCompleate.connect(ListServer)
@@ -107,8 +107,8 @@ func _process(_delta: float) -> void:
 			global.ClearComs()
 			global.MPClient(serv.get("IP"))
 			item_list.deselect_all()
-			global.MP.connected_to_server.connect(Connected)
-			global.MP.connection_failed.connect(ConectionFailed)
+			multiplayer.connected_to_server.connect(Connected)
+			multiplayer.connection_failed.connect(ConectionFailed)
 			
 func Connected():
 	print("Client Has Connected")
@@ -119,7 +119,7 @@ func Connected():
 func ConectionFailed():
 	print("Client Has Failed to Connect")
 	global.isMP = false
-	global.MP.multiplayer_peer = null
+	multiplayer.multiplayer_peer = null
 	global.ClientComs()
 	global.MPReciveCompleate.connect(ListServer)
 	request_timer.start(5)
@@ -144,8 +144,8 @@ func PacketParse(MSG: String, ip: String, _port: int):
 		ConHANPacket(JSON.parse_string(MSG.erase(0, "Pcount: ".length())))
 	
 func ConHANPacket(Pcount: int):
-	if global.PlayerCount == 0:
-		print("Set PCount:" + str(Pcount + 1))
+	if global.PlayerCount <= 1:
+		print("Set PCount: " + str(Pcount + 1))
 		global.PlayerCount = Pcount + 1
 	
 func ListGetSRVPackets(Name: String, ip: String):

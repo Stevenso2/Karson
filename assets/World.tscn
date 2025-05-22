@@ -32,6 +32,12 @@ sky = SubResource("Sky_vmpgl")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x3gwp"]
+render_priority = 0
+shader = ExtResource("2_lnj3o")
+shader_parameter/LineW = 0.1
+shader_parameter/texSize = 1.5
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_syi7k"]
 render_priority = 0
 shader = ExtResource("2_lnj3o")
@@ -46,12 +52,6 @@ size = Vector3(30, 30, 1)
 map_width = 21
 map_depth = 21
 map_data = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_x3gwp"]
-render_priority = 0
-shader = ExtResource("2_lnj3o")
-shader_parameter/LineW = 0.1
-shader_parameter/texSize = 1.5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lnj3o"]
 render_priority = 0
@@ -84,7 +84,15 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_4k3r8")
 
-[node name="0" parent="." instance=ExtResource("1_321kd")]
+[node name="1" parent="." instance=ExtResource("1_321kd")]
+
+[node name="grapple island" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.3, 19, -3.7)
+use_collision = true
+collision_layer = 128
+collision_mask = 0
+size = Vector3(3, 1, 3)
+material = SubResource("ShaderMaterial_x3gwp")
 
 [node name="Terrain" type="StaticBody3D" parent="."]
 collision_layer = 128
@@ -98,14 +106,6 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 shape = SubResource("HeightMapShape3D_p3buv")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.3, 19, -3.7)
-use_collision = true
-collision_layer = 128
-collision_mask = 0
-size = Vector3(3, 1, 3)
-material = SubResource("ShaderMaterial_x3gwp")
 
 [node name="Button" parent="." instance=ExtResource("2_j6cc0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -7)
@@ -164,19 +164,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -3.8)
 [node name="Table" parent="." instance=ExtResource("12_ks3hr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6, 0, 3.6)
 
-[node name="Shotgun" parent="." instance=ExtResource("3_nnxh6")]
+[node name="Shotgun" parent="." groups=["PObj"] instance=ExtResource("3_nnxh6")]
 transform = Transform3D(-3.78552e-08, -0.866025, 0.5, 1, -4.37114e-08, 0, 2.18557e-08, 0.5, 0.866025, 6.6, 1.25, 4)
 
-[node name="Shotgun2" parent="." instance=ExtResource("3_nnxh6")]
+[node name="Shotgun2" parent="." groups=["PObj"] instance=ExtResource("3_nnxh6")]
 transform = Transform3D(-3.78552e-08, -0.866025, 0.5, 1, -4.37114e-08, 0, 2.18557e-08, 0.5, 0.866025, 6.6, 1.25, 3.3)
 
 [node name="Table2" parent="." instance=ExtResource("12_ks3hr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6, 0, 3.6)
 
-[node name="Grapple" parent="." instance=ExtResource("14_yrx4r")]
+[node name="Grapple" parent="." groups=["PObj"] instance=ExtResource("14_yrx4r")]
 transform = Transform3D(-3.78552e-08, -0.866025, 0.5, 1, -4.37114e-08, 2.08426e-14, 2.18557e-08, 0.5, 0.866025, -6.6, 1.25, 4)
 
-[node name="Grapple2" parent="." instance=ExtResource("14_yrx4r")]
+[node name="Grapple2" parent="." groups=["PObj"] instance=ExtResource("14_yrx4r")]
 transform = Transform3D(-3.78552e-08, -0.866025, 0.5, 1, -4.37114e-08, 2.08426e-14, 2.18557e-08, 0.5, 0.866025, -6.6, 1.25, 3.3)
 
 [node name="GrapplePullSurface" parent="." instance=ExtResource("15_lp28i")]

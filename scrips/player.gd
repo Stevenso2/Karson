@@ -16,14 +16,13 @@ extends CharacterBody3D
 
 @onready var ReadyTimer = $Camera3D/ReadySateTimer
 @onready var slomo_timer: Timer = $"Slomo Timer"
-@onready var multiplayer_synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
 
-#var mp_sync
+@onready var pmp_sync: MultiplayerSynchronizer = $PMP_sync
 
 @export var accelaration = 10
 @export var decelaration = 0.02
 
-const SGJUMP = 600.0
+const SGJUMP = 1200.0
 const SPEED = 500.0
 const JUMP_VELOCITY = 300.0
 const SLIDE_SPEED = 1000.0  # increased speed during sliding
@@ -90,8 +89,6 @@ func Camara(event):
 		rotation_degrees.y = rot_y
 
 func _process(_delta):
-	multiplayer_synchronizer.set_multiplayer_authority(0)
-	
 	if is_sliding:
 		move_speed = SLIDE_SPEED
 	
@@ -179,10 +176,21 @@ func _physics_process(delta: float) -> void:
 
 		if direction:
 			if is_on_floor():
-				var ground_vel = Vector2(direction.x, direction.y).rotated(-rotation.y) * move_speed * delta
-				velocity = Vector3(ground_vel.x, velocity.y, ground_vel.y) / accel
-				if accel > 1:
-					accel -= 1
+				if velocity.length() < 9:
+					var ground_vel = Vector2(direction.x, direction.y).rotated(-rotation.y) * move_speed * delta
+					velocity = Vector3(ground_vel.x, velocity.y, ground_vel.y) / accel 
+					if accel > 1:
+						accel -= 1
+				else:
+					var normVel = Vector2(velocity.x, velocity.z).normalized()
+					var VelAngle = normVel.angle_to(Vector2.UP)
+					var newVel = Vector2(velocity.x, velocity.z).rotated(VelAngle)
+					var ground_vel = Vector2(direction.x, direction.y).rotated(-rotation.y + VelAngle) * move_speed * delta
+					newVel.x = (newVel.x + ground_vel.x/10)
+					newVel.y = (newVel.y + ground_vel.y/100)
+					newVel = newVel.rotated(-VelAngle)
+					velocity.z = move_toward(newVel.y, 0, decelaration*7)
+					velocity.x = move_toward(newVel.x, 0, decelaration*7)
 			else:
 				var normVel = Vector2(velocity.x, velocity.z).normalized()
 				var VelAngle = normVel.angle_to(Vector2.UP)
@@ -195,8 +203,8 @@ func _physics_process(delta: float) -> void:
 		else:
 			if is_on_floor():
 				accel = accelaration
-				velocity.z = move_toward(velocity.z, 0, decelaration*20)
-				velocity.x = move_toward(velocity.x, 0, decelaration*20)
+				velocity.z = move_toward(velocity.z, 0, decelaration*10)
+				velocity.x = move_toward(velocity.x, 0, decelaration*10)
 			else:
 				accel = accelaration
 				velocity.z = move_toward(velocity.z, 0, decelaration)
@@ -230,7 +238,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_pressed("Shoot"):
 			if HasGG and global.current_Block == global.INV.GraplingGun:
 				if GGSeenObj:
-					var contact
+					var contact = Vector3(0,0,0)
 					if GGSeenObj.is_in_group("GG-Pull"):
 						if GGcontact != Vector3.ZERO:
 							contact = GGcontact

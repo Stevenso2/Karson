@@ -16,15 +16,15 @@ var ingame = false
 var isMP = false
 
 var peer = ENetMultiplayerPeer.new()
-var Server = { "Name" = "", "PCount" = 1 }
+var Server = { "Name" = "" }
 var directComs = PacketPeerUDP.new()
 const SEERVERPORT = 25566
 var PORT: int
 const SCANPORT = 25567
 var LAN = "255.255.255.255"
-var MP: MultiplayerAPI
-var Players: Array = [20]
-var PlayerCount = 0
+var Players: Array = []
+var PlayerCount = 1
+var is_server = false
 
 signal MPRecive(Callback)
 signal MPReciveCompleate()
@@ -36,7 +36,6 @@ var DEV = false
 signal PObj_IDTunnel(id, OnOff)
 
 func _ready() -> void:
-	GetFreePort()
 	MPRecive.connect(PacketHandler)
 	MPSend.connect(PacketSender)
 	PObj_IDTunnel.connect(DebugLoging)
@@ -66,16 +65,17 @@ func _process(_delta: float) -> void:
 			Engine.time_scale = 1
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			
-	if isMP and MP and MP.multiplayer_peer and MP.is_server():
+	if isMP and is_server:
 		MPRecive.emit()
 
 func MPServer():
-	MP = get_tree().get_multiplayer()
+	peer.close()
 	var ok = peer.create_server(SEERVERPORT, 20)
 	if ok == OK:
 		print("Server avalable")
 	isMP = true
-	MP.multiplayer_peer = peer
+	is_server = true
+	multiplayer.multiplayer_peer = peer
 	
 func ServerComs():
 	directComs = PacketPeerUDP.new()
@@ -86,18 +86,20 @@ func ServerComs():
 func ClientComs():
 	#var ok = directComs.bind(PORT)
 	#if ok == OK:
-		print("directComs Client ready")
+	print("directComs Client ready")
 		
 func ClearComs():
 	directComs = null
 	
 func MPClient(ip):
-	MP = get_tree().get_multiplayer()
+	print("setting Client MP")
+	peer.close()
 	var ok = peer.create_client(ip, SEERVERPORT)
 	if ok == OK:
 		print("Client avalable")
 	isMP = true
-	MP.multiplayer_peer = peer
+	multiplayer.multiplayer_peer = peer
+	print("Client MP now has a peer")
 	
 func PacketHandler(callback: Callable = print, usecallback: bool = false):
 	if directComs.get_available_packet_count() == 0:
@@ -113,7 +115,7 @@ func PacketHandler(callback: Callable = print, usecallback: bool = false):
 		var responce
 		var MSG = data.get_string_from_ascii()
 		
-		if MP and MP.multiplayer_peer and MP.is_server():
+		if isMP and is_server:
 			print("Server has Directly Recived: " + str(MSG))
 			if MSG == JSON.stringify("GET_SRV"):
 				print("Sending server ident")
