@@ -146,3 +146,7 @@ Slomo={
 3d_physics/layer_8="Level"
 3d_physics/layer_31="Ebene 31"
 3d_physics/layer_32="Ebene 32"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

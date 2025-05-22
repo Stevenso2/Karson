@@ -29,7 +29,7 @@ size = Vector3(0.055, 0.19, 0.365)
 [sub_resource type="BoxShape3D" id="BoxShape3D_t875q"]
 size = Vector3(0.155, 0.29, 0.465)
 
-[node name="Grapple" type="RigidBody3D" groups=["Respawnable"]]
+[node name="Grapple" type="RigidBody3D" groups=["PObj", "Respawnable"]]
 collision_layer = 68
 collision_mask = 129
 script = ExtResource("1_t875q")
