@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://dwphjg8071oay"]
+[gd_scene load_steps=21 format=4 uid="uid://dwphjg8071oay"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_irju7"]
 radius = 0.3
@@ -1062,14 +1062,6 @@ _data = {
 &"Walk": SubResource("Animation_3mip4")
 }
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_kwo3y"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:rotation")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-
 [node name="Player" type="CharacterBody3D" groups=["PObj", "Player", "Respawnable"]]
 disable_mode = 1
 collision_mask = 131
@@ -1370,6 +1362,3 @@ skin = SubResource("Skin_hvdor")
 libraries = {
 &"": SubResource("AnimationLibrary_6ljmh")
 }
-
-[node name="PMP_sync" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_kwo3y")

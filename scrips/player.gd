@@ -19,6 +19,8 @@ extends CharacterBody3D
 
 @onready var pmp_sync: MultiplayerSynchronizer = $PMP_sync
 
+@onready var wall_jump_timer: Timer = $"WallJump Timer"
+
 @export var accelaration = 10
 @export var decelaration = 0.02
 
@@ -47,6 +49,8 @@ var rot_y = 0
 
 var devPos: Vector3
 var devspeed = 0.1
+
+var grav = Vector3(0,-1,0)
 
 var move_speed = SPEED
 #var direction:int = 0
@@ -89,6 +93,8 @@ func Camara(event):
 		rotation_degrees.y = rot_y
 
 func _process(_delta):
+	grav = get_gravity()
+	
 	if is_sliding:
 		move_speed = SLIDE_SPEED
 	
@@ -123,6 +129,14 @@ func _process(_delta):
 				global.slow = true
 				# take time / slomo ammount to get real time
 				slomo_timer.start(5.0 / 4.0)
+				
+	if Input.is_action_just_pressed("intercat") and not global.DEV:
+		print("intercat test")
+		var interact: Area3D = shotgun_ray.get_collider()
+		if interact.is_class("Area3D"):
+			if interact.get_parent().has_method("Intercat"):
+				print("intercat")
+				interact.get_parent().Intercat()
 	
 	#Character slide test VERY WIP
 	
@@ -159,7 +173,7 @@ func _physics_process(delta: float) -> void:
 		
 		# Add the gravity.
 		if not is_on_floor():
-			velocity += get_gravity() * delta
+			velocity += grav * delta
 		
 		# Handle jump.
 		if Input.is_action_just_pressed("U") and is_on_floor():
@@ -173,6 +187,18 @@ func _physics_process(delta: float) -> void:
 		move_speed = SPEED
 		if is_sliding:
 			move_speed = SLIDE_SPEED
+	
+		if is_on_wall_only() and Input.is_action_pressed("U") and wall_jump_timer.time_left <= 0:
+			grav *= 1.25
+			print("help")
+			if velocity.length() > 2 :
+				velocity.y += JUMP_VELOCITY/30
+				wall_jump_timer.start(0.5)
+			else:
+				var bounce_angle: Vector3 = get_slide_collision(0).get_normal()
+				velocity.y += (JUMP_VELOCITY / 30)
+				velocity += bounce_angle * 6
+				wall_jump_timer.start(0.5)
 
 		if direction:
 			if is_on_floor():

@@ -8,33 +8,33 @@ extends Node3D
 func _ready() -> void:
 	if global.isMP and multiplayer.is_server():
 		print("Server: Loaded the world")
-		mp_sync.set_multiplayer_authority(1)
-		
 		
 		if global.Players.size() < global.PlayerCount:
 			global.Players.resize(global.PlayerCount)
 		global.Players.insert(global.PlayerCount, {"UID" = 0, "Name" = 0})
 		print("player Connected: " + str(global.PlayerCount))
 		player.name = str(1)
-		player.find_child("PMP_sync", true, false).set_multiplayer_authority(1)
+		#mp_sync.set_multiplayer_authority(1)
 		
 		multiplayer.peer_connected.connect(PeerCon)
 		multiplayer.peer_disconnected.connect(PeerDiscon)
 	elif global.isMP:
 		print("Player " + str(global.PlayerCount) + ": Loaded the world")
-		mp_sync.set_multiplayer_authority(1)
 		
 		player.name = str(global.PlayerCount)
 		player.position = Vector3(2,2,2)
+		mp_sync.set_multiplayer_authority(multiplayer.get_remote_sender_id())
 		
 		var curPlayer = MPplayer.instantiate()
 		curPlayer.name = str(1)
+		#curPlayer.find_child("PMP_sync", true, false).set_multiplayer_authority(1)
 		add_child(curPlayer)
 		
 		if global.PlayerCount > 2:
 			for i in global.PlayerCount-1:
 				curPlayer = MPplayer.instantiate()
 				curPlayer.name = str(i+2)
+				#curPlayer.find_child("PMP_sync", true, false).set_multiplayer_authority(1)
 				add_child(curPlayer)
 		multiplayer.server_disconnected.connect(Kicked)
 	else:
@@ -54,9 +54,8 @@ func PeerCon(peer_ID:int):
 	var curPlayer = MPplayer.instantiate()
 	curPlayer.name = str(global.PlayerCount)
 	curPlayer.position = Vector3(2,2,2)
-	curPlayer.find_child("PMP_sync", true, false).set_multiplayer_authority(1)
+	#curPlayer.find_child("PMP_sync", true, false).set_multiplayer_authority(peer_ID)
 	add_child(curPlayer)
-	#mp_sync.set_multiplayer_authority(peer_ID)
 		
 func PeerDiscon(peer_ID:int):
 	#Peer Disconnected

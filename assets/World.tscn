@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://bxtple08e04jh" path="res://scrips/world.gd" id="1_x3gwp"]
 [ext_resource type="PackedScene" uid="uid://bg3ivkj56s7pu" path="res://assets/PObj/Button.tscn" id="2_j6cc0"]
 [ext_resource type="Shader" uid="uid://c2m7cmlyutdm4" path="res://shader/StandardBlockTexture.gdshader" id="2_lnj3o"]
-[ext_resource type="PackedScene" uid="uid://dwphjg8071oay" path="res://assets/MPplayer.tscn" id="2_tux6n"]
 [ext_resource type="PackedScene" uid="uid://erooj15k8tku" path="res://assets/shotgun.tscn" id="3_nnxh6"]
 [ext_resource type="PackedScene" uid="uid://dnfu5hv4qqhid" path="res://assets/PObj/door.tscn" id="3_sp64g"]
 [ext_resource type="PackedScene" uid="uid://cqes48qd4mb6" path="res://assets/Builds/Box for Billy.tscn" id="3_xckp5"]
@@ -17,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://di6obffrc7mk4" path="res://assets/Enemy.tscn" id="13_ks3hr"]
 [ext_resource type="PackedScene" uid="uid://yin8d5biltck" path="res://assets/grapple.tscn" id="14_yrx4r"]
 [ext_resource type="PackedScene" uid="uid://cyu7vqyj32sg5" path="res://assets/LDO/grapple_pull_surface.tscn" id="15_lp28i"]
+[ext_resource type="PackedScene" uid="uid://bncrfpkimvq6d" path="res://assets/PObj/Player Button.tscn" id="18_fu6kp"]
 [ext_resource type="PackedScene" uid="uid://b7yvb51yo2bbm" path="res://assets/LDO/live_area.tscn" id="18_r2gn0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lkl0i"]
@@ -75,7 +75,7 @@ properties/3/replication_mode = 1
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_x3gwp")
-MPplayer = ExtResource("2_tux6n")
+MPplayer = ExtResource("1_321kd")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
@@ -106,6 +106,13 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain"]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 shape = SubResource("HeightMapShape3D_p3buv")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 6.5, -0.5)
+use_collision = true
+collision_layer = 128
+collision_mask = 0
+size = Vector3(1, 14, 30)
 
 [node name="Button" parent="." instance=ExtResource("2_j6cc0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -7)
@@ -191,3 +198,7 @@ mass = 25.0
 
 [node name="Live area" parent="." instance=ExtResource("18_r2gn0")]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+
+[node name="Button2" parent="." instance=ExtResource("18_fu6kp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1, 0, -4.9)
+id = 1
