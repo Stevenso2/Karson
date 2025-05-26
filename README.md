@@ -47,6 +47,8 @@ Adapt your strategy and keep moving
 Uncover clues about the lab’s true purpose through scattered logs, cryptic messages, and environmental details. <br>
 Piece together the mystery as you fight for your freedom <ins> **and your Milk.** </ins>
 
+## Please Note that everything listed here is not currently in the game but is planned to be added soon if the time isn't to short.
+
 <br><br><br>
 > [!NOTE]
 > this may change over time
