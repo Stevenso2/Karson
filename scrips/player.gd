@@ -139,7 +139,7 @@ func _process(_delta):
 		#animation play
 		body_anim_player.play("slide")
 		
-		#switch collisionshapes (THIS BREAK SLIDE)
+		#switch collisionshapes 
 		sliding_collision.disabled = false
 		collision_shape.disabled = true
 		
@@ -153,7 +153,7 @@ func _process(_delta):
 
 	# Stop sliding when the Ctrl key is released.
 	elif Input.is_action_just_released("sliding test") and is_sliding:
-		# reset collision shapes (THIS BREAKS SLIDE)
+		# reset collision shapes 
 		sliding_collision.disabled = true
 		collision_shape.disabled = false
 		
