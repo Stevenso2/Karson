@@ -27,7 +27,7 @@ var mp_sync
 @export var accelaration = 10
 @export var decelaration = 0.02
 
-const SGJUMP = 600.0
+const SGJUMP = 950.0
 const SPEED = 500.0
 const JUMP_VELOCITY = 300.0
 const SLIDE_SPEED = 1000.0  # increased speed during sliding

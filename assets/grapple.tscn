@@ -27,7 +27,7 @@ size = Vector3(0.05, 0.125, 0.05)
 size = Vector3(0.055, 0.19, 0.365)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t875q"]
-size = Vector3(0.155, 0.29, 0.465)
+size = Vector3(0.155, 1.97875, 2.50599)
 
 [node name="Grapple" type="RigidBody3D" groups=["PObj", "Respawnable"]]
 collision_layer = 68
@@ -54,7 +54,7 @@ shape = SubResource("BoxShape3D_58j56")
 collision_layer = 4
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.06, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.224929, -0.0221313)
 shape = SubResource("BoxShape3D_t875q")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
