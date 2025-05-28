@@ -26,6 +26,14 @@ offset_right = 334.0
 offset_bottom = 121.0
 text = "SinglePlayer"
 
+[node name="lv1 test button" type="Button" parent="MainMenu"]
+layout_mode = 0
+offset_left = 954.0
+offset_top = 590.0
+offset_right = 1148.0
+offset_bottom = 646.0
+text = "[Placeholder lv1]"
+
 [node name="MP" type="Button" parent="MainMenu"]
 layout_mode = 0
 offset_left = 140.0

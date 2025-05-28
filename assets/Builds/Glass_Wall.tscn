@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://cs2hpvrls2xr5"]
+
+[ext_resource type="Shader" uid="uid://br564q6pe7d8i" path="res://shader/Glass_Wall.gdshader" id="1_eqbat"]
+[ext_resource type="Shader" uid="uid://c2m7cmlyutdm4" path="res://shader/StandardBlockTexture.gdshader" id="2_q4ypo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_50b7c"]
+render_priority = 0
+shader = ExtResource("1_eqbat")
+shader_parameter/albedo = Color(1, 1, 1, 0)
+shader_parameter/roughness = 0.15
+shader_parameter/normal_strength = 1.0
+shader_parameter/edge_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_grrlo"]
+render_priority = 0
+shader = ExtResource("2_q4ypo")
+shader_parameter/LineW = 0.2
+shader_parameter/texSize = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rtdba"]
+render_priority = 0
+shader = ExtResource("2_q4ypo")
+shader_parameter/LineW = 0.2
+shader_parameter/texSize = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ms3yn"]
+render_priority = 0
+shader = ExtResource("2_q4ypo")
+shader_parameter/LineW = 0.2
+shader_parameter/texSize = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_frji1"]
+render_priority = 0
+shader = ExtResource("2_q4ypo")
+shader_parameter/LineW = 0.2
+shader_parameter/texSize = 5.0
+
+[node name="Glasswall" type="Node3D"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.24274)
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.454832, 1.00751, 2.55345)
+use_collision = true
+size = Vector3(0.0913086, 2.98492, 6.10791)
+material = SubResource("ShaderMaterial_50b7c")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45933, 3.00177, 2.55085)
+use_collision = true
+size = Vector3(0.71582, 1, 7.19928)
+material = SubResource("ShaderMaterial_grrlo")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.459, -0.998651, 2.55461)
+use_collision = true
+size = Vector3(0.71582, 1, 7.19147)
+material = SubResource("ShaderMaterial_rtdba")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.462981, 0.497115, 5.88484)
+use_collision = true
+size = Vector3(0.71582, 0.531738, 4.0159)
+material = SubResource("ShaderMaterial_ms3yn")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.461992, 1.09296, -0.779486)
+use_collision = true
+size = Vector3(0.71582, 0.531738, 4.66227)
+material = SubResource("ShaderMaterial_frji1")
