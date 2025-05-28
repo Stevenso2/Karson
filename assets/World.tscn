@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bt6sc561jqijy"]
+[gd_scene load_steps=29 format=3 uid="uid://bt6sc561jqijy"]
 
 [ext_resource type="PackedScene" uid="uid://4r8al3ot2h5v" path="res://assets/player.tscn" id="1_321kd"]
 [ext_resource type="Script" uid="uid://bxtple08e04jh" path="res://scrips/world.gd" id="1_x3gwp"]
@@ -52,6 +52,12 @@ size = Vector3(30, 30, 1)
 map_width = 21
 map_depth = 21
 map_data = PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r2gn0"]
+render_priority = 0
+shader = ExtResource("2_lnj3o")
+shader_parameter/LineW = 0.1
+shader_parameter/texSize = 0.75
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lnj3o"]
 render_priority = 0
@@ -107,12 +113,77 @@ skeleton = NodePath("../..")
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 shape = SubResource("HeightMapShape3D_p3buv")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Terrain"]
+[node name="CSGBox3D2" type="CSGBox3D" parent="Terrain" groups=["WallJumpable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 6.5, -60.5)
+use_collision = true
+collision_layer = 128
+collision_mask = 0
+size = Vector3(1, 14, 30)
+material = SubResource("ShaderMaterial_r2gn0")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Terrain" groups=["WallJumpable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 6.5, -30.5)
+use_collision = true
+collision_layer = 128
+collision_mask = 0
+size = Vector3(1, 14, 30)
+material = SubResource("ShaderMaterial_r2gn0")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Terrain" groups=["WallJumpable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 6.5, -0.5)
 use_collision = true
 collision_layer = 128
 collision_mask = 0
 size = Vector3(1, 14, 30)
+material = SubResource("ShaderMaterial_r2gn0")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Terrain" groups=["WallJumpable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5, -30.5)
+use_collision = true
+collision_layer = 128
+collision_mask = 0
+size = Vector3(1, 14, 30)
+material = SubResource("ShaderMaterial_r2gn0")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Terrain" groups=["WallJumpable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5, -60.5)
+use_collision = true
+collision_layer = 128
+collision_mask = 0
+size = Vector3(1, 14, 30)
+material = SubResource("ShaderMaterial_r2gn0")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Terrain" groups=["WallJumpable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 6.5, -120.5)
+use_collision = true
+collision_layer = 128
+collision_mask = 0
+size = Vector3(1, 14, 30)
+material = SubResource("ShaderMaterial_r2gn0")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Terrain" groups=["WallJumpable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 6.5, -90.5)
+use_collision = true
+collision_layer = 128
+collision_mask = 0
+size = Vector3(1, 14, 30)
+material = SubResource("ShaderMaterial_r2gn0")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Terrain" groups=["WallJumpable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5, -90.5)
+use_collision = true
+collision_layer = 128
+collision_mask = 0
+size = Vector3(1, 14, 30)
+material = SubResource("ShaderMaterial_r2gn0")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Terrain" groups=["WallJumpable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5, -120.5)
+use_collision = true
+collision_layer = 128
+collision_mask = 0
+size = Vector3(1, 14, 30)
+material = SubResource("ShaderMaterial_r2gn0")
 
 [node name="Button" parent="." instance=ExtResource("2_j6cc0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -7)

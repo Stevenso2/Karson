@@ -33,6 +33,7 @@ SG-Jump="Shotgun Jump surface"
 Stunable="PObj that can be stuned"
 Respawnable="This Object has a Respawn Function"
 GG-Pull="Grapple Pull surface"
+WallJumpable="This makes a Surface wall Jumpable"
 
 [gui]
 

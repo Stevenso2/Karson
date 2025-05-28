@@ -133,7 +133,7 @@ func _process(_delta):
 	if Input.is_action_just_pressed("intercat") and not global.DEV:
 		print("intercat test")
 		var interact: Area3D = shotgun_ray.get_collider()
-		if interact.is_class("Area3D"):
+		if interact and interact.is_class("Area3D"):
 			if interact.get_parent().has_method("Intercat"):
 				print("intercat")
 				interact.get_parent().Intercat()
@@ -151,7 +151,7 @@ func _process(_delta):
 			AllowInteractions = true
 
 	# Stop sliding when the Ctrl key is released.
-	elif Input.is_action_just_released("sliding test") and is_sliding:
+	elif not Input.is_action_pressed("sliding test") and is_sliding and is_on_floor():
 		is_sliding = false
 		camera_3d.position.y = NORMAL_HEIGHT  # Reset camera position
 
@@ -188,17 +188,21 @@ func _physics_process(delta: float) -> void:
 		if is_sliding:
 			move_speed = SLIDE_SPEED
 	
-		if is_on_wall_only() and Input.is_action_pressed("U") and wall_jump_timer.time_left <= 0:
-			grav *= 1.25
+		if is_on_wall_only() and Input.is_action_pressed("U") and wall_jump_timer.time_left <= 0 and get_slide_collision(0).get_collider().is_in_group("WallJumpable") :
+			#grav *= 1.25
 			print("help")
-			if velocity.length() > 2 :
-				velocity.y += JUMP_VELOCITY/30
-				wall_jump_timer.start(0.5)
-			else:
-				var bounce_angle: Vector3 = get_slide_collision(0).get_normal()
+			var bounce_angle: Vector3 = get_slide_collision(0).get_normal()
+			var DeltaAngle = abs(int(rad_to_deg(Vector2(bounce_angle.x, bounce_angle.z).angle_to(Vector2.UP)) - rad_to_deg(rotation.y)) % 180)
+			print(DeltaAngle)
+			if is_sliding and 110 > DeltaAngle and DeltaAngle > 70:
+				print("end help")
 				velocity.y += (JUMP_VELOCITY / 30)
-				velocity += bounce_angle * 6
-				wall_jump_timer.start(0.5)
+				velocity += bounce_angle * 15
+				wall_jump_timer.start(1)
+			else:
+				print("start help")
+				velocity.y += JUMP_VELOCITY/30
+				wall_jump_timer.start(2)
 
 		if direction:
 			if is_on_floor():

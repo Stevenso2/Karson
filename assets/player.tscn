@@ -1591,6 +1591,7 @@ debug_shape_custom_color = Color(0.723534, 0.0189381, 4.81307e-07, 1)
 debug_shape_thickness = 5
 
 [node name="ShotgunRay" type="RayCast3D" parent="Camera3D"]
+visible = false
 target_position = Vector3(0, 0, -6)
 collision_mask = 64
 hit_from_inside = true
