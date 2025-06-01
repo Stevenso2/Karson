@@ -2,9 +2,11 @@ extends Node3D
 
 @onready var main_menu: Control = $MainMenu
 @onready var mp_menu: Control = $MPMenu
+@onready var lv_menu: Control = $Lv_Select
 
 @onready var sp: Button = $MainMenu/SP
-@onready var lv1_test: Button = $"MainMenu/lv1 test button" # change the name or remove if a proper name is added or a proper lv screen exists
+@onready var lv1: Button = $"Lv_Select/lv1"
+@onready var debug_lv: Button = $"Lv_Select/debug_lv"
 @onready var mp: Button = $MainMenu/MP
 @onready var conf: Button = $MainMenu/Conf
 @onready var quit: Button = $MainMenu/Quit
@@ -12,7 +14,7 @@ extends Node3D
 @onready var host: Button = $MPMenu/Host
 @onready var join: Button = $MPMenu/Join
 @onready var MPreturn: Button = $MPMenu/MPReturn
-
+@onready var lv_return: Button = $Lv_Select/Lv_Return
 func _ready() -> void:
 	request_timer.timeout.connect(getServs)
 		
@@ -34,15 +36,24 @@ var serv: Dictionary
 
 func _process(_delta: float) -> void:
 	if sp.button_pressed:
-		global.ingame = true
-		get_tree().change_scene_to_file("res://assets/World.tscn")
+		main_menu.hide()
+		lv_menu.show()
+	
+	if lv_return.button_pressed:
+		main_menu.show()
+		lv_menu.hide()
+		
 	if mp.button_pressed:
 		main_menu.hide()
 		mp_menu.show()
 		
-	if lv1_test.button_pressed: # remove if a proper lv screen is added
+	if lv1.button_pressed: 
 		global.ingame = true
 		get_tree().change_scene_to_file("res://Level/lv_1.tscn")
+	
+	if debug_lv.button_pressed:
+		global.ingame = true
+		get_tree().change_scene_to_file("res://assets/World.tscn")
 		
 	if host.button_pressed:
 		mp_menu.hide()
