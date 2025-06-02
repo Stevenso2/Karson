@@ -4,6 +4,7 @@ extends Node3D
 @onready var mp_menu: Control = $MPMenu
 
 @onready var sp: Button = $MainMenu/SP
+@onready var lv1_test: Button = $"MainMenu/lv1 test button" # change the name or remove if a proper name is added or a proper lv screen exists
 @onready var mp: Button = $MainMenu/MP
 @onready var conf: Button = $MainMenu/Conf
 @onready var quit: Button = $MainMenu/Quit
@@ -39,6 +40,10 @@ func _process(_delta: float) -> void:
 		main_menu.hide()
 		global.GetFreePort()
 		mp_menu.show()
+		
+	if lv1_test.button_pressed: # remove if a proper lv screen is added
+		global.ingame = true
+		get_tree().change_scene_to_file("res://Level/lv_1.tscn")
 		
 	if host.button_pressed:
 		mp_menu.hide()

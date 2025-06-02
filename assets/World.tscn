@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dnfu5hv4qqhid" path="res://assets/PObj/door.tscn" id="3_sp64g"]
 [ext_resource type="PackedScene" uid="uid://cqes48qd4mb6" path="res://assets/Builds/Box for Billy.tscn" id="3_xckp5"]
 [ext_resource type="PackedScene" uid="uid://mta7k70g720y" path="res://assets/LDO/timer.tscn" id="4_1favq"]
+[ext_resource type="PackedScene" uid="uid://cs2hpvrls2xr5" path="res://assets/Builds/Glass_Wall.tscn" id="5_fu6kp"]
 [ext_resource type="PackedScene" uid="uid://d2djyky5dsmv4" path="res://assets/PObj/Billy.tscn" id="5_rh5yp"]
 [ext_resource type="PackedScene" uid="uid://m1rb473hgphq" path="res://assets/PObj/box.tscn" id="5_xun4y"]
 [ext_resource type="PackedScene" uid="uid://b1yr3xke4n4bu" path="res://assets/LDO/LogicGate.tscn" id="6_8gvu8"]
@@ -23,12 +24,12 @@
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
-[sub_resource type="Sky" id="Sky_vmpgl"]
+[sub_resource type="Sky" id="Sky_fu6kp"]
 sky_material = SubResource("ProceduralSkyMaterial_lkl0i")
 
 [sub_resource type="Environment" id="Environment_4k3r8"]
 background_mode = 2
-sky = SubResource("Sky_vmpgl")
+sky = SubResource("Sky_fu6kp")
 tonemap_mode = 2
 glow_enabled = true
 
@@ -184,6 +185,9 @@ collision_layer = 128
 collision_mask = 0
 size = Vector3(1, 14, 30)
 material = SubResource("ShaderMaterial_r2gn0")
+
+[node name="Glasswall" parent="Terrain" instance=ExtResource("5_fu6kp")]
+transform = Transform3D(-3.49691e-08, 0, 0.8, 0, 0.8, 0, -0.8, 0, -3.49691e-08, 11.8716, 1.19182, 14.3413)
 
 [node name="Button" parent="." instance=ExtResource("2_j6cc0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -7)

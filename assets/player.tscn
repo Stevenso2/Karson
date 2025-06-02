@@ -9,6 +9,10 @@
 radius = 0.3
 height = 1.8
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rug40"]
+radius = 0.419992
+height = 0.917648
+
 [sub_resource type="Animation" id="Animation_mxi64"]
 length = 0.001
 tracks/0/type = "value"
@@ -1565,6 +1569,11 @@ script = ExtResource("1_enlmb")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_irju7")
 
+[node name="Sliding_Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011, 0.445003, -0.061)
+shape = SubResource("CapsuleShape3D_rug40")
+disabled = true
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.69, -0.19)
 current = true
@@ -1650,7 +1659,7 @@ bones/3/name = "Hips"
 bones/3/parent = 2
 bones/3/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.73472e-18, -0.0036832, -0.000411832)
 bones/3/enabled = true
-bones/3/position = Vector3(-1.73472e-18, -0.0036832, -0.000411832)
+bones/3/position = Vector3(0.117306, -1.03609, -0.0577894)
 bones/3/rotation = Quaternion(0, 0, 0, 1)
 bones/3/scale = Vector3(0.999999, 0.999999, 0.999998)
 bones/4/name = "Spine"
@@ -1906,7 +1915,7 @@ skin = SubResource("Skin_hvdor")
 mesh = SubResource("ArrayMesh_qcw8p")
 skin = SubResource("Skin_hvdor")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Karlson"]
+[node name="BodyAnimationPlayer" type="AnimationPlayer" parent="Karlson"]
 libraries = {
 &"": SubResource("AnimationLibrary_6ljmh")
 }

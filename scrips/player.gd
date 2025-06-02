@@ -16,15 +16,18 @@ extends CharacterBody3D
 
 @onready var ReadyTimer = $Camera3D/ReadySateTimer
 @onready var slomo_timer: Timer = $"Slomo Timer"
-
 @onready var pmp_sync: MultiplayerSynchronizer = $PMP_sync
-
 @onready var wall_jump_timer: Timer = $"WallJump Timer"
+
+#To make sliding work better
+@onready var collision_shape: CollisionShape3D = $CollisionShape3D
+@onready var sliding_collision: CollisionShape3D = $Sliding_Collision
+@onready var body_anim_player: AnimationPlayer = $Karlson/BodyAnimationPlayer
 
 @export var accelaration = 10
 @export var decelaration = 0.02
 
-const SGJUMP = 1200.0
+const SGJUMP = 950.0
 const SPEED = 500.0
 const JUMP_VELOCITY = 300.0
 const SLIDE_SPEED = 1000.0  # increased speed during sliding
@@ -58,6 +61,7 @@ var is_sliding: bool = false
 var is_crouching: bool = false  # track if the player is crouching
 
 func _ready():
+	global.transition = $Karlson/BodyAnimationPlayer # used for making the sliding now work properly 
 	RESPAWN_POS = position
 	RESPAWN_ROT = rotation
 
@@ -142,7 +146,16 @@ func _process(_delta):
 	
 	if Input.is_action_pressed("sliding test") and is_on_floor() and not is_sliding and not global.DEV:
 		is_sliding = true
-		camera_3d.position.y = SLIDE_HEIGHT  # Lower camera position to simulate crouch
+		camera_3d.position.y = SLIDE_HEIGHT  # Lower camera position to simulate crouch < del if animation works
+		
+		#animation play
+		body_anim_player.play("slide")
+		
+		#switch collisionshapes 
+		sliding_collision.disabled = false
+		collision_shape.disabled = true
+		
+		
 		if sg_anim_player.assigned_animation == "SG Ready":
 			sg_anim_player.play("SG Chill")
 			AllowInteractions = true
@@ -152,8 +165,16 @@ func _process(_delta):
 
 	# Stop sliding when the Ctrl key is released.
 	elif not Input.is_action_pressed("sliding test") and is_sliding and is_on_floor():
+    # reset collision shapes 
+		sliding_collision.disabled = true
+		collision_shape.disabled = false
 		is_sliding = false
-		camera_3d.position.y = NORMAL_HEIGHT  # Reset camera position
+		camera_3d.position.y = NORMAL_HEIGHT  # Reset camera position < del if animation works
+		
+		
+		
+		#reset animation
+		body_anim_player.play("Walk")
 
 func _physics_process(delta: float) -> void:
 	delta += 0.000001
