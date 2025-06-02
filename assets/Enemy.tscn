@@ -5,8 +5,9 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2gy7t"]
 absorbent = true
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_pcgg1"]
-size = Vector3(2.97748, 11.4073, 1.78241)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2gy7t"]
+radius = 1.2
+height = 11.2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2n15d"]
 
@@ -930,22 +931,26 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_rhxf4")
 
-[node name="Enemy" type="RigidBody3D" groups=["PObj", "Stunable"]]
-collision_layer = 68
-collision_mask = 133
-mass = 30.0
+[node name="Enemy" type="RigidBody3D" groups=["PObj", "Respawnable", "Stunable"]]
+top_level = true
+collision_layer = 70
+collision_mask = 135
+mass = 4.0
 physics_material_override = SubResource("PhysicsMaterial_2gy7t")
+linear_damp = 1.0
 script = ExtResource("1_2gy7t")
+speed = 300.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["PObj", "Stunable"]]
-transform = Transform3D(-0.2, 0, 1.74846e-08, 0, 0.2, 0, -1.74846e-08, 0, -0.2, 0.015155, 1.13959, 0.0332458)
-shape = SubResource("BoxShape3D_pcgg1")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-0.2, 0, 1.74846e-08, 0, 0.2, 0, -1.74846e-08, 0, -0.2, 0, -0.383, 0.03)
+shape = SubResource("CapsuleShape3D_2gy7t")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
 one_shot = true
 
 [node name="Enemy" type="Node3D" parent="."]
-transform = Transform3D(-0.2, 0, 1.74846e-08, 0, 0.2, 0, -1.74846e-08, 0, -0.2, 0, 0, 0)
+transform = Transform3D(-0.2, 0, 1.74846e-08, 0, 0.2, 0, -1.74846e-08, 0, -0.2, 0, -1.6, 0)
 
 [node name="Skeleton3D" type="Skeleton3D" parent="Enemy"]
 bones/0/name = "Armature"

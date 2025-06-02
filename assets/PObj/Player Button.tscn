@@ -1,0 +1,101 @@
+[gd_scene load_steps=11 format=3 uid="uid://bncrfpkimvq6d"]
+
+[ext_resource type="Script" uid="uid://bj4buyv44j73g" path="res://scrips/player_button.gd" id="1_e6ne4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6fwqn"]
+size = Vector3(0.35, 0.15, 0.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0vhju"]
+size = Vector3(1, 0.25, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ljk1j"]
+size = Vector3(0.5, 1.25, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dcs6f"]
+size = Vector3(0.35, 0.15, 0.35)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uxbfs"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_w8v3l"]
+material = SubResource("StandardMaterial3D_uxbfs")
+size = Vector3(0.35, 0.15, 0.35)
+
+[sub_resource type="Animation" id="Animation_n72te"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ButtonFace:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.23, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_e6ne4"]
+resource_name = "intercat"
+length = 0.333335
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ButtonFace:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.23, 0), Vector3(0, 1.18, 0), Vector3(0, 1.23, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ru0tm"]
+_data = {
+&"RESET": SubResource("Animation_n72te"),
+&"intercat": SubResource("Animation_e6ne4")
+}
+
+[node name="Button" type="StaticBody3D"]
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("1_e6ne4")
+
+[node name="InteractArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23, 0)
+collision_layer = 66
+collision_mask = 5
+
+[node name="MoveCollision" type="CollisionShape3D" parent="InteractArea"]
+shape = SubResource("BoxShape3D_6fwqn")
+
+[node name="ButtonBaseMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 5, 0, 0, 0, 0.5, 0, 0.625, 0)
+mesh = SubResource("BoxMesh_0vhju")
+
+[node name="ButtonBaseCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625, 0)
+shape = SubResource("BoxShape3D_ljk1j")
+
+[node name="ButtonFace" type="StaticBody3D" parent="." groups=["PObj"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="ButtonFaceMesh" type="CollisionShape3D" parent="ButtonFace"]
+shape = SubResource("BoxShape3D_dcs6f")
+
+[node name="ButtonFaceCollision" type="MeshInstance3D" parent="ButtonFace"]
+mesh = SubResource("BoxMesh_w8v3l")
+skeleton = NodePath("")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ru0tm")
+}
+
+[connection signal="body_entered" from="InteractArea" to="." method="move_area_entered"]
+[connection signal="body_exited" from="InteractArea" to="." method="move_area_exited"]

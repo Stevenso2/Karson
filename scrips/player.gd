@@ -16,13 +16,13 @@ extends CharacterBody3D
 
 @onready var ReadyTimer = $Camera3D/ReadySateTimer
 @onready var slomo_timer: Timer = $"Slomo Timer"
+@onready var pmp_sync: MultiplayerSynchronizer = $PMP_sync
+@onready var wall_jump_timer: Timer = $"WallJump Timer"
 
 #To make sliding work better
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 @onready var sliding_collision: CollisionShape3D = $Sliding_Collision
 @onready var body_anim_player: AnimationPlayer = $Karlson/BodyAnimationPlayer
-
-var mp_sync 
 
 @export var accelaration = 10
 @export var decelaration = 0.02
@@ -52,6 +52,8 @@ var rot_y = 0
 
 var devPos: Vector3
 var devspeed = 0.1
+
+var grav = Vector3(0,-1,0)
 
 var move_speed = SPEED
 #var direction:int = 0
@@ -95,6 +97,8 @@ func Camara(event):
 		rotation_degrees.y = rot_y
 
 func _process(_delta):
+	grav = get_gravity()
+	
 	if is_sliding:
 		move_speed = SLIDE_SPEED
 	
@@ -129,6 +133,14 @@ func _process(_delta):
 				global.slow = true
 				# take time / slomo ammount to get real time
 				slomo_timer.start(5.0 / 4.0)
+				
+	if Input.is_action_just_pressed("intercat") and not global.DEV:
+		print("intercat test")
+		var interact: Area3D = shotgun_ray.get_collider()
+		if interact and interact.is_class("Area3D"):
+			if interact.get_parent().has_method("Intercat"):
+				print("intercat")
+				interact.get_parent().Intercat()
 	
 	#Character slide test VERY WIP
 	
@@ -152,11 +164,10 @@ func _process(_delta):
 			AllowInteractions = true
 
 	# Stop sliding when the Ctrl key is released.
-	elif Input.is_action_just_released("sliding test") and is_sliding:
-		# reset collision shapes 
+	elif not Input.is_action_pressed("sliding test") and is_sliding and is_on_floor():
+    # reset collision shapes 
 		sliding_collision.disabled = true
 		collision_shape.disabled = false
-		
 		is_sliding = false
 		camera_3d.position.y = NORMAL_HEIGHT  # Reset camera position < del if animation works
 		
@@ -183,7 +194,7 @@ func _physics_process(delta: float) -> void:
 		
 		# Add the gravity.
 		if not is_on_floor():
-			velocity += get_gravity() * delta
+			velocity += grav * delta
 		
 		# Handle jump.
 		if Input.is_action_just_pressed("U") and is_on_floor():
@@ -197,13 +208,40 @@ func _physics_process(delta: float) -> void:
 		move_speed = SPEED
 		if is_sliding:
 			move_speed = SLIDE_SPEED
+	
+		if is_on_wall_only() and Input.is_action_pressed("U") and wall_jump_timer.time_left <= 0 and get_slide_collision(0).get_collider().is_in_group("WallJumpable") :
+			#grav *= 1.25
+			print("help")
+			var bounce_angle: Vector3 = get_slide_collision(0).get_normal()
+			var DeltaAngle = abs(int(rad_to_deg(Vector2(bounce_angle.x, bounce_angle.z).angle_to(Vector2.UP)) - rad_to_deg(rotation.y)) % 180)
+			print(DeltaAngle)
+			if is_sliding and 110 > DeltaAngle and DeltaAngle > 70:
+				print("end help")
+				velocity.y += (JUMP_VELOCITY / 30)
+				velocity += bounce_angle * 15
+				wall_jump_timer.start(1)
+			else:
+				print("start help")
+				velocity.y += JUMP_VELOCITY/30
+				wall_jump_timer.start(2)
 
 		if direction:
 			if is_on_floor():
-				var ground_vel = Vector2(direction.x, direction.y).rotated(-rotation.y) * move_speed * delta
-				velocity = Vector3(ground_vel.x, velocity.y, ground_vel.y) / accel
-				if accel > 1:
-					accel -= 1
+				if velocity.length() < 9:
+					var ground_vel = Vector2(direction.x, direction.y).rotated(-rotation.y) * move_speed * delta
+					velocity = Vector3(ground_vel.x, velocity.y, ground_vel.y) / accel 
+					if accel > 1:
+						accel -= 1
+				else:
+					var normVel = Vector2(velocity.x, velocity.z).normalized()
+					var VelAngle = normVel.angle_to(Vector2.UP)
+					var newVel = Vector2(velocity.x, velocity.z).rotated(VelAngle)
+					var ground_vel = Vector2(direction.x, direction.y).rotated(-rotation.y + VelAngle) * move_speed * delta
+					newVel.x = (newVel.x + ground_vel.x/10)
+					newVel.y = (newVel.y + ground_vel.y/100)
+					newVel = newVel.rotated(-VelAngle)
+					velocity.z = move_toward(newVel.y, 0, decelaration*7)
+					velocity.x = move_toward(newVel.x, 0, decelaration*7)
 			else:
 				var normVel = Vector2(velocity.x, velocity.z).normalized()
 				var VelAngle = normVel.angle_to(Vector2.UP)
@@ -216,8 +254,8 @@ func _physics_process(delta: float) -> void:
 		else:
 			if is_on_floor():
 				accel = accelaration
-				velocity.z = move_toward(velocity.z, 0, decelaration*20)
-				velocity.x = move_toward(velocity.x, 0, decelaration*20)
+				velocity.z = move_toward(velocity.z, 0, decelaration*10)
+				velocity.x = move_toward(velocity.x, 0, decelaration*10)
 			else:
 				accel = accelaration
 				velocity.z = move_toward(velocity.z, 0, decelaration)
@@ -242,7 +280,7 @@ func _physics_process(delta: float) -> void:
 					if GGSeenObj.is_in_group("SG-Jump"):
 						velocity = -(shotgun_ray.get_collision_point() - shotgun_ray.global_position).normalized() * SGJUMP * AppliedDelta
 					if GGSeenObj.is_in_group("Stunable"):
-						GGSeenObj.stun.start(1)
+						GGSeenObj.stun.start()
 					
 		if Input.is_action_just_released("Shoot"):
 			grapple_rope.hide()
@@ -251,7 +289,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_pressed("Shoot"):
 			if HasGG and global.current_Block == global.INV.GraplingGun:
 				if GGSeenObj:
-					var contact
+					var contact = Vector3(0,0,0)
 					if GGSeenObj.is_in_group("GG-Pull"):
 						if GGcontact != Vector3.ZERO:
 							contact = GGcontact
@@ -318,6 +356,7 @@ func GGSwing(ContactPos: Vector3, AppliedDelta):
 		position -= radial_vector * 10 * AppliedDelta
 
 func Respawn():
+	print("Player " + str(name) + " has respawned")
 	position = RESPAWN_POS
 	rotation = RESPAWN_ROT
 	camera_3d.rotation_degrees.x = 0
