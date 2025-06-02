@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bt6sc561jqijy"]
+[gd_scene load_steps=30 format=3 uid="uid://bt6sc561jqijy"]
 
 [ext_resource type="PackedScene" uid="uid://4r8al3ot2h5v" path="res://assets/player.tscn" id="1_321kd"]
 [ext_resource type="Script" uid="uid://bxtple08e04jh" path="res://scrips/world.gd" id="1_x3gwp"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://cyu7vqyj32sg5" path="res://assets/LDO/grapple_pull_surface.tscn" id="15_lp28i"]
 [ext_resource type="PackedScene" uid="uid://bncrfpkimvq6d" path="res://assets/PObj/Player Button.tscn" id="18_fu6kp"]
 [ext_resource type="PackedScene" uid="uid://b7yvb51yo2bbm" path="res://assets/LDO/live_area.tscn" id="18_r2gn0"]
+[ext_resource type="PackedScene" uid="uid://c3ov51xkh7gxk" path="res://assets/Builds/wallrun_wall.tscn" id="20_o1wuh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lkl0i"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -273,6 +274,9 @@ mass = 25.0
 
 [node name="Live area" parent="." instance=ExtResource("18_r2gn0")]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+
+[node name="Wallrun wall" parent="." instance=ExtResource("20_o1wuh")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 15.2292, 0.740373, 8.27784)
 
 [node name="Button2" parent="." instance=ExtResource("18_fu6kp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1, 0, -4.9)

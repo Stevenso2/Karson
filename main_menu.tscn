@@ -26,14 +26,6 @@ offset_right = 334.0
 offset_bottom = 121.0
 text = "SinglePlayer"
 
-[node name="lv1 test button" type="Button" parent="MainMenu"]
-layout_mode = 0
-offset_left = 954.0
-offset_top = 590.0
-offset_right = 1148.0
-offset_bottom = 646.0
-text = "[Placeholder lv1]"
-
 [node name="MP" type="Button" parent="MainMenu"]
 layout_mode = 0
 offset_left = 140.0
@@ -57,6 +49,38 @@ offset_top = 515.0
 offset_right = 334.0
 offset_bottom = 571.0
 text = "Quit
+"
+
+[node name="Lv_Select" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Lv_Return" type="Button" parent="Lv_Select"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 589.0
+offset_right = 192.0
+offset_bottom = 645.0
+text = "Return"
+
+[node name="lv1" type="Button" parent="Lv_Select"]
+layout_mode = 0
+offset_left = 118.0
+offset_top = 84.0
+offset_right = 312.0
+offset_bottom = 140.0
+text = "lv1"
+
+[node name="debug_lv" type="Button" parent="Lv_Select"]
+layout_mode = 0
+offset_left = 958.0
+offset_top = 588.0
+offset_right = 1152.0
+offset_bottom = 644.0
+text = "lv_debug
 "
 
 [node name="MPMenu" type="Control" parent="."]

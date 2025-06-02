@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3ov51xkh7gxk"]
+
+[ext_resource type="Shader" uid="uid://c2m7cmlyutdm4" path="res://shader/StandardBlockTexture.gdshader" id="1_utt7k"]
+[ext_resource type="Shader" uid="uid://cky7qod0l0xpp" path="res://shader/Glow.gdshader" id="2_nnb68"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_paxue"]
+render_priority = 0
+shader = ExtResource("1_utt7k")
+shader_parameter/LineW = 0.2
+shader_parameter/texSize = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3sun7"]
+render_priority = 0
+shader = ExtResource("1_utt7k")
+shader_parameter/LineW = 0.2
+shader_parameter/texSize = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_02cap"]
+render_priority = 0
+shader = ExtResource("2_nnb68")
+shader_parameter/box_size = Vector3(600, 600, 600)
+shader_parameter/Glowness = 2.0
+shader_parameter/bness = 1.0
+shader_parameter/fall_off_scale = 3.0
+shader_parameter/b_offset = 0.0
+
+[node name="Wallrun wall" type="Node3D"]
+
+[node name="actual wall" type="CSGCombiner3D" parent="."]
+material_override = SubResource("ShaderMaterial_paxue")
+material_overlay = SubResource("ShaderMaterial_3sun7")
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="actual wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0267334, 1.80896, -0.352768)
+size = Vector3(0.751709, 4.61792, 10.0702)
+
+[node name="Glow part" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0.00148964, -0.467906, -0.195345)
+material_override = SubResource("ShaderMaterial_02cap")
+cast_shadow = 0
+lod_bias = 0.001
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Glow part"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0.0225392, 1.39281, 2.0547)
+size = Vector3(0.634445, 0.383789, 1.98608)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Glow part"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0.0231077, 2.53096, 2.058)
+size = Vector3(0.639221, 0.383789, 1.98608)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Glow part"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0.0225392, 1.39281, -2.37398)
+size = Vector3(0.634445, 0.383789, 1.98608)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Glow part"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0.0231077, 2.53096, -2.37068)
+size = Vector3(0.639221, 0.383789, 1.98608)
