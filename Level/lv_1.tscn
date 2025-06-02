@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=21 format=3 uid="uid://dycmlui6ttdsm"]
+=======
+[gd_scene load_steps=22 format=3 uid="uid://dycmlui6ttdsm"]
+>>>>>>> Stashed changes
 
 [ext_resource type="Shader" uid="uid://c2m7cmlyutdm4" path="res://shader/StandardBlockTexture.gdshader" id="1_nbn6y"]
 [ext_resource type="PackedScene" uid="uid://4r8al3ot2h5v" path="res://assets/player.tscn" id="1_wv4wt"]
@@ -15,6 +19,10 @@
 [ext_resource type="PackedScene" uid="uid://erooj15k8tku" path="res://assets/shotgun.tscn" id="13_a2m16"]
 [ext_resource type="PackedScene" uid="uid://dm131e14e5471" path="res://assets/LDO/shotgun_jump_surface.tscn" id="14_a2m16"]
 [ext_resource type="PackedScene" uid="uid://b7yvb51yo2bbm" path="res://assets/LDO/live_area.tscn" id="15_kx4bw"]
+<<<<<<< Updated upstream
+=======
+[ext_resource type="PackedScene" uid="uid://e0ahwt68pno1" path="res://assets/Milk.tscn" id="16_j64bj"]
+>>>>>>> Stashed changes
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wv4wt"]
 sky_top_color = Color(0.585844, 0.652486, 0.745333, 1)
@@ -400,3 +408,9 @@ transform = Transform3D(-0.00748739, 0, 0.999972, 0, 1, 0, -0.999972, 0, -0.0074
 
 [node name="ShotgunJumpSurface24" parent="." instance=ExtResource("14_a2m16")]
 transform = Transform3D(-0.00748739, 0, 0.999972, 0, 1, 0, -0.999972, 0, -0.00748739, -38.2103, 28.6477, -186.249)
+<<<<<<< Updated upstream
+=======
+
+[node name="Milk" parent="." instance=ExtResource("16_j64bj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.9, 30.7, -252.6)
+>>>>>>> Stashed changes

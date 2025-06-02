@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=30 format=3 uid="uid://bt6sc561jqijy"]
+=======
+[gd_scene load_steps=33 format=3 uid="uid://bt6sc561jqijy"]
+>>>>>>> Stashed changes
 
 [ext_resource type="PackedScene" uid="uid://4r8al3ot2h5v" path="res://assets/player.tscn" id="1_321kd"]
 [ext_resource type="Script" uid="uid://bxtple08e04jh" path="res://scrips/world.gd" id="1_x3gwp"]
@@ -20,6 +24,11 @@
 [ext_resource type="PackedScene" uid="uid://bncrfpkimvq6d" path="res://assets/PObj/Player Button.tscn" id="18_fu6kp"]
 [ext_resource type="PackedScene" uid="uid://b7yvb51yo2bbm" path="res://assets/LDO/live_area.tscn" id="18_r2gn0"]
 [ext_resource type="PackedScene" uid="uid://c3ov51xkh7gxk" path="res://assets/Builds/wallrun_wall.tscn" id="20_o1wuh"]
+<<<<<<< Updated upstream
+=======
+[ext_resource type="PackedScene" uid="uid://e0ahwt68pno1" path="res://assets/Milk.tscn" id="21_511c5"]
+[ext_resource type="PackedScene" uid="uid://dycmlui6ttdsm" path="res://Level/lv_1.tscn" id="22_hb4n5"]
+>>>>>>> Stashed changes
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lkl0i"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -281,3 +290,10 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 15.229
 [node name="Button2" parent="." instance=ExtResource("18_fu6kp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1, 0, -4.9)
 id = 1
+<<<<<<< Updated upstream
+=======
+
+[node name="Milk" parent="." instance=ExtResource("21_511c5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 13)
+Next_LVL = ExtResource("22_hb4n5")
+>>>>>>> Stashed changes
