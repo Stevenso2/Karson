@@ -165,11 +165,7 @@ func _process(_delta):
 
 	# Stop sliding when the Ctrl key is released.
 	elif not Input.is_action_pressed("sliding test") and is_sliding and is_on_floor():
-<<<<<<< Updated upstream
-    # reset collision shapes 
-=======
-	# reset collision shapes 
->>>>>>> Stashed changes
+	# reset collision shapes
 		sliding_collision.disabled = true
 		collision_shape.disabled = false
 		is_sliding = false

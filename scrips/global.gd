@@ -6,6 +6,13 @@ enum INV {
 	Void
 }
 
+var Level = {
+	"res://assets/World.tscn" = 0,
+	"res://Level/lv_1.tscn" = 1
+}
+var latestLevel: int = 0
+var save_file = FileAccess.open("user://savegame.save", FileAccess.WRITE)
+
 enum GateType {AND,NOR,XOR}
 
 var current_Block: INV = 0 as INV
@@ -37,6 +44,10 @@ var DEV = false
 signal PObj_IDTunnel(id, OnOff)
 
 func _ready() -> void:
+	print("err: " + str(save_file.get_open_error()))
+	print("sav: " + str(save_file.get_as_text()))
+	latestLevel = int(save_file.get_as_text())
+	print("laded to save" + str(latestLevel))
 	MPRecive.connect(PacketHandler)
 	MPSend.connect(PacketSender)
 	PObj_IDTunnel.connect(DebugLoging)
@@ -155,5 +166,13 @@ func GetFreePort():
 		print("Port has been set")
 	else: GetFreePort()
 
-func ChangeLV(file):
-	get_tree().change_scene_to_file(file)
+func ChangeLV(file: String):
+	print(file)
+	latestLevel = Level.get(file)
+	print(latestLevel)
+	var ret = save_file.store_line(str(latestLevel))
+	print(ret)
+	save_file.flush()
+	print(save_file.get_as_text())
+	var change = get_tree().change_scene_to_file.bind(file)
+	change.call_deferred()
