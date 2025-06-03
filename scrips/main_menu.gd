@@ -6,6 +6,7 @@ extends Node3D
 
 @onready var sp: Button = $MainMenu/SP
 @onready var lv1: Button = $"Lv_Select/lv1"
+@onready var lv2: Button = $"Lv_Select/lv2"
 @onready var debug_lv: Button = $"Lv_Select/debug_lv"
 @onready var mp: Button = $MainMenu/MP
 @onready var conf: Button = $MainMenu/Conf
@@ -51,6 +52,10 @@ func _process(_delta: float) -> void:
 	if lv1.button_pressed: 
 		global.ingame = true
 		get_tree().change_scene_to_file("res://Level/lv_1.tscn")
+		
+	if lv2.button_pressed:
+		global.ingame = true 
+		get_tree().change_scene_to_file("res://Level/lv_2.tscn")
 	
 	if debug_lv.button_pressed:
 		global.ingame = true

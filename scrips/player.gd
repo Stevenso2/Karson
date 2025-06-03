@@ -29,7 +29,7 @@ extends CharacterBody3D
 const SGJUMP = 950.0
 const SPEED = 500.0
 const JUMP_VELOCITY = 300.0
-const SLIDE_SPEED = 1000.0  # increased speed during sliding
+const SLIDE_SPEED = 750.0  # increased speed during sliding
 const SWING_SPEED = 600.0
 const SLIDE_HEIGHT = 0.5    # lower height when sliding
 const NORMAL_HEIGHT = 1.66  # normal height when not sliding
@@ -167,7 +167,7 @@ func _process(_delta):
 
 	# Stop sliding when the Ctrl key is released.
 	elif not Input.is_action_pressed("sliding test") and is_sliding and is_on_floor():
-	# reset collision shapes
+	# reset collision shapes 
 		sliding_collision.disabled = true
 		collision_shape.disabled = false
 		is_sliding = false
@@ -231,7 +231,7 @@ func _physics_process(delta: float) -> void:
 				#print("end help")
 				velocity.y += (JUMP_VELOCITY / 30)
 				velocity += bounce_angle * 15
-				wall_jump_timer.start(1)
+				wall_jump_timer.start(0.5)
 			else:
 				#print("start help")
 				velocity.y += JUMP_VELOCITY/30

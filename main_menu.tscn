@@ -35,6 +35,7 @@ offset_bottom = 271.0
 text = "MultiPlayer"
 
 [node name="Conf" type="Button" parent="MainMenu"]
+visible = false
 layout_mode = 0
 offset_left = 140.0
 offset_top = 365.0
@@ -72,7 +73,15 @@ offset_left = 118.0
 offset_top = 84.0
 offset_right = 312.0
 offset_bottom = 140.0
-text = "lv1"
+text = "lvl1"
+
+[node name="lv2" type="Button" parent="Lv_Select"]
+layout_mode = 0
+offset_left = 465.0
+offset_top = 86.0
+offset_right = 659.0
+offset_bottom = 142.0
+text = "lvl2"
 
 [node name="debug_lv" type="Button" parent="Lv_Select"]
 layout_mode = 0

@@ -26,7 +26,7 @@ shader_parameter/b_offset = 0.0
 
 [node name="Wallrun wall" type="Node3D"]
 
-[node name="actual wall" type="CSGCombiner3D" parent="."]
+[node name="actual wall" type="CSGCombiner3D" parent="." groups=["WallJumpable"]]
 material_override = SubResource("ShaderMaterial_paxue")
 material_overlay = SubResource("ShaderMaterial_3sun7")
 use_collision = true
