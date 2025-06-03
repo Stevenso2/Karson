@@ -11,7 +11,7 @@ var Level = {
 	"res://Level/lv_1.tscn" = 1
 }
 var latestLevel: int = 0
-var save_file = FileAccess.open("user://savegame.save", FileAccess.WRITE)
+var save_file = FileAccess.open("user://savegame.save", FileAccess.READ_WRITE)
 
 enum GateType {AND,NOR,XOR}
 
@@ -44,10 +44,8 @@ var DEV = false
 signal PObj_IDTunnel(id, OnOff)
 
 func _ready() -> void:
-	print("err: " + str(save_file.get_open_error()))
-	print("sav: " + str(save_file.get_as_text()))
 	latestLevel = int(save_file.get_as_text())
-	print("laded to save" + str(latestLevel))
+	print("latest level reached: " + str(latestLevel))
 	MPRecive.connect(PacketHandler)
 	MPSend.connect(PacketSender)
 	PObj_IDTunnel.connect(DebugLoging)
@@ -149,6 +147,41 @@ func PacketHandler(callback: Callable = print, usecallback: bool = false):
 				MPSend.emit(responce, ip, port)
 	MPReciveCompleate.emit()
 	
+func mulPackets():
+	if multiplayer.multiplayer_peer.get_available_packet_count() == 0:
+		#print(str(usecallback) + "awaiting packet count")
+		await MPPacket
+	if not multiplayer.multiplayer_peer:
+		return
+	for i in multiplayer.multiplayer_peer.get_available_packet_count():
+		var data = multiplayer.multiplayer_peer.get_packet()
+		var ip = multiplayer.multiplayer_peer.get_packet_ip()
+		var port = multiplayer.multiplayer_peer.get_packet_port()
+		
+		var responce
+		var MSG = data.get_string_from_ascii()
+		
+		if isMP and is_server:
+			print("Server has Directly Recived: " + str(MSG))
+			if MSG.begins_with("Tran:"):
+				# Tran:2:100-150-50:0-20-0
+				var PlayerNr = MSG.get_slice(":", 1)
+				var prepos = MSG.get_slice(":", 2).split("-")
+				var Position = Vector3(int(prepos[0]), int(prepos[1]), int(prepos[2]))
+				var prerot = MSG.get_slice(":", 3).split("-")
+				var Rotation = Vector3(int(prerot[0]), int(prerot[1]), int(prerot[2]))
+				
+				var player = get_tree().root.find_child(PlayerNr)
+				player.position = Position
+				player.rotation = Rotation
+				
+		else:
+			print("Client has Directly Recived: " + str(MSG))
+			responce = MSG
+			
+		MPSend.emit(responce, ip, port)
+	MPReciveCompleate.emit()
+	
 func PacketSender(MSG: String, ip: String, port: int):
 	var data = MSG.to_ascii_buffer()
 	directComs.set_dest_address(ip, port)
@@ -167,12 +200,8 @@ func GetFreePort():
 	else: GetFreePort()
 
 func ChangeLV(file: String):
-	print(file)
 	latestLevel = Level.get(file)
-	print(latestLevel)
-	var ret = save_file.store_line(str(latestLevel))
-	print(ret)
+	save_file.store_line(str(latestLevel))
 	save_file.flush()
-	print(save_file.get_as_text())
 	var change = get_tree().change_scene_to_file.bind(file)
 	change.call_deferred()

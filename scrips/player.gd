@@ -16,7 +16,6 @@ extends CharacterBody3D
 
 @onready var ReadyTimer = $Camera3D/ReadySateTimer
 @onready var slomo_timer: Timer = $"Slomo Timer"
-@onready var pmp_sync: MultiplayerSynchronizer = $PMP_sync
 @onready var wall_jump_timer: Timer = $"WallJump Timer"
 
 #To make sliding work better
@@ -97,6 +96,12 @@ func Camara(event):
 		rotation_degrees.y = rot_y
 
 func _process(_delta):
+	if global.isMP and not multiplayer.is_server():
+		var posmsg = str(position.x) + "-" + str(position.y) + "-" + str(position.z)
+		var rotmsg = str(rotation.x) + "-" + str(rotation.y) + "-" + str(rotation.z)
+		var MSG = "Tran:" + name + ":" + posmsg + ":" + rotmsg
+		multiplayer.multiplayer_peer.put_packet(MSG.to_ascii_buffer())
+	
 	grav = get_gravity()
 	
 	if is_sliding:
@@ -135,11 +140,11 @@ func _process(_delta):
 				slomo_timer.start(5.0 / 4.0)
 				
 	if Input.is_action_just_pressed("intercat") and not global.DEV:
-		print("intercat test")
+		#print("intercat test")
 		var interact: Area3D = shotgun_ray.get_collider()
 		if interact and interact.is_class("Area3D"):
 			if interact.get_parent().has_method("Intercat"):
-				print("intercat")
+				#print("intercat")
 				interact.get_parent().Intercat()
 	
 	#Character slide test VERY WIP
@@ -211,17 +216,17 @@ func _physics_process(delta: float) -> void:
 	
 		if is_on_wall_only() and Input.is_action_pressed("U") and wall_jump_timer.time_left <= 0 and get_slide_collision(0).get_collider().is_in_group("WallJumpable") :
 			#grav *= 1.25
-			print("help")
+			#print("help")
 			var bounce_angle: Vector3 = get_slide_collision(0).get_normal()
 			var DeltaAngle = abs(int(rad_to_deg(Vector2(bounce_angle.x, bounce_angle.z).angle_to(Vector2.UP)) - rad_to_deg(rotation.y)) % 180)
-			print(DeltaAngle)
+			#print(DeltaAngle)
 			if is_sliding and 110 > DeltaAngle and DeltaAngle > 70:
-				print("end help")
+				#print("end help")
 				velocity.y += (JUMP_VELOCITY / 30)
 				velocity += bounce_angle * 15
 				wall_jump_timer.start(1)
 			else:
-				print("start help")
+				#print("start help")
 				velocity.y += JUMP_VELOCITY/30
 				wall_jump_timer.start(2)
 
@@ -270,7 +275,7 @@ func _physics_process(delta: float) -> void:
 				gg_anim_player.play("GG Ready")
 			GGSeenObj = grapple_ray.get_collider()
 			if GGSeenObj and HasGG and global.current_Block == global.INV.GraplingGun:
-				print(GGSeenObj)
+				#print(GGSeenObj)
 				GGcontact = grapple_ray.get_collision_point()
 				grapple_rope.show()
 			

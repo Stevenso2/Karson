@@ -3,7 +3,7 @@ extends Node3D
 @export var MPplayer: PackedScene
 @onready var player: CharacterBody3D = $"1"
 
-@onready var mp_sync: MultiplayerSynchronizer = $MPSync
+#@onready var mp_sync: MultiplayerSynchronizer = $MPSync
 
 func _ready() -> void:
 	if global.isMP and multiplayer.is_server():
@@ -23,7 +23,7 @@ func _ready() -> void:
 		
 		player.name = str(global.PlayerCount)
 		player.position = Vector3(2,2,2)
-		mp_sync.set_multiplayer_authority(multiplayer.get_remote_sender_id())
+		#mp_sync.set_multiplayer_authority(multiplayer.get_remote_sender_id())
 		
 		var curPlayer = MPplayer.instantiate()
 		curPlayer.name = str(1)
