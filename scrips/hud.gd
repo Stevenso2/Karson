@@ -43,3 +43,7 @@ func _process(_delta: float) -> void:
 		menu.hide()
 	
 	selector.position.y = offset + global.current_Block * jump_by
+
+
+func _on_audio_stream_player_finished() -> void:
+	$AudioStreamPlayer.play()

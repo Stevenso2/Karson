@@ -1,7 +1,8 @@
-[gd_scene load_steps=30 format=3 uid="uid://bt6sc561jqijy"]
+[gd_scene load_steps=33 format=3 uid="uid://bt6sc561jqijy"]
 
 [ext_resource type="PackedScene" uid="uid://4r8al3ot2h5v" path="res://assets/player.tscn" id="1_321kd"]
 [ext_resource type="Script" uid="uid://bxtple08e04jh" path="res://scrips/world.gd" id="1_x3gwp"]
+[ext_resource type="PackedScene" uid="uid://dwphjg8071oay" path="res://assets/MPplayer.tscn" id="2_hb4n5"]
 [ext_resource type="PackedScene" uid="uid://bg3ivkj56s7pu" path="res://assets/PObj/Button.tscn" id="2_j6cc0"]
 [ext_resource type="Shader" uid="uid://c2m7cmlyutdm4" path="res://shader/StandardBlockTexture.gdshader" id="2_lnj3o"]
 [ext_resource type="PackedScene" uid="uid://erooj15k8tku" path="res://assets/shotgun.tscn" id="3_nnxh6"]
@@ -20,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://bncrfpkimvq6d" path="res://assets/PObj/Player Button.tscn" id="18_fu6kp"]
 [ext_resource type="PackedScene" uid="uid://b7yvb51yo2bbm" path="res://assets/LDO/live_area.tscn" id="18_r2gn0"]
 [ext_resource type="PackedScene" uid="uid://c3ov51xkh7gxk" path="res://assets/Builds/wallrun_wall.tscn" id="20_o1wuh"]
+[ext_resource type="PackedScene" uid="uid://e0ahwt68pno1" path="res://assets/Milk.tscn" id="21_511c5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lkl0i"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -69,21 +71,21 @@ shader_parameter/texSize = 5.0
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_tux6n"]
 properties/0/path = NodePath("Box:position")
-properties/0/spawn = true
+properties/0/spawn = false
 properties/0/replication_mode = 1
 properties/1/path = NodePath("Billy\'s box/Billy:position")
-properties/1/spawn = true
+properties/1/spawn = false
 properties/1/replication_mode = 1
 properties/2/path = NodePath("Billy\'s box/Billy:rotation")
-properties/2/spawn = true
+properties/2/spawn = false
 properties/2/replication_mode = 1
 properties/3/path = NodePath("Box:rotation")
-properties/3/spawn = true
+properties/3/spawn = false
 properties/3/replication_mode = 1
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_x3gwp")
-MPplayer = ExtResource("1_321kd")
+MPplayer = ExtResource("2_hb4n5")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
@@ -219,7 +221,6 @@ TestIDs = PackedInt32Array(3)
 
 [node name="Gate" parent="." instance=ExtResource("6_8gvu8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -7)
-TestIds = [2]
 Own_Id = 3
 Type = 1
 
@@ -247,19 +248,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -3.8)
 [node name="Table" parent="." instance=ExtResource("12_ks3hr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.6, 0, 3.6)
 
-[node name="Shotgun" parent="." groups=["PObj"] instance=ExtResource("3_nnxh6")]
+[node name="Shotgun" parent="." instance=ExtResource("3_nnxh6")]
 transform = Transform3D(-3.78552e-08, -0.866025, 0.5, 1, -4.37114e-08, 0, 2.18557e-08, 0.5, 0.866025, 6.6, 1.25, 4)
 
-[node name="Shotgun2" parent="." groups=["PObj"] instance=ExtResource("3_nnxh6")]
+[node name="Shotgun2" parent="." instance=ExtResource("3_nnxh6")]
 transform = Transform3D(-3.78552e-08, -0.866025, 0.5, 1, -4.37114e-08, 0, 2.18557e-08, 0.5, 0.866025, 6.6, 1.25, 3.3)
 
 [node name="Table2" parent="." instance=ExtResource("12_ks3hr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.6, 0, 3.6)
 
-[node name="Grapple" parent="." groups=["PObj"] instance=ExtResource("14_yrx4r")]
+[node name="Grapple" parent="." instance=ExtResource("14_yrx4r")]
 transform = Transform3D(-3.78552e-08, -0.866025, 0.5, 1, -4.37114e-08, 2.08426e-14, 2.18557e-08, 0.5, 0.866025, -6.6, 1.25, 4)
 
-[node name="Grapple2" parent="." groups=["PObj"] instance=ExtResource("14_yrx4r")]
+[node name="Grapple2" parent="." instance=ExtResource("14_yrx4r")]
 transform = Transform3D(-3.78552e-08, -0.866025, 0.5, 1, -4.37114e-08, 2.08426e-14, 2.18557e-08, 0.5, 0.866025, -6.6, 1.25, 3.3)
 
 [node name="GrapplePullSurface" parent="." instance=ExtResource("15_lp28i")]
@@ -281,3 +282,6 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 15.229
 [node name="Button2" parent="." instance=ExtResource("18_fu6kp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1, 0, -4.9)
 id = 1
+
+[node name="Milk" parent="." instance=ExtResource("21_511c5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 13)
