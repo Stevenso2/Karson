@@ -16,7 +16,6 @@ extends CharacterBody3D
 
 @onready var ReadyTimer = $Camera3D/ReadySateTimer
 @onready var slomo_timer: Timer = $"Slomo Timer"
-@onready var pmp_sync: MultiplayerSynchronizer = $PMP_sync
 @onready var wall_jump_timer: Timer = $"WallJump Timer"
 
 #To make sliding work better
@@ -46,6 +45,7 @@ var GGSeenObj: Node3D
 var AllowInteractions = true
 
 const sensitivity = 0.35 # 0.55 for school mouse, 0,35 for my own mouse -Pizzi
+const CONTsensitivity = 1.35
 
 var rot_x = 0
 var rot_y = 0
@@ -76,27 +76,29 @@ func _input(event):
 	# Check if the event is a mouse motion event.
 	if not global.pause:
 		if event is InputEventMouseMotion:
-			Camara(event)
+			# Adjust the rotation based on the mouse movement.
+			rot_x -= event.relative.y * sensitivity
+			rot_y -= event.relative.x * sensitivity
 			
-
-#@rpc("any_peer", "call_local", "reliable")
-func Camara(event):
-	# Adjust the rotation based on the mouse movement.
-	rot_x -= event.relative.y * sensitivity
-	rot_y -= event.relative.x * sensitivity
-	
-	# Clamp the x rotation to prevent flipping.
-	rot_x = clamp(rot_x, -90, 90)
-	
-	# Apply the rotation to the camera.
-	if global.DEV:
-		camera_3d.rotation_degrees.x = rot_x
-		camera_3d.rotation_degrees.y = rot_y
-	else:
-		camera_3d.rotation_degrees.x = rot_x
-		rotation_degrees.y = rot_y
+			# Clamp the x rotation to prevent flipping.
+			rot_x = clamp(rot_x, -90, 90)
+			
+			# Apply the rotation to the camera.
+			if global.DEV:
+				camera_3d.rotation_degrees.x = rot_x
+				camera_3d.rotation_degrees.y = rot_y
+			else:
+				camera_3d.rotation_degrees.x = rot_x
+				rotation_degrees.y = rot_y
 
 func _process(_delta):
+	if global.isMP and not multiplayer.is_server():
+		var posmsg = str(position.x) + "-" + str(position.y) + "-" + str(position.z)
+		var rotmsg = str(rotation.x) + "-" + str(rotation.y) + "-" + str(rotation.z)
+		var MSG = "Transf:" + name + ":" + posmsg + ":" + rotmsg
+		#print("cleient sent: " + MSG)
+		multiplayer.multiplayer_peer.put_packet(MSG.to_ascii_buffer())
+	
 	grav = get_gravity()
 	
 	if is_sliding:
@@ -135,11 +137,11 @@ func _process(_delta):
 				slomo_timer.start(5.0 / 4.0)
 				
 	if Input.is_action_just_pressed("intercat") and not global.DEV:
-		print("intercat test")
+		#print("intercat test")
 		var interact: Area3D = shotgun_ray.get_collider()
 		if interact and interact.is_class("Area3D"):
 			if interact.get_parent().has_method("Intercat"):
-				print("intercat")
+				#print("intercat")
 				interact.get_parent().Intercat()
 	
 	#Character slide test VERY WIP
@@ -184,6 +186,16 @@ func _physics_process(delta: float) -> void:
 		if not is_sliding and not global.DEV and not is_crouching: #idk to why i need to add "and not global.DEV" here. but it is fixing the cam for now. which is good
 			camera_3d.position = Vector3(0,1.69,-0.19)
 			camera_3d.rotation.y = 0
+			
+		var StickLook := Input.get_vector("LU", "LD", "LL", "LR", 0.2).normalized()
+		if StickLook:
+			rot_x -= StickLook.x * CONTsensitivity
+			rot_y -= StickLook.y * CONTsensitivity
+			
+			# Clamp the x rotation to prevent flipping.
+			rot_x = clamp(rot_x, -90, 90)
+			camera_3d.rotation_degrees.x = rot_x
+			rotation_degrees.y = rot_y
 		
 		#Still Sliding test
 		# Adjust camera height based on sliding state
@@ -201,7 +213,7 @@ func _physics_process(delta: float) -> void:
 			velocity.y += JUMP_VELOCITY * AppliedDelta
 		
 		# Get the input direction and handle the movement/deceleration.
-		var direction := Input.get_vector("L", "R", "F", "B", 0).normalized()
+		var direction := Input.get_vector("L", "R", "F", "B", 0.2).normalized()
 		
 		#Slide test thing 3 xD (yes i add these to find it later if smt goes horribly wrong lol)
 		# If the player is sliding, increase the speed.
@@ -211,19 +223,19 @@ func _physics_process(delta: float) -> void:
 	
 		if is_on_wall_only() and Input.is_action_pressed("U") and wall_jump_timer.time_left <= 0 and get_slide_collision(0).get_collider().is_in_group("WallJumpable") :
 			#grav *= 1.25
-			print("help")
+			#print("help")
 			var bounce_angle: Vector3 = get_slide_collision(0).get_normal()
 			var DeltaAngle = abs(int(rad_to_deg(Vector2(bounce_angle.x, bounce_angle.z).angle_to(Vector2.UP)) - rad_to_deg(rotation.y)) % 180)
-			print(DeltaAngle)
+			#print(DeltaAngle)
 			if is_sliding and 110 > DeltaAngle and DeltaAngle > 70:
-				print("end help")
-				velocity.y += (JUMP_VELOCITY*2) # test
+				#print("end help")
+				velocity.y += (JUMP_VELOCITY / 30)
 				velocity += bounce_angle * 15
 				wall_jump_timer.start(0.5)
 			else:
-				print("start help")
-				velocity.y += JUMP_VELOCITY/30 # test 2
-				wall_jump_timer.start(1)
+				#print("start help")
+				velocity.y += JUMP_VELOCITY/30
+				wall_jump_timer.start(2)
 
 		if direction:
 			if is_on_floor():
@@ -270,7 +282,7 @@ func _physics_process(delta: float) -> void:
 				gg_anim_player.play("GG Ready")
 			GGSeenObj = grapple_ray.get_collider()
 			if GGSeenObj and HasGG and global.current_Block == global.INV.GraplingGun:
-				print(GGSeenObj)
+				#print(GGSeenObj)
 				GGcontact = grapple_ray.get_collision_point()
 				grapple_rope.show()
 			

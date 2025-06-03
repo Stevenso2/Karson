@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0nli7fikwkrr"]
+[gd_scene load_steps=8 format=3 uid="uid://d0nli7fikwkrr"]
 
 [ext_resource type="Script" uid="uid://h3mj52oyupaq" path="res://scrips/hud.gd" id="1_10lh8"]
 [ext_resource type="Texture2D" uid="uid://bsbt7l3gclfyf" path="res://assets/pictures/Hotbar.png" id="2_gudfk"]
 [ext_resource type="Texture2D" uid="uid://nckxjnheaaat" path="res://assets/pictures/selector.png" id="3_1m68m"]
 [ext_resource type="Texture2D" uid="uid://bp1n7m5rniq8s" path="res://assets/pictures/crosshair.png" id="4_gudfk"]
+[ext_resource type="AudioStream" uid="uid://m67haco2rggg" path="res://assets/[K A R L S O N V I B E].mp3" id="5_1m68m"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_18kdl"]
 device = -1
@@ -80,3 +81,10 @@ text = "GG"
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_1m68m")
+volume_db = -20.0
+autoplay = true
+
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
