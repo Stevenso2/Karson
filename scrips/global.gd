@@ -11,7 +11,6 @@ var Level = {
 	"res://Level/lv_1.tscn" = 1
 }
 var latestLevel: int = 0
-var save_file = FileAccess.open("user://savegame.save", FileAccess.READ_WRITE)
 
 enum GateType {AND,NOR,XOR}
 
@@ -44,9 +43,19 @@ var DEV = false
 signal PObj_IDTunnel(id, OnOff)
 
 func _ready() -> void:
+	var save_file = FileAccess.open("user://savegame.save", FileAccess.READ)
+	var SaveError = FileAccess.get_open_error()
+	if SaveError:
+		if SaveError == ERR_FILE_NOT_FOUND:
+			print("no savefile Found, creating new save...")
+			Savestate(latestLevel)
+			save_file = FileAccess.open("user://savegame.save", FileAccess.READ)
+		else: print(FileAccess.get_open_error())
 	latestLevel = int(save_file.get_as_text())
 	print("latest level reached: " + str(latestLevel))
+	save_file.close()
 	MPRecive.connect(PacketHandler)
+	MPRecive.connect(mulPackets)
 	MPSend.connect(PacketSender)
 	PObj_IDTunnel.connect(DebugLoging)
 
@@ -55,10 +64,8 @@ func DebugLoging(Key, Value):
 		print("[DEV] (noslraK) " + str(Key) + "-" + str(Value))
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("REMOVE ON FINAL"):
-		DEV = !DEV
 		
-	if isMP and directComs and directComs.get_available_packet_count() > 0:
+	if isMP and directComs and (directComs.get_available_packet_count() > 0 or multiplayer.multiplayer_peer.get_available_packet_count() > 0):
 		MPPacket.emit()
 	
 	if pause:
@@ -163,7 +170,7 @@ func mulPackets():
 		
 		if isMP and is_server:
 			print("Server has Directly Recived: " + str(MSG))
-			if MSG.begins_with("Tran:"):
+			if MSG.begins_with("Transf:"):
 				# Tran:2:100-150-50:0-20-0
 				var PlayerNr = MSG.get_slice(":", 1)
 				var prepos = MSG.get_slice(":", 2).split("-")
@@ -199,9 +206,16 @@ func GetFreePort():
 		print("Port has been set")
 	else: GetFreePort()
 
-func ChangeLV(file: String):
-	latestLevel = Level.get(file)
+func Savestate(LVL):
+	var save_file = FileAccess.open("user://savegame.save", FileAccess.WRITE)
+	var SaveError = FileAccess.get_open_error()
+	if SaveError != OK:
+		print(FileAccess.get_open_error())
+	latestLevel = LVL
 	save_file.store_line(str(latestLevel))
-	save_file.flush()
+	save_file.close()
+
+func ChangeLV(file: String):
+	Savestate(Level.get(file))
 	var change = get_tree().change_scene_to_file.bind(file)
 	change.call_deferred()

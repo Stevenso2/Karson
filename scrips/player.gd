@@ -45,6 +45,7 @@ var GGSeenObj: Node3D
 var AllowInteractions = true
 
 const sensitivity = 0.35 # 0.55 for school mouse, 0,35 for my own mouse -Pizzi
+const CONTsensitivity = 1.35
 
 var rot_x = 0
 var rot_y = 0
@@ -75,31 +76,27 @@ func _input(event):
 	# Check if the event is a mouse motion event.
 	if not global.pause:
 		if event is InputEventMouseMotion:
-			Camara(event)
+			# Adjust the rotation based on the mouse movement.
+			rot_x -= event.relative.y * sensitivity
+			rot_y -= event.relative.x * sensitivity
 			
-
-#@rpc("any_peer", "call_local", "reliable")
-func Camara(event):
-	# Adjust the rotation based on the mouse movement.
-	rot_x -= event.relative.y * sensitivity
-	rot_y -= event.relative.x * sensitivity
-	
-	# Clamp the x rotation to prevent flipping.
-	rot_x = clamp(rot_x, -90, 90)
-	
-	# Apply the rotation to the camera.
-	if global.DEV:
-		camera_3d.rotation_degrees.x = rot_x
-		camera_3d.rotation_degrees.y = rot_y
-	else:
-		camera_3d.rotation_degrees.x = rot_x
-		rotation_degrees.y = rot_y
+			# Clamp the x rotation to prevent flipping.
+			rot_x = clamp(rot_x, -90, 90)
+			
+			# Apply the rotation to the camera.
+			if global.DEV:
+				camera_3d.rotation_degrees.x = rot_x
+				camera_3d.rotation_degrees.y = rot_y
+			else:
+				camera_3d.rotation_degrees.x = rot_x
+				rotation_degrees.y = rot_y
 
 func _process(_delta):
 	if global.isMP and not multiplayer.is_server():
 		var posmsg = str(position.x) + "-" + str(position.y) + "-" + str(position.z)
 		var rotmsg = str(rotation.x) + "-" + str(rotation.y) + "-" + str(rotation.z)
-		var MSG = "Tran:" + name + ":" + posmsg + ":" + rotmsg
+		var MSG = "Transf:" + name + ":" + posmsg + ":" + rotmsg
+		#print("cleient sent: " + MSG)
 		multiplayer.multiplayer_peer.put_packet(MSG.to_ascii_buffer())
 	
 	grav = get_gravity()
@@ -189,6 +186,16 @@ func _physics_process(delta: float) -> void:
 		if not is_sliding and not global.DEV and not is_crouching: #idk to why i need to add "and not global.DEV" here. but it is fixing the cam for now. which is good
 			camera_3d.position = Vector3(0,1.69,-0.19)
 			camera_3d.rotation.y = 0
+			
+		var StickLook := Input.get_vector("LU", "LD", "LL", "LR", 0.2).normalized()
+		if StickLook:
+			rot_x -= StickLook.x * CONTsensitivity
+			rot_y -= StickLook.y * CONTsensitivity
+			
+			# Clamp the x rotation to prevent flipping.
+			rot_x = clamp(rot_x, -90, 90)
+			camera_3d.rotation_degrees.x = rot_x
+			rotation_degrees.y = rot_y
 		
 		#Still Sliding test
 		# Adjust camera height based on sliding state
@@ -206,7 +213,7 @@ func _physics_process(delta: float) -> void:
 			velocity.y += JUMP_VELOCITY * AppliedDelta
 		
 		# Get the input direction and handle the movement/deceleration.
-		var direction := Input.get_vector("L", "R", "F", "B", 0).normalized()
+		var direction := Input.get_vector("L", "R", "F", "B", 0.2).normalized()
 		
 		#Slide test thing 3 xD (yes i add these to find it later if smt goes horribly wrong lol)
 		# If the player is sliding, increase the speed.
