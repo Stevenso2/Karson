@@ -23,12 +23,12 @@ sky_curve = 0.0163228
 ground_bottom_color = Color(0.576354, 0.742479, 0.949967, 1)
 ground_horizon_color = Color(0.13438, 0.225141, 0.376736, 1)
 
-[sub_resource type="Sky" id="Sky_vmpgl"]
+[sub_resource type="Sky" id="Sky_kx4bw"]
 sky_material = SubResource("ProceduralSkyMaterial_wv4wt")
 
 [sub_resource type="Environment" id="Environment_nbn6y"]
 background_mode = 2
-sky = SubResource("Sky_vmpgl")
+sky = SubResource("Sky_kx4bw")
 tonemap_mode = 2
 glow_enabled = true
 
@@ -176,8 +176,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.7132, 10.3744, -150.11)
 size = Vector3(20.4201, 12.3378, 1)
 
 [node name="CSGBox3D26" type="CSGBox3D" parent="World Blocks"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.0263, 5.01287, -162.359)
-size = Vector3(19.8646, 1.33008, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.0263, 5.11822, -162.359)
+size = Vector3(19.8646, 1.54077, 1)
+
+[node name="CSGBox3D49" type="CSGBox3D" parent="World Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.0263, 7.68882, -163.38)
+size = Vector3(19.8646, 1.54077, 3.04199)
+
+[node name="CSGBox3D50" type="CSGBox3D" parent="World Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.321, 5.41209, -163.946)
+size = Vector3(3.89962, 0.437866, 2.58545)
+
+[node name="CSGBox3D51" type="CSGBox3D" parent="World Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.2061, 5.41209, -163.946)
+size = Vector3(3.89962, 0.437866, 2.58545)
+
+[node name="CSGBox3D52" type="CSGBox3D" parent="World Blocks"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9063, 5.41209, -163.946)
+size = Vector3(2.7136, 0.437866, 2.58545)
 
 [node name="CSGBox3D27" type="CSGBox3D" parent="World Blocks"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.56529, 5.07383, -163.773)
