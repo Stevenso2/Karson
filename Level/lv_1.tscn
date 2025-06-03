@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dm131e14e5471" path="res://assets/LDO/shotgun_jump_surface.tscn" id="14_a2m16"]
 [ext_resource type="PackedScene" uid="uid://b7yvb51yo2bbm" path="res://assets/LDO/live_area.tscn" id="15_kx4bw"]
 [ext_resource type="PackedScene" uid="uid://e0ahwt68pno1" path="res://assets/Milk.tscn" id="16_j64bj"]
-[ext_resource type="PackedScene" uid="uid://bt6sc561jqijy" path="res://assets/World.tscn" id="17_7t5ya"]
+[ext_resource type="PackedScene" uid="uid://c8r512r0qqxbn" path="res://Level/lv_2.tscn" id="17_7t5ya"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wv4wt"]
 sky_top_color = Color(0.585844, 0.652486, 0.745333, 1)

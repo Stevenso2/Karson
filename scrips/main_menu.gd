@@ -53,7 +53,7 @@ func _process(_delta: float) -> void:
 		global.ingame = true
 		get_tree().change_scene_to_file("res://Level/lv_1.tscn")
 		
-	if lv2.button_pressed:
+	if lv2.button_pressed and global.latestLevel >= 2:
 		global.ingame = true 
 		get_tree().change_scene_to_file("res://Level/lv_2.tscn")
 	

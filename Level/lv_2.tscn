@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c8r512r0qqxbn"]
+[gd_scene load_steps=24 format=3 uid="uid://c8r512r0qqxbn"]
 
 [ext_resource type="PackedScene" uid="uid://4r8al3ot2h5v" path="res://assets/player.tscn" id="1_m23jx"]
 [ext_resource type="Shader" uid="uid://c2m7cmlyutdm4" path="res://shader/StandardBlockTexture.gdshader" id="2_yiqpb"]
@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://cyu7vqyj32sg5" path="res://assets/LDO/grapple_pull_surface.tscn" id="13_mh20r"]
 [ext_resource type="PackedScene" uid="uid://erooj15k8tku" path="res://assets/shotgun.tscn" id="14_nh42w"]
 [ext_resource type="PackedScene" uid="uid://dm131e14e5471" path="res://assets/LDO/shotgun_jump_surface.tscn" id="15_md3et"]
+[ext_resource type="PackedScene" uid="uid://e0ahwt68pno1" path="res://assets/Milk.tscn" id="16_logxr"]
+[ext_resource type="PackedScene" uid="uid://dy4nkntynthgo" path="res://main_menu.tscn" id="17_mh20r"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_aa620"]
 sky_top_color = Color(0.585844, 0.652486, 0.745333, 1)
@@ -402,3 +404,7 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 69.4324, -2.21869, 354.257)
 
 [node name="ShotgunJumpSurface2" parent="." instance=ExtResource("15_md3et")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 67.9383, 7.9164, 366.457)
+
+[node name="Milk" parent="." instance=ExtResource("16_logxr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.7, 20, 379)
+Next_LVL = ExtResource("17_mh20r")

@@ -8,7 +8,9 @@ enum INV {
 
 var Level = {
 	"res://assets/World.tscn" = 0,
-	"res://Level/lv_1.tscn" = 1
+	"res://Level/lv_1.tscn" = 1,
+	"res://Level/lv_2.tscn" = 2,
+	"res://main_menu.tscn" = 3
 }
 var latestLevel: int = 0
 
@@ -212,6 +214,8 @@ func Savestate(LVL):
 	if SaveError != OK:
 		print(FileAccess.get_open_error())
 	latestLevel = LVL
+	if LVL == 3:
+		ingame = false
 	save_file.store_line(str(latestLevel))
 	save_file.close()
 
