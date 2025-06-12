@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dycmlui6ttdsm"]
+[gd_scene load_steps=22 format=3 uid="uid://dycmlui6ttdsm"]
 
 [ext_resource type="Shader" uid="uid://c2m7cmlyutdm4" path="res://shader/StandardBlockTexture.gdshader" id="1_nbn6y"]
 [ext_resource type="PackedScene" uid="uid://4r8al3ot2h5v" path="res://assets/player.tscn" id="1_wv4wt"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://bg3ivkj56s7pu" path="res://assets/PObj/Button.tscn" id="7_nvakh"]
 [ext_resource type="PackedScene" uid="uid://m1rb473hgphq" path="res://assets/PObj/box.tscn" id="8_gxreb"]
 [ext_resource type="PackedScene" uid="uid://dnfu5hv4qqhid" path="res://assets/PObj/door.tscn" id="9_egjbo"]
-[ext_resource type="PackedScene" uid="uid://mta7k70g720y" path="res://assets/LDO/timer.tscn" id="10_gxreb"]
 [ext_resource type="PackedScene" uid="uid://cyu7vqyj32sg5" path="res://assets/LDO/grapple_pull_surface.tscn" id="11_egjbo"]
 [ext_resource type="PackedScene" uid="uid://erooj15k8tku" path="res://assets/shotgun.tscn" id="13_a2m16"]
 [ext_resource type="PackedScene" uid="uid://dm131e14e5471" path="res://assets/LDO/shotgun_jump_surface.tscn" id="14_a2m16"]
@@ -323,13 +322,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.1202, 1.3872, -4.87297)
 
 [node name="Door" parent="." instance=ExtResource("9_egjbo")]
 transform = Transform3D(1.65, 0, 0, 0, 1.5, 0, 0, 0, 3.38, 0.00866234, 1.03912, -9.541)
-TestIDs = PackedInt32Array(2)
-
-[node name="Timer" parent="." instance=ExtResource("10_gxreb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.54362, 1, -5.06938)
-TestIds = PackedInt32Array(1)
-Own_Id = 2
-Falling_edge = 5
+TestIDs = PackedInt32Array(1)
 
 [node name="GrapplePullSurface2" parent="." instance=ExtResource("11_egjbo")]
 transform = Transform3D(1, 0, 0, 0, -1, 8.73115e-08, 0, -8.73115e-08, -1, 0.91207, 13.89, -107.872)

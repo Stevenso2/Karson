@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bt6sc561jqijy"]
+[gd_scene load_steps=34 format=3 uid="uid://bt6sc561jqijy"]
 
 [ext_resource type="PackedScene" uid="uid://4r8al3ot2h5v" path="res://assets/player.tscn" id="1_321kd"]
 [ext_resource type="Script" uid="uid://bxtple08e04jh" path="res://scrips/world.gd" id="1_x3gwp"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://b7yvb51yo2bbm" path="res://assets/LDO/live_area.tscn" id="18_r2gn0"]
 [ext_resource type="PackedScene" uid="uid://c3ov51xkh7gxk" path="res://assets/Builds/wallrun_wall.tscn" id="20_o1wuh"]
 [ext_resource type="PackedScene" uid="uid://e0ahwt68pno1" path="res://assets/Milk.tscn" id="21_511c5"]
+[ext_resource type="PackedScene" uid="uid://dy4nkntynthgo" path="res://main_menu.tscn" id="23_afm58"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lkl0i"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -291,3 +292,4 @@ id = 1
 
 [node name="Milk" parent="." instance=ExtResource("21_511c5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 13)
+Next_LVL = ExtResource("23_afm58")

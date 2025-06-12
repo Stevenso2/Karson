@@ -3,6 +3,7 @@ extends Node3D
 @onready var main_menu: Control = $MainMenu
 @onready var mp_menu: Control = $MPMenu
 @onready var lv_menu: Control = $Lv_Select
+@onready var Conf: Control = $Conf
 
 @onready var sp: Button = $MainMenu/SP
 @onready var lv1: Button = $"Lv_Select/lv1"
@@ -16,8 +17,24 @@ extends Node3D
 @onready var join: Button = $MPMenu/Join
 @onready var MPreturn: Button = $MPMenu/MPReturn
 @onready var lv_return: Button = $Lv_Select/Lv_Return
+@onready var conf_return: Button = $Conf/Conf_Return
+
+@onready var sensitivity: Slider = $Conf/sensitivity
+@onready var sensitivity_label: Label = $Conf/Sensitivity_Label
+
 func _ready() -> void:
 	request_timer.timeout.connect(getServs)
+	
+	# Set slider to current global sensitivity
+	sensitivity.value = global.sensitivity
+	# eConnect value_changed signal to a function
+	sensitivity.value_changed.connect(_on_sensitivity_changed)
+	sensitivity_label.text = str(global.sensitivity)
+	
+func _on_sensitivity_changed(value: float) -> void:
+	global.sensitivity = value
+	sensitivity_label.text = str(global.sensitivity)
+	print("Global sensitivity updated to:", global.sensitivity)
 		
 @onready var server_search: Control = $"Server Search"
 @onready var request_timer: Timer = $"RequestTimer"
@@ -60,6 +77,14 @@ func _process(_delta: float) -> void:
 	if debug_lv.button_pressed:
 		global.ingame = true
 		get_tree().change_scene_to_file("res://assets/World.tscn")
+		
+	if conf.button_pressed:
+		main_menu.hide()
+		Conf.show()
+		
+	if conf_return.button_pressed:
+		main_menu.show()
+		Conf.hide()
 		
 	if host.button_pressed:
 		mp_menu.hide()

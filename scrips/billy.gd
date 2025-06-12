@@ -19,6 +19,7 @@ func _ready():
 	else:
 		print("No player found in the group")
 
+
 func _physics_process(delta):
 	if not global.pause:
 		if player and stun.time_left == 0:

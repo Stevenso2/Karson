@@ -35,7 +35,6 @@ offset_bottom = 271.0
 text = "MultiPlayer"
 
 [node name="Conf" type="Button" parent="MainMenu"]
-visible = false
 layout_mode = 0
 offset_left = 140.0
 offset_top = 365.0
@@ -51,6 +50,42 @@ offset_right = 334.0
 offset_bottom = 571.0
 text = "Quit
 "
+
+[node name="Conf" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="sensitivity" type="HSlider" parent="Conf"]
+layout_mode = 0
+offset_left = 410.0
+offset_top = 68.0
+offset_right = 604.0
+offset_bottom = 121.0
+tooltip_text = "sensitivity"
+min_value = 0.1
+max_value = 1.0
+step = 0.05
+value = 0.1
+
+[node name="Conf_Return" type="Button" parent="Conf"]
+layout_mode = 0
+offset_top = 589.0
+offset_right = 194.0
+offset_bottom = 645.0
+text = "Return"
+
+[node name="Sensitivity_Label" type="Label" parent="Conf"]
+layout_mode = 0
+offset_left = 314.0
+offset_top = 80.0
+offset_right = 394.0
+offset_bottom = 111.0
+text = "0.0"
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="Lv_Select" type="Control" parent="."]
 visible = false

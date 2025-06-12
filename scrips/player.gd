@@ -3,6 +3,8 @@ extends CharacterBody3D
 @onready var camera_3d: Camera3D = $Camera3D
 @onready var hud: Control = $Hud
 
+@onready var obj = $"Camera3D/pOBJ Pickup"
+
 @onready var shotgun_view: RigidBody3D = $Camera3D/Shotgun_View
 @onready var sg_anim_player: AnimationPlayer = $Camera3D/SGAnimPlayer
 
@@ -44,7 +46,7 @@ var GGcontact: Vector3
 var GGSeenObj: Node3D
 var AllowInteractions = true
 
-const sensitivity = 0.35 # 0.55 for school mouse, 0,35 for my own mouse -Pizzi
+var sensitivity = 0.35 # 0.55 for school mouse, 0,35 for my own mouse -Pizzi
 const CONTsensitivity = 1.35
 
 var rot_x = 0
@@ -62,6 +64,8 @@ var is_crouching: bool = false  # track if the player is crouching
 
 func _ready():
 	global.transition = $Karlson/BodyAnimationPlayer # used for making the sliding now work properly 
+	global.Player = self
+	sensitivity = global.sensitivity 
 	RESPAWN_POS = position
 	RESPAWN_ROT = rotation
 
@@ -138,11 +142,15 @@ func _process(_delta):
 				
 	if Input.is_action_just_pressed("intercat") and not global.DEV:
 		#print("intercat test")
-		var interact: Area3D = shotgun_ray.get_collider()
+		var interact = shotgun_ray.get_collider()
 		if interact and interact.is_class("Area3D"):
 			if interact.get_parent().has_method("Intercat"):
 				#print("intercat")
 				interact.get_parent().Intercat()
+	if Input.is_action_pressed("intercat") and not global.DEV:
+		var interact = shotgun_ray.get_collider()
+		if interact and interact.is_class("RigidBody3D") and interact.is_in_group("Pickable"):
+			interact.position = obj.global_position
 	
 	#Character slide test VERY WIP
 	

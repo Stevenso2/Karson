@@ -11,11 +11,12 @@ size = Vector3(0.8, 0.8, 0.8)
 [sub_resource type="BoxShape3D" id="BoxShape3D_2ertg"]
 size = Vector3(0.8, 0.8, 0.8)
 
-[node name="Box" type="RigidBody3D" groups=["PObj", "Respawnable"]]
+[node name="Box" type="RigidBody3D" groups=["PObj", "Pickable", "Respawnable"]]
 collision_layer = 68
 collision_mask = 135
 mass = 3.0
 physics_material_override = SubResource("PhysicsMaterial_s3o5f")
+gravity_scale = 0.7
 angular_damp = 10.0
 script = ExtResource("1_hgn81")
 
