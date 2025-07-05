@@ -46,4 +46,5 @@ func _process(_delta: float) -> void:
 
 
 func _on_audio_stream_player_finished() -> void:
-	$AudioStreamPlayer.play()
+		$AudioStreamPlayer.play()
+		

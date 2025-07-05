@@ -24,12 +24,13 @@ extends Node3D
 
 func _ready() -> void:
 	request_timer.timeout.connect(getServs)
-	
+
 	# Set slider to current global sensitivity
 	sensitivity.value = global.sensitivity
 	# eConnect value_changed signal to a function
 	sensitivity.value_changed.connect(_on_sensitivity_changed)
 	sensitivity_label.text = str(global.sensitivity)
+	
 	
 func _on_sensitivity_changed(value: float) -> void:
 	global.sensitivity = value
