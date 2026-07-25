@@ -243,7 +243,7 @@ func _physics_process(delta: float) -> void:
 			else:
 				#print("start help")
 				velocity.y += JUMP_VELOCITY/30
-				wall_jump_timer.start(2)
+				wall_jump_timer.start(0.65) # before: 1
 
 		if direction:
 			if is_on_floor():

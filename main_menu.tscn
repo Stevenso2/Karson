@@ -1,24 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://dy4nkntynthgo"]
+[gd_scene format=3 uid="uid://dy4nkntynthgo"]
 
 [ext_resource type="PackedScene" uid="uid://ducyfknjhxuy4" path="res://Models/Karlson.gltf" id="1_06t4h"]
 [ext_resource type="Script" uid="uid://cdyebrlgbjiyi" path="res://scrips/main_menu.gd" id="1_7vrkn"]
 
-[node name="MainMenu" type="Node3D"]
+[node name="MainMenu" type="Node3D" unique_id=1806482361]
 script = ExtResource("1_7vrkn")
 
-[node name="Karlson" parent="." instance=ExtResource("1_06t4h")]
+[node name="Karlson" parent="." unique_id=442572469 instance=ExtResource("1_06t4h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.7, -1)
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1471571415]
 transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 0.6, 0.8, 1)
 
-[node name="MainMenu" type="Control" parent="."]
+[node name="MainMenu" type="Control" parent="." unique_id=151629289]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="SP" type="Button" parent="MainMenu"]
+[node name="SP" type="Button" parent="MainMenu" unique_id=1009199749]
 layout_mode = 0
 offset_left = 140.0
 offset_top = 65.0
@@ -26,7 +26,7 @@ offset_right = 334.0
 offset_bottom = 121.0
 text = "SinglePlayer"
 
-[node name="MP" type="Button" parent="MainMenu"]
+[node name="MP" type="Button" parent="MainMenu" unique_id=1242231339]
 layout_mode = 0
 offset_left = 140.0
 offset_top = 215.0
@@ -34,7 +34,7 @@ offset_right = 334.0
 offset_bottom = 271.0
 text = "MultiPlayer"
 
-[node name="Conf" type="Button" parent="MainMenu"]
+[node name="Conf" type="Button" parent="MainMenu" unique_id=1086289417]
 layout_mode = 0
 offset_left = 140.0
 offset_top = 365.0
@@ -42,7 +42,7 @@ offset_right = 334.0
 offset_bottom = 421.0
 text = "Settings"
 
-[node name="Quit" type="Button" parent="MainMenu"]
+[node name="Quit" type="Button" parent="MainMenu" unique_id=1626298296]
 layout_mode = 0
 offset_left = 140.0
 offset_top = 515.0
@@ -51,14 +51,14 @@ offset_bottom = 571.0
 text = "Quit
 "
 
-[node name="Conf" type="Control" parent="."]
+[node name="Conf" type="Control" parent="." unique_id=1586702310]
 visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="sensitivity" type="HSlider" parent="Conf"]
+[node name="sensitivity" type="HSlider" parent="Conf" unique_id=970901577]
 layout_mode = 0
 offset_left = 410.0
 offset_top = 68.0
@@ -70,14 +70,22 @@ max_value = 1.0
 step = 0.05
 value = 0.1
 
-[node name="Conf_Return" type="Button" parent="Conf"]
+[node name="Conf_Return" type="Button" parent="Conf" unique_id=1247612105]
 layout_mode = 0
 offset_top = 589.0
 offset_right = 194.0
 offset_bottom = 645.0
 text = "Return"
 
-[node name="Sensitivity_Label" type="Label" parent="Conf"]
+[node name="Sensitivity_Text" type="Label" parent="Conf" unique_id=811420821]
+layout_mode = 0
+offset_left = 266.0
+offset_top = 83.0
+offset_right = 350.0
+offset_bottom = 106.0
+text = "Sensitivity:"
+
+[node name="Sensitivity_Label" type="Label" parent="Conf" unique_id=655249598]
 layout_mode = 0
 offset_left = 314.0
 offset_top = 80.0
@@ -87,14 +95,29 @@ text = "0.0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Lv_Select" type="Control" parent="."]
+[node name="Music_Text" type="Label" parent="Conf" unique_id=1492253062]
+layout_mode = 0
+offset_left = 266.0
+offset_top = 124.0
+offset_right = 361.0
+offset_bottom = 147.0
+text = "Mute Music:"
+
+[node name="Mute_Music" type="CheckButton" parent="Conf" unique_id=678914739]
+layout_mode = 0
+offset_left = 399.0
+offset_top = 122.0
+offset_right = 443.0
+offset_bottom = 149.0
+
+[node name="Lv_Select" type="Control" parent="." unique_id=433714984]
 visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Lv_Return" type="Button" parent="Lv_Select"]
+[node name="Lv_Return" type="Button" parent="Lv_Select" unique_id=56975414]
 layout_mode = 0
 offset_left = -2.0
 offset_top = 589.0
@@ -102,7 +125,7 @@ offset_right = 192.0
 offset_bottom = 645.0
 text = "Return"
 
-[node name="lv1" type="Button" parent="Lv_Select"]
+[node name="lv1" type="Button" parent="Lv_Select" unique_id=212771568]
 layout_mode = 0
 offset_left = 118.0
 offset_top = 84.0
@@ -110,7 +133,7 @@ offset_right = 312.0
 offset_bottom = 140.0
 text = "lvl1"
 
-[node name="lv2" type="Button" parent="Lv_Select"]
+[node name="lv2" type="Button" parent="Lv_Select" unique_id=1023830379]
 layout_mode = 0
 offset_left = 465.0
 offset_top = 86.0
@@ -118,7 +141,7 @@ offset_right = 659.0
 offset_bottom = 142.0
 text = "lvl2"
 
-[node name="debug_lv" type="Button" parent="Lv_Select"]
+[node name="debug_lv" type="Button" parent="Lv_Select" unique_id=1854429455]
 layout_mode = 0
 offset_left = 958.0
 offset_top = 588.0
@@ -127,14 +150,14 @@ offset_bottom = 644.0
 text = "lv_debug
 "
 
-[node name="MPMenu" type="Control" parent="."]
+[node name="MPMenu" type="Control" parent="." unique_id=637810924]
 visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Host" type="Button" parent="MPMenu"]
+[node name="Host" type="Button" parent="MPMenu" unique_id=1042568133]
 layout_mode = 0
 offset_left = 140.0
 offset_top = 215.0
@@ -142,7 +165,7 @@ offset_right = 334.0
 offset_bottom = 271.0
 text = "Host"
 
-[node name="Join" type="Button" parent="MPMenu"]
+[node name="Join" type="Button" parent="MPMenu" unique_id=1484455699]
 layout_mode = 0
 offset_left = 140.0
 offset_top = 365.0
@@ -150,7 +173,7 @@ offset_right = 334.0
 offset_bottom = 421.0
 text = "Join"
 
-[node name="MPReturn" type="Button" parent="MPMenu"]
+[node name="MPReturn" type="Button" parent="MPMenu" unique_id=1703975078]
 layout_mode = 0
 offset_left = 140.0
 offset_top = 515.0
@@ -158,17 +181,17 @@ offset_right = 334.0
 offset_bottom = 571.0
 text = "Return"
 
-[node name="RequestTimer" type="Timer" parent="."]
+[node name="RequestTimer" type="Timer" parent="." unique_id=2139235857]
 one_shot = true
 
-[node name="Server Search" type="Control" parent="."]
+[node name="Server Search" type="Control" parent="." unique_id=1689875341]
 visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="SearchReturn" type="Button" parent="Server Search"]
+[node name="SearchReturn" type="Button" parent="Server Search" unique_id=1754302820]
 layout_mode = 0
 offset_left = 140.0
 offset_top = 515.0
@@ -176,7 +199,7 @@ offset_right = 334.0
 offset_bottom = 571.0
 text = "Return"
 
-[node name="ConnectServer" type="Button" parent="Server Search"]
+[node name="ConnectServer" type="Button" parent="Server Search" unique_id=2060752891]
 layout_mode = 0
 offset_left = 340.0
 offset_top = 515.0
@@ -184,7 +207,7 @@ offset_right = 534.0
 offset_bottom = 571.0
 text = "Connect"
 
-[node name="ItemList" type="ItemList" parent="Server Search"]
+[node name="ItemList" type="ItemList" parent="Server Search" unique_id=376511228]
 layout_mode = 0
 offset_left = 140.0
 offset_top = 65.0
@@ -192,14 +215,14 @@ offset_right = 534.0
 offset_bottom = 497.0
 auto_width = true
 
-[node name="Server Create" type="Control" parent="."]
+[node name="Server Create" type="Control" parent="." unique_id=1569298838]
 visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="CreateReturn" type="Button" parent="Server Create"]
+[node name="CreateReturn" type="Button" parent="Server Create" unique_id=1123718564]
 layout_mode = 0
 offset_left = 140.0
 offset_top = 515.0
@@ -207,7 +230,7 @@ offset_right = 334.0
 offset_bottom = 571.0
 text = "Return"
 
-[node name="CreateServer" type="Button" parent="Server Create"]
+[node name="CreateServer" type="Button" parent="Server Create" unique_id=742732870]
 layout_mode = 0
 offset_left = 140.0
 offset_top = 215.0
@@ -215,7 +238,7 @@ offset_right = 334.0
 offset_bottom = 271.0
 text = "Create"
 
-[node name="Server Name" type="LineEdit" parent="Server Create"]
+[node name="Server Name" type="LineEdit" parent="Server Create" unique_id=649344854]
 layout_mode = 0
 offset_left = 140.0
 offset_top = 121.0
@@ -224,4 +247,4 @@ offset_bottom = 152.0
 placeholder_text = "Server Name"
 max_length = 20
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=2144612580]

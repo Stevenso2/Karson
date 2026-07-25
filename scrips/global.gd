@@ -25,6 +25,7 @@ var pause = false
 var slow = false
 var ingame = false
 var isMP = false
+var music_enabled := true
 
 var peer = ENetMultiplayerPeer.new()
 var Server = { "Name" = "" }

@@ -44,7 +44,10 @@ func _process(_delta: float) -> void:
 	
 	selector.position.y = offset + global.current_Block * jump_by
 
-
-func _on_audio_stream_player_finished() -> void:
-		$AudioStreamPlayer.play()
+func _ready() -> void:
+	if !global.music_enabled:
+		$AudioStreamPlayer.stop()
 		
+#func _on_audio_stream_player_finished() -> void:
+#	if global.music_enabled:
+#		$AudioStreamPlayer.play()

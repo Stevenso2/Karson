@@ -21,13 +21,18 @@ extends Node3D
 
 @onready var sensitivity: Slider = $Conf/sensitivity
 @onready var sensitivity_label: Label = $Conf/Sensitivity_Label
+@onready var mute_button: CheckButton = $Conf/Mute_Music
 
 func _ready() -> void:
 	request_timer.timeout.connect(getServs)
 
 	# Set slider to current global sensitivity
 	sensitivity.value = global.sensitivity
-	# eConnect value_changed signal to a function
+	# Mute music + keep it saved
+	mute_button.toggled.connect(_on_mute_button_toggled)
+	mute_button.button_pressed = !global.music_enabled
+	
+	# Connect value_changed signal to a function
 	sensitivity.value_changed.connect(_on_sensitivity_changed)
 	sensitivity_label.text = str(global.sensitivity)
 	
@@ -36,7 +41,12 @@ func _on_sensitivity_changed(value: float) -> void:
 	global.sensitivity = value
 	sensitivity_label.text = str(global.sensitivity)
 	print("Global sensitivity updated to:", global.sensitivity)
-		
+
+func _on_mute_button_toggled(button_pressed: bool) -> void:
+	global.music_enabled = !button_pressed
+	# print("muted")
+	
+
 @onready var server_search: Control = $"Server Search"
 @onready var request_timer: Timer = $"RequestTimer"
 @onready var item_list: ItemList = $"Server Search/ItemList"
