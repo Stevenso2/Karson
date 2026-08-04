@@ -22,6 +22,7 @@ func _process(delta):
 			var fps = Engine.get_frames_per_second()
 			var memory = OS.get_static_memory_usage() / 1024.0 / 1024.0
 			var level = get_tree().current_scene.name
+			
 
 # different types of debug
 			if debug_mode == 1:

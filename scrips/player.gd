@@ -289,10 +289,17 @@ func _physics_process(delta: float) -> void:
 			if gg_anim_player.assigned_animation == "GG Chill":
 				gg_anim_player.play("GG Ready")
 			GGSeenObj = grapple_ray.get_collider()
+			
+			
+			# Ignore Shotgun shots and Grapling to anything that is in the group "Pickable"
+			if GGSeenObj and GGSeenObj.is_in_group("Pickable"):
+				return
+
 			if GGSeenObj and HasGG and global.current_Block == global.INV.GraplingGun:
-				#print(GGSeenObj)
+				print(GGSeenObj)
 				GGcontact = grapple_ray.get_collision_point()
 				grapple_rope.show()
+			
 			
 			var SGSeenObj = shotgun_ray.get_collider()
 			if SGSeenObj and HasSG and global.current_Block == global.INV.ShotGun:

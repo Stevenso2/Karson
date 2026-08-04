@@ -1,20 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://e0ahwt68pno1"]
+[gd_scene format=3 uid="uid://e0ahwt68pno1"]
 
 [ext_resource type="Script" uid="uid://bs4wobv7ikagf" path="res://scrips/milk.gd" id="1_ybw5n"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c42lu"]
-albedo_color = Color(0, 0.423529, 1, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_ybw5n"]
-material = SubResource("StandardMaterial3D_c42lu")
-size = Vector3(0.4, 0.6, 0.4)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tng70"]
-albedo_color = Color(0, 0.423529, 1, 1)
-
-[sub_resource type="PrismMesh" id="PrismMesh_m47h4"]
-material = SubResource("StandardMaterial3D_tng70")
-size = Vector3(0.4, 0.238, 0.4)
 
 [sub_resource type="Animation" id="Animation_ybw5n"]
 length = 0.001
@@ -79,33 +65,44 @@ _data = {
 &"Rotat": SubResource("Animation_c42lu")
 }
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c42lu"]
+albedo_color = Color(0, 0.423529, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ybw5n"]
+material = SubResource("StandardMaterial3D_c42lu")
+size = Vector3(0.4, 0.6, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tng70"]
+albedo_color = Color(0, 0.423529, 1, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_m47h4"]
+material = SubResource("StandardMaterial3D_tng70")
+size = Vector3(0.4, 0.238, 0.4)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_tng70"]
 size = Vector3(1, 1.5, 1)
 
-[node name="Milk" type="Node3D"]
+[node name="Milk" type="Node3D" unique_id=1377785489]
 script = ExtResource("1_ybw5n")
 
-[node name="Milk" type="Node3D" parent="."]
+[node name="Milk" type="Node3D" parent="." unique_id=1348383359]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Milk"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Milk" unique_id=156452717]
+libraries/ = SubResource("AnimationLibrary_tng70")
+autoplay = &"Rotat"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Milk" unique_id=1447243178]
 transform = Transform3D(0.753843, 0.437464, 0.49025, -0.368217, 0.899233, -0.236214, -0.544184, -0.00245053, 0.838962, -0.0916488, -0.0738938, 0.000513379)
 mesh = SubResource("BoxMesh_ybw5n")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Milk"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Milk" unique_id=2092838466]
 transform = Transform3D(0.753843, 0.437464, 0.49025, -0.368217, 0.899232, -0.236214, -0.544184, -0.0024505, 0.838962, 0.0916488, 0.302884, -0.000513379)
 mesh = SubResource("PrismMesh_m47h4")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Milk")
-libraries = {
-&"": SubResource("AnimationLibrary_tng70")
-}
-autoplay = "Rotat"
-
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Area3D" type="Area3D" parent="." unique_id=1166909660]
 collision_layer = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1127577576]
 shape = SubResource("BoxShape3D_tng70")
 
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]

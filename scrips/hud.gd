@@ -7,8 +7,8 @@ extends Control
 @onready var shot_gun: RichTextLabel = $ShotGun
 @onready var grappling_gun: RichTextLabel = $GrapplingGun
 
-var offset = 471.5
-var jump_by = 68
+var offset = 817.5
+var jump_by = 101
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
