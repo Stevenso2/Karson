@@ -132,7 +132,7 @@ collision_layer = 66
 collision_mask = 5
 
 [node name="MoveCollision" type="CollisionShape3D" parent="ButtonFace/MoveArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00292552, 0)
 shape = SubResource("BoxShape3D_6fwqn")
 
 [connection signal="body_entered" from="ContactArea" to="." method="contact_area_entered"]

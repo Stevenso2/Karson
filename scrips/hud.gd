@@ -7,8 +7,8 @@ extends Control
 @onready var shot_gun: RichTextLabel = $ShotGun
 @onready var grappling_gun: RichTextLabel = $GrapplingGun
 
-var offset = 471.5
-var jump_by = 68
+var offset = 817.5
+var jump_by = 101
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -44,6 +44,10 @@ func _process(_delta: float) -> void:
 	
 	selector.position.y = offset + global.current_Block * jump_by
 
-
-func _on_audio_stream_player_finished() -> void:
-	$AudioStreamPlayer.play()
+func _ready() -> void:
+	if !global.music_enabled:
+		$AudioStreamPlayer.stop()
+		
+#func _on_audio_stream_player_finished() -> void:
+#	if global.music_enabled:
+#		$AudioStreamPlayer.play()

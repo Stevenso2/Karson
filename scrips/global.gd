@@ -18,11 +18,14 @@ enum GateType {AND,NOR,XOR}
 
 var current_Block: INV = 0 as INV
 var transition: AnimationPlayer # used to make the BodyAnimationPlayer callable on every script
+var sensitivity: float = 0.35
+var Player: CharacterBody3D
 
 var pause = false
 var slow = false
 var ingame = false
 var isMP = false
+var music_enabled := true
 
 var peer = ENetMultiplayerPeer.new()
 var Server = { "Name" = "" }

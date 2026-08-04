@@ -422,7 +422,7 @@ shadow_mesh = SubResource("ArrayMesh_bj42n")
 [sub_resource type="BoxShape3D" id="BoxShape3D_7gc28"]
 size = Vector3(1.4, 2.2, 1.4)
 
-[node name="Billy" type="RigidBody3D" groups=["PObj", "Respawnable", "Stunable"]]
+[node name="Billy" type="RigidBody3D" groups=["PObj", "Pickable", "Respawnable", "Stunable"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
 top_level = true
 collision_layer = 70

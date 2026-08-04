@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://m1rb473hgphq"]
+[gd_scene format=3 uid="uid://m1rb473hgphq"]
 
 [ext_resource type="Script" uid="uid://s2g67vbjn4r1" path="res://scrips/standard POBJ.gd" id="1_hgn81"]
 
@@ -11,16 +11,17 @@ size = Vector3(0.8, 0.8, 0.8)
 [sub_resource type="BoxShape3D" id="BoxShape3D_2ertg"]
 size = Vector3(0.8, 0.8, 0.8)
 
-[node name="Box" type="RigidBody3D" groups=["PObj", "Respawnable"]]
+[node name="Box" type="RigidBody3D" unique_id=2078089450 groups=["PObj", "Pickable", "Respawnable"]]
 collision_layer = 68
 collision_mask = 135
 mass = 3.0
 physics_material_override = SubResource("PhysicsMaterial_s3o5f")
+gravity_scale = 0.7
 angular_damp = 10.0
 script = ExtResource("1_hgn81")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=650750965]
 mesh = SubResource("BoxMesh_s3o5f")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1126070312]
 shape = SubResource("BoxShape3D_2ertg")
