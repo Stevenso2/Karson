@@ -1,9 +1,12 @@
-[gd_scene load_steps=34 format=4 uid="uid://d2djyky5dsmv4"]
+[gd_scene format=4 uid="uid://d2djyky5dsmv4"]
 
 [ext_resource type="Script" uid="uid://m6ai10xyiny0" path="res://scrips/billy.gd" id="1_pncx1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_t5s1w"]
 absorbent = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7gc28"]
+size = Vector3(1.4, 2.2, 1.4)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pnl44"]
 resource_name = "Material.005"
@@ -419,11 +422,8 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_bj42n")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_7gc28"]
-size = Vector3(1.4, 2.2, 1.4)
-
-[node name="Billy" type="RigidBody3D" groups=["PObj", "Pickable", "Respawnable", "Stunable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+[node name="Billy" type="RigidBody3D" unique_id=1657414536 groups=["PObj", "Respawnable", "Stunable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.19904953, 0)
 top_level = true
 collision_layer = 70
 collision_mask = 135
@@ -434,8 +434,15 @@ physics_material_override = SubResource("PhysicsMaterial_t5s1w")
 linear_damp = 1.0
 script = ExtResource("1_pncx1")
 
-[node name="Billy" type="Skeleton3D" parent="."]
-transform = Transform3D(-1.31134e-08, 0.3, 1.31134e-08, 0, -1.31134e-08, 0.3, 0.3, 1.31134e-08, 5.73206e-16, -0.25, 0.78, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=403560814]
+transform = Transform3D(0.49999997, -1.7763568e-15, 1.7763568e-15, 1.7763568e-15, 0.49999997, 0, -1.7763568e-15, 0, 0.49999997, -5.9604645e-08, -0.24633801, 4.4703494e-08)
+shape = SubResource("BoxShape3D_7gc28")
+
+[node name="Timer" type="Timer" parent="." unique_id=841551708]
+one_shot = true
+
+[node name="Billy" type="Skeleton3D" parent="." unique_id=1473195701]
+transform = Transform3D(-1.31134e-08, 0.3, 1.31134e-08, 0, -1.31134e-08, 0.3, 0.3, 1.31134e-08, 5.73206e-16, -0.25, -0.0148560405, 0)
 bones/0/name = "Sketchfab_model"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -577,110 +584,103 @@ bones/19/position = Vector3(0, 0, 0)
 bones/19/rotation = Quaternion(0, 0, 0, 1)
 bones/19/scale = Vector3(1, 1, 1)
 
-[node name="Billy_Head_Material_005_0" type="BoneAttachment3D" parent="Billy"]
-transform = Transform3D(1, 0, 1.42109e-14, 0, 1, 0, -1.42109e-14, 0, 1, 0, 0.794494, 0)
+[node name="Billy_Head_Material_005_0" type="BoneAttachment3D" parent="Billy" unique_id=1688002886]
+transform = Transform3D(1, 0, 1.421086e-14, 0, 1, 0, -1.421086e-14, 0, 1, 0, 0.794494, 0)
 bone_name = "Billy_Head_Material.005_0"
 bone_idx = 5
 
-[node name="Billy_Head_Material_005_0" type="MeshInstance3D" parent="Billy/Billy_Head_Material_005_0"]
+[node name="Billy_Head_Material_005_0" type="MeshInstance3D" parent="Billy/Billy_Head_Material_005_0" unique_id=1585325384]
 mesh = SubResource("ArrayMesh_1bx0p")
 skeleton = NodePath("")
 
-[node name="Billy_Head_Material_001_0" type="BoneAttachment3D" parent="Billy"]
-transform = Transform3D(1, 0, 1.42109e-14, 0, 1, 0, -1.42109e-14, 0, 1, 0, 0.794494, 0)
+[node name="Billy_Head_Material_001_0" type="BoneAttachment3D" parent="Billy" unique_id=586453522]
+transform = Transform3D(1, 0, 1.421086e-14, 0, 1, 0, -1.421086e-14, 0, 1, 0, 0.794494, 0)
 bone_name = "Billy_Head_Material.001_0"
 bone_idx = 6
 
-[node name="Billy_Head_Material_001_0" type="MeshInstance3D" parent="Billy/Billy_Head_Material_001_0"]
+[node name="Billy_Head_Material_001_0" type="MeshInstance3D" parent="Billy/Billy_Head_Material_001_0" unique_id=1990152386]
 transform = Transform3D(1, 0, 0, 0, 1, 7.04695e-22, 0, 7.04695e-22, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_3aj7q")
 skeleton = NodePath("")
 
-[node name="Billy_Head_Material_004_0" type="BoneAttachment3D" parent="Billy"]
-transform = Transform3D(1, 0, 1.42109e-14, 0, 1, 0, -1.42109e-14, 0, 1, 0, 0.794494, 0)
+[node name="Billy_Head_Material_004_0" type="BoneAttachment3D" parent="Billy" unique_id=1899665350]
+transform = Transform3D(1, 0, 1.421086e-14, 0, 1, 0, -1.421086e-14, 0, 1, 0, 0.794494, 0)
 bone_name = "Billy_Head_Material.004_0"
 bone_idx = 7
 
-[node name="Billy_Head_Material_004_0" type="MeshInstance3D" parent="Billy/Billy_Head_Material_004_0"]
+[node name="Billy_Head_Material_004_0" type="MeshInstance3D" parent="Billy/Billy_Head_Material_004_0" unique_id=1799415955]
 mesh = SubResource("ArrayMesh_noopv")
 skeleton = NodePath("")
 
-[node name="Billy_Head_Material_002_0" type="BoneAttachment3D" parent="Billy"]
-transform = Transform3D(1, 0, 1.42109e-14, 0, 1, 0, -1.42109e-14, 0, 1, 0, 0.794494, 0)
+[node name="Billy_Head_Material_002_0" type="BoneAttachment3D" parent="Billy" unique_id=2090056644]
+transform = Transform3D(1, 0, 1.421086e-14, 0, 1, 0, -1.421086e-14, 0, 1, 0, 0.794494, 0)
 bone_name = "Billy_Head_Material.002_0"
 bone_idx = 8
 
-[node name="Billy_Head_Material_002_0" type="MeshInstance3D" parent="Billy/Billy_Head_Material_002_0"]
+[node name="Billy_Head_Material_002_0" type="MeshInstance3D" parent="Billy/Billy_Head_Material_002_0" unique_id=65529794]
 mesh = SubResource("ArrayMesh_lqt3v")
 skeleton = NodePath("")
 
-[node name="Billy_Head_BILLY SPECS_0" type="BoneAttachment3D" parent="Billy"]
-transform = Transform3D(1, 0, 1.42109e-14, 0, 1, 0, -1.42109e-14, 0, 1, 0, 0.794494, 0)
+[node name="Billy_Head_BILLY SPECS_0" type="BoneAttachment3D" parent="Billy" unique_id=383169887]
+transform = Transform3D(1, 0, 1.421086e-14, 0, 1, 0, -1.421086e-14, 0, 1, 0, 0.794494, 0)
 bone_name = "Billy_Head_BILLY SPECS_0"
 bone_idx = 9
 
-[node name="Billy_Head_BILLY SPECS_0" type="MeshInstance3D" parent="Billy/Billy_Head_BILLY SPECS_0"]
+[node name="Billy_Head_BILLY SPECS_0" type="MeshInstance3D" parent="Billy/Billy_Head_BILLY SPECS_0" unique_id=2078082184]
 mesh = SubResource("ArrayMesh_x1qqn")
 skeleton = NodePath("")
 
-[node name="Billy_Face_Material_003_0" type="BoneAttachment3D" parent="Billy"]
-transform = Transform3D(-0.0014838, 0.00148662, 0.999998, 0.00148662, 0.999998, -0.00148441, -0.999998, 0.00148441, -0.00148606, -0.99905, 0.735603, 0.131582)
+[node name="Billy_Face_Material_003_0" type="BoneAttachment3D" parent="Billy" unique_id=1002212374]
+transform = Transform3D(-0.001483798, 0.0014866206, 0.9999978, 0.0014866202, 0.9999978, -0.0014844148, -0.9999978, 0.0014844141, -0.001486063, -0.99905, 0.735603, 0.13158202)
 bone_name = "Billy_Face_Material.003_0"
 bone_idx = 11
 
-[node name="Billy_Face_Material_003_0" type="MeshInstance3D" parent="Billy/Billy_Face_Material_003_0"]
+[node name="Billy_Face_Material_003_0" type="MeshInstance3D" parent="Billy/Billy_Face_Material_003_0" unique_id=1316253939]
 transform = Transform3D(1, -3.49246e-10, 5.27507e-10, 3.49246e-10, 1, -5.82077e-10, -5.19321e-10, 9.31323e-10, 1, -0.112071, -0.150383, 5.71012e-05)
 mesh = SubResource("ArrayMesh_77tie")
 skeleton = NodePath("")
 
-[node name="Billy_Text_Material_005_0" type="BoneAttachment3D" parent="Billy"]
-transform = Transform3D(1, 0, 1.42109e-14, 0, 1, 0, -1.42109e-14, 0, 1, 0, 0.794494, 0)
+[node name="Billy_Text_Material_005_0" type="BoneAttachment3D" parent="Billy" unique_id=1156768950]
+transform = Transform3D(1, 0, 1.421086e-14, 0, 1, 0, -1.421086e-14, 0, 1, 0, 0.794494, 0)
 bone_name = "Billy_Text_Material.005_0"
 bone_idx = 13
 
-[node name="Billy_Legs_Material_005_0" type="BoneAttachment3D" parent="Billy"]
+[node name="Billy_Legs_Material_005_0" type="BoneAttachment3D" parent="Billy" unique_id=1201235076]
 bone_name = "Billy_Legs_Material.005_0"
 bone_idx = 15
 
-[node name="Billy_Legs_Material_005_0" type="MeshInstance3D" parent="Billy/Billy_Legs_Material_005_0"]
+[node name="Billy_Legs_Material_005_0" type="MeshInstance3D" parent="Billy/Billy_Legs_Material_005_0" unique_id=1356340073]
 mesh = SubResource("ArrayMesh_ryb72")
 skeleton = NodePath("")
 
-[node name="Billy_Legs_Material_006_0" type="BoneAttachment3D" parent="Billy"]
+[node name="Billy_Legs_Material_006_0" type="BoneAttachment3D" parent="Billy" unique_id=267222750]
 bone_name = "Billy_Legs_Material.006_0"
 bone_idx = 16
 
-[node name="Billy_Legs_Material_006_0" type="MeshInstance3D" parent="Billy/Billy_Legs_Material_006_0"]
+[node name="Billy_Legs_Material_006_0" type="MeshInstance3D" parent="Billy/Billy_Legs_Material_006_0" unique_id=1882146710]
 mesh = SubResource("ArrayMesh_6s3d3")
 skeleton = NodePath("")
 
-[node name="Billy_Legs_Material_001_0" type="BoneAttachment3D" parent="Billy"]
+[node name="Billy_Legs_Material_001_0" type="BoneAttachment3D" parent="Billy" unique_id=380359060]
 bone_name = "Billy_Legs_Material.001_0"
 bone_idx = 17
 
-[node name="Billy_Legs_Material_001_0" type="MeshInstance3D" parent="Billy/Billy_Legs_Material_001_0"]
+[node name="Billy_Legs_Material_001_0" type="MeshInstance3D" parent="Billy/Billy_Legs_Material_001_0" unique_id=641142925]
 mesh = SubResource("ArrayMesh_0sire")
 skeleton = NodePath("")
 
-[node name="Billy_Legs_Material_004_0" type="BoneAttachment3D" parent="Billy"]
+[node name="Billy_Legs_Material_004_0" type="BoneAttachment3D" parent="Billy" unique_id=847425231]
 bone_name = "Billy_Legs_Material.004_0"
 bone_idx = 18
 
-[node name="Billy_Legs_Material_004_0" type="MeshInstance3D" parent="Billy/Billy_Legs_Material_004_0"]
+[node name="Billy_Legs_Material_004_0" type="MeshInstance3D" parent="Billy/Billy_Legs_Material_004_0" unique_id=1350951574]
 mesh = SubResource("ArrayMesh_aee4e")
 skeleton = NodePath("")
 
-[node name="Billy_Legs_Material_0" type="BoneAttachment3D" parent="Billy"]
+[node name="Billy_Legs_Material_0" type="BoneAttachment3D" parent="Billy" unique_id=1573189798]
 bone_name = "Billy_Legs_Material_0"
 bone_idx = 19
 
-[node name="Billy_Legs_Material_0" type="MeshInstance3D" parent="Billy/Billy_Legs_Material_0"]
+[node name="Billy_Legs_Material_0" type="MeshInstance3D" parent="Billy/Billy_Legs_Material_0" unique_id=1534486814]
 mesh = SubResource("ArrayMesh_t1nwt")
 skeleton = NodePath("")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -4.47035e-08, 0.553662, 4.47035e-08)
-shape = SubResource("BoxShape3D_7gc28")
-
-[node name="Timer" type="Timer" parent="."]
-one_shot = true

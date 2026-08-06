@@ -1,13 +1,18 @@
 shader_type spatial;
+// note: this shader was reworked Entirely, so some comments are still Old.
 
-// Box size in local space [Pizzi note: this is a temp fix but it works xD]
+// Box size in local space
 uniform vec3 box_size = vec3(600.0, 600.0, 600.0);
 
 // Controls
-uniform float Glowness = 2;
+uniform float Glowness = 2.0;
 uniform float bness = 1.0;
 uniform float fall_off_scale = 3.0;
 uniform float b_offset = 0.0;
+
+// Colors
+uniform vec3 base_color : source_color = vec3(1.0, 0.85, 0.05);
+uniform vec3 glow_color : source_color = vec3(1.0, 0.38, 0.05);
 
 
 float distance_to_box(vec3 point, vec3 box_half_size) {
@@ -22,22 +27,23 @@ void fragment() {
     // Center of the object in world space
     vec3 world_center = (MODEL_MATRIX * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
 
-    // Compute vector from center to this fragment in world space
+    // Vector from center to fragment
     vec3 to_frag = world_pos - world_center;
 
-    // Distance to box in world space
+    // Distance to box
     float d2c = distance_to_box(to_frag, box_size);
 
-    // falloff for brightness
+    // Falloff brightness
     float alpha = -log(d2c * fall_off_scale + b_offset) * bness;
     alpha = clamp(alpha, 0.0, 1.0);
 
-    vec3 base_color = vec3(1.0, 0.18, 0.05);  // 1.0, 0.35, 0.05 = warm orange , 1.0, 0.5, 0.0 = normal orange, normal set it to 1.0, 0.18, 0.05
 
+    // Object color
     ALBEDO = base_color;
+
+    // Transparency
     ALPHA = alpha;
 
-    // Optional emissive effect
-	EMISSION = base_color * alpha * Glowness; // how much glow should be added , set to 1.0 to dissable glow
-
+    // Glow color (independent from object color)
+    EMISSION = glow_color * alpha * Glowness;
 }

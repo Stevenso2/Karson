@@ -19,6 +19,7 @@ extends CharacterBody3D
 @onready var ReadyTimer = $Camera3D/ReadySateTimer
 @onready var slomo_timer: Timer = $"Slomo Timer"
 @onready var wall_jump_timer: Timer = $"WallJump Timer"
+var held_object: RigidBody3D = null
 
 #To make sliding work better
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
@@ -147,10 +148,26 @@ func _process(_delta):
 			if interact.get_parent().has_method("Intercat"):
 				#print("intercat")
 				interact.get_parent().Intercat()
+	
 	if Input.is_action_pressed("intercat") and not global.DEV:
 		var interact = shotgun_ray.get_collider()
+		
+		# Complete rework of how the group "Pickable" works
 		if interact and interact.is_class("RigidBody3D") and interact.is_in_group("Pickable"):
-			interact.position = obj.global_position
+			held_object = interact
+			held_object.freeze = false
+	if held_object:
+		var target = obj.global_position
+		var direction = target - held_object.global_position
+		held_object.linear_velocity = direction * 20.0 # how strong it follows
+		
+		# Drop cube and cause it not to freeze midair
+	if Input.is_action_just_released("intercat"):
+		if held_object:
+			held_object.linear_velocity = Vector3.ZERO
+			held_object.angular_velocity = Vector3.ZERO
+			held_object.sleeping = false
+		held_object = null
 	
 	#Character slide test VERY WIP
 	
@@ -334,6 +351,7 @@ func _physics_process(delta: float) -> void:
 					grapple_rope.rotate_object_local(Vector3.RIGHT, deg_to_rad(-90))
 					grapple_rope.scale = Vector3(0.025,grapple_muzzle.global_transform.origin.distance_to(contact),0.025)
 					grapple_rope.global_position = (grapple_muzzle.global_position + contact)/2
+		global.current_speed = Vector2(velocity.x,velocity.z).length() # used for debug info
 		move_and_slide()
 
 	if global.DEV:

@@ -26,6 +26,8 @@ var slow = false
 var ingame = false
 var isMP = false
 var music_enabled := true
+var debug_mode := 0
+var current_speed := 0.0 #Used for debug info
 
 var peer = ENetMultiplayerPeer.new()
 var Server = { "Name" = "" }

@@ -28,8 +28,8 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 scale = Vector2(1.395, 1.4)
-text = "[Debug]
-Size_View"
+text = "
+"
 script = ExtResource("2_quk1y")
 
 [node name="Hotbar" type="Sprite2D" parent="." unique_id=2002232222]

@@ -40,7 +40,7 @@ func _ready() -> void:
 func _on_sensitivity_changed(value: float) -> void:
 	global.sensitivity = value
 	sensitivity_label.text = str(global.sensitivity)
-	print("Global sensitivity updated to:", global.sensitivity)
+	# print("Global sensitivity updated to: ", global.sensitivity)
 
 func _on_mute_button_toggled(button_pressed: bool) -> void:
 	global.music_enabled = !button_pressed
@@ -189,7 +189,7 @@ func getServs():
 	print("getting Servers")
 	var request = JSON.stringify("GET_SRV")
 	global.MPSend.emit(request, global.LAN, global.SCANPORT)
-	global.MPRecive.emit(PacketParse, true)
+	global.MRecive.emit(PacketParse, true)
 	
 func PacketParse(MSG: String, ip: String, _port: int):
 	if MSG.begins_with("ServerIdent: "):
