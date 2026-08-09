@@ -6,6 +6,9 @@ extends CharacterBody3D
 @onready var obj = $"Camera3D/pOBJ Pickup"
 
 @onready var shotgun_view: RigidBody3D = $Camera3D/Shotgun_View
+@export var ProjectileScene: PackedScene # For choosing what the projectiles are, incase a custom model is created
+@export var shotgun_muzzle: Marker3D # Used for the muzzle that is placed in player/Camera3d/Shotgun_View/Muzzle (godot didnt liked it when i added it with @onready)
+
 @onready var sg_anim_player: AnimationPlayer = $Camera3D/SGAnimPlayer
 
 @onready var grapple_view: RigidBody3D = $Camera3D/Grapple_View
@@ -152,22 +155,31 @@ func _process(_delta):
 	if Input.is_action_pressed("intercat") and not global.DEV:
 		var interact = shotgun_ray.get_collider()
 		
-		# Complete rework of how the group "Pickable" works
+		# Complete rework of how the group "Pickable" works and How picking up Billy works
 		if interact and interact.is_class("RigidBody3D") and interact.is_in_group("Pickable"):
 			held_object = interact
 			held_object.freeze = false
+			held_object.sleeping = false
+			
+			if held_object.has_method("set_being_held"):
+				held_object.set_being_held(true)
 	if held_object:
 		var target = obj.global_position
 		var direction = target - held_object.global_position
-		held_object.linear_velocity = direction * 20.0 # how strong it follows
+		held_object.linear_velocity = direction * 20.0 # how strong The PObj follows the Player while holding "e"
 		
-		# Drop cube and cause it not to freeze midair
+		# Drop cube and cause it not to freeze midair + Resume Billys movement
 	if Input.is_action_just_released("intercat"):
 		if held_object:
-			held_object.linear_velocity = Vector3.ZERO
-			held_object.angular_velocity = Vector3.ZERO
-			held_object.sleeping = false
-		held_object = null
+			# Tell the object that it is no longer being held
+				if held_object.has_method("set_being_held"):
+					held_object.set_being_held(false)
+				
+				held_object.linear_velocity = Vector3.ZERO
+				held_object.angular_velocity = Vector3.ZERO
+				held_object.sleeping = false
+				
+				held_object = null
 	
 	#Character slide test VERY WIP
 	
@@ -202,6 +214,28 @@ func _process(_delta):
 		
 		#reset animation
 		body_anim_player.play("Walk")
+
+#spawning in the projectiles + speed.
+func Shoot() -> void:
+	if ProjectileScene == null:
+		return
+
+	for i in range(8): # How many "Projectiles" there should be spawned
+		var projectile = ProjectileScene.instantiate()
+		get_tree().current_scene.add_child(projectile)
+
+		projectile.global_position = shotgun_muzzle.global_position # For "shooting" out the Muzzle that is placed in Shotgun_view
+
+		var direction = -camera_3d.global_transform.basis.z # To spawn in the Direction your looking
+
+		direction += Vector3(
+			randf_range(-0.05, 0.05),
+			randf_range(-0.05, 0.05),
+			randf_range(-0.05, 0.05)
+		)
+
+		projectile.direction = direction.normalized()
+		projectile.speed = 5.0
 
 func _physics_process(delta: float) -> void:
 	delta += 0.000001
@@ -298,6 +332,7 @@ func _physics_process(delta: float) -> void:
 				velocity.z = move_toward(velocity.z, 0, decelaration)
 				velocity.x = move_toward(velocity.x, 0, decelaration)
 				
+		
 		if Input.is_action_just_pressed("Shoot"):
 			ReadyTimer.start(5)
 			AllowInteractions = false
@@ -306,6 +341,8 @@ func _physics_process(delta: float) -> void:
 			if gg_anim_player.assigned_animation == "GG Chill":
 				gg_anim_player.play("GG Ready")
 			GGSeenObj = grapple_ray.get_collider()
+			if HasSG and global.current_Block == global.INV.ShotGun: # if the input "shoot" is pressed to spawn in the Projectiles
+				Shoot()
 			
 			
 			# Ignore Shotgun shots and Grapling to anything that is in the group "Pickable"
