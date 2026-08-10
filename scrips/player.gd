@@ -149,17 +149,31 @@ func _process(_delta):
 				#print("intercat")
 				interact.get_parent().Intercat()
 	
-	if Input.is_action_pressed("intercat") and not global.DEV:
-		var interact = shotgun_ray.get_collider()
-		
-		# Complete rework of how the group "Pickable" works
+	# Complete rework of how the group "Pickable" works and How picking up Billy works
 		if interact and interact.is_class("RigidBody3D") and interact.is_in_group("Pickable"):
 			held_object = interact
 			held_object.freeze = false
+			held_object.sleeping = false
+			
+			if held_object.has_method("set_being_held"):
+				held_object.set_being_held(true)
 	if held_object:
 		var target = obj.global_position
 		var direction = target - held_object.global_position
-		held_object.linear_velocity = direction * 20.0 # how strong it follows
+		held_object.linear_velocity = direction * 20.0 # how strong The PObj follows the Player while holding "e"
+		
+		# Drop cube and cause it not to freeze midair + Resume Billys movement
+	if Input.is_action_just_released("intercat"):
+		if held_object:
+			# Tell the object that it is no longer being held
+				if held_object.has_method("set_being_held"):
+					held_object.set_being_held(false)
+				
+				held_object.linear_velocity = Vector3.ZERO
+				held_object.angular_velocity = Vector3.ZERO
+				held_object.sleeping = false
+				
+				held_object = null
 		
 		# Drop cube and cause it not to freeze midair
 	if Input.is_action_just_released("intercat"):
