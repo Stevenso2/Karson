@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://erooj15k8tku"]
+[gd_scene load_steps=33 format=4 uid="uid://erooj15k8tku"]
 
 [ext_resource type="Script" uid="uid://ceuwlgv4rrmyr" path="res://scrips/shotgun.gd" id="1_qj2j7"]
 
@@ -467,15 +467,15 @@ size = Vector3(0.15, 0.22, 0.49)
 [sub_resource type="BoxShape3D" id="BoxShape3D_qj2j7"]
 size = Vector3(0.25, 1.77189, 2.40609)
 
-[node name="Shotgun" type="RigidBody3D" unique_id=1353616688 groups=["PObj", "Respawnable"]]
+[node name="Shotgun" type="RigidBody3D" groups=["PObj", "Respawnable"]]
 collision_layer = 68
 collision_mask = 129
 script = ExtResource("1_qj2j7")
 
-[node name="Shotgun model" type="Node3D" parent="." unique_id=897531075]
+[node name="Shotgun model" type="Node3D" parent="."]
 transform = Transform3D(-3.27835e-09, 0, -0.075, 0, 0.075, 0, 0.075, 0, -3.27835e-09, 0.00393433, -0.0286836, -0.00659382)
 
-[node name="Skeleton3D" type="Skeleton3D" parent="Shotgun model" unique_id=1985809776]
+[node name="Skeleton3D" type="Skeleton3D" parent="Shotgun model"]
 bones/0/name = "Cube.006"
 bones/0/parent = -1
 bones/0/rest = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, 2.3955, -0.142198, -1.91056e-08)
@@ -568,131 +568,131 @@ bones/12/position = Vector3(0.0172036, -7.61366e-11, 0.000566666)
 bones/12/rotation = Quaternion(0, 0, 0, 1)
 bones/12/scale = Vector3(1, 1, 1)
 
-[node name="Cube_006" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D" unique_id=1326906940]
+[node name="Cube_006" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D"]
 transform = Transform3D(100, 0, 0, 0, 0, 100, 0, -100, 0, 2.3955, -0.142198, -1.91056e-08)
 bone_name = "Cube.006"
 bone_idx = 0
 
-[node name="Cube_006" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_006" unique_id=1558193945]
+[node name="Cube_006" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_006"]
 mesh = SubResource("ArrayMesh_23rju")
 skeleton = NodePath("")
 
-[node name="Cube" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D" unique_id=1042745077]
+[node name="Cube" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D"]
 transform = Transform3D(100, 0, 0, 0, 0, 100, 0, -100, 0, 0, 0, 0)
 bone_name = "Cube"
 bone_idx = 1
 
-[node name="Cube" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube" unique_id=700689264]
+[node name="Cube" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube"]
 mesh = SubResource("ArrayMesh_02cr0")
 skeleton = NodePath("")
 
-[node name="Cube_001" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D" unique_id=1426521839]
+[node name="Cube_001" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D"]
 transform = Transform3D(100, 0, 0, 0, 0, 100, 0, -100, 0, 0, 0, 0)
 bone_name = "Cube.001"
 bone_idx = 2
 
-[node name="Cube_001" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_001" unique_id=1690207026]
+[node name="Cube_001" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_001"]
 mesh = SubResource("ArrayMesh_e80wo")
 skeleton = NodePath("")
 
-[node name="Cube_002" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D" unique_id=1043954089]
+[node name="Cube_002" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D"]
 transform = Transform3D(100, 0, 0, 0, 0, 100, 0, -100, 0, 0, 0, 0)
 bone_name = "Cube.002"
 bone_idx = 3
 
-[node name="Cube_002" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_002" unique_id=836346993]
+[node name="Cube_002" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_002"]
 mesh = SubResource("ArrayMesh_w15we")
 skeleton = NodePath("")
 
-[node name="Cube_004" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D" unique_id=382362342]
+[node name="Cube_004" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D"]
 transform = Transform3D(100, 0, 0, 0, 0, 100, 0, -100, 0, 0, 0, 0)
 bone_name = "Cube.004"
 bone_idx = 4
 
-[node name="Cube_004" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_004" unique_id=110511155]
+[node name="Cube_004" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_004"]
 mesh = SubResource("ArrayMesh_slvc6")
 skeleton = NodePath("")
 
-[node name="Cube_005" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D" unique_id=201691973]
+[node name="Cube_005" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D"]
 transform = Transform3D(100, 0, 0, 0, 0, 100, 0, -77.9451, 0, 0, 0, 0)
 bone_name = "Cube.005"
 bone_idx = 5
 
-[node name="Cube_005" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_005" unique_id=1473234931]
+[node name="Cube_005" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_005"]
 mesh = SubResource("ArrayMesh_b4j70")
 skeleton = NodePath("")
 
-[node name="Cube_011" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D" unique_id=2002373223]
+[node name="Cube_011" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D"]
 transform = Transform3D(100, 0, 0, 0, 0, 100, 0, -100, 0, 0, 0, 0)
 bone_name = "Cube.011"
 bone_idx = 6
 
-[node name="Cube_011" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_011" unique_id=1632216600]
+[node name="Cube_011" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_011"]
 mesh = SubResource("ArrayMesh_aa0gh")
 skeleton = NodePath("")
 
-[node name="Cube_003" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D" unique_id=1615924239]
+[node name="Cube_003" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D"]
 transform = Transform3D(100, 0, 0, 0, 0, 100, 0, -100, 0, 0, 0, 0)
 bone_name = "Cube.003"
 bone_idx = 7
 
-[node name="Cube_003" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_003" unique_id=1896673465]
+[node name="Cube_003" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_003"]
 mesh = SubResource("ArrayMesh_6mvis")
 skeleton = NodePath("")
 
-[node name="Cube_010" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D" unique_id=2021643028]
+[node name="Cube_010" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D"]
 transform = Transform3D(100, 0, 0, 0, 0, 100, 0, -100, 0, 0, 0, 0)
 bone_name = "Cube.010"
 bone_idx = 8
 
-[node name="Cube_010" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_010" unique_id=238975457]
+[node name="Cube_010" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_010"]
 mesh = SubResource("ArrayMesh_opgkj")
 skeleton = NodePath("")
 
-[node name="Cube_007" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D" unique_id=837395079]
+[node name="Cube_007" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D"]
 transform = Transform3D(100, 0, 0, 0, 0, 100, 0, -100, 0, 0, 0, 0)
 bone_name = "Cube.007"
 bone_idx = 9
 
-[node name="Cube_007" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_007" unique_id=1551249753]
+[node name="Cube_007" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_007"]
 mesh = SubResource("ArrayMesh_3j1gs")
 skeleton = NodePath("")
 
-[node name="Cube_008" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D" unique_id=361760124]
+[node name="Cube_008" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D"]
 transform = Transform3D(100, 0, 0, 0, 0, 100, 0, -100, 0, 0, 0, 0)
 bone_name = "Cube.008"
 bone_idx = 10
 
-[node name="Cube_008" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_008" unique_id=1627616433]
+[node name="Cube_008" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_008"]
 mesh = SubResource("ArrayMesh_xkv03")
 skeleton = NodePath("")
 
-[node name="Cube_009" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D" unique_id=1805174718]
+[node name="Cube_009" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D"]
 transform = Transform3D(100, 0, 0, 0, 0, 100, 0, -100, 0, 0, 0, 0)
 bone_name = "Cube.009"
 bone_idx = 11
 
-[node name="Cube_009" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_009" unique_id=1190586567]
+[node name="Cube_009" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_009"]
 mesh = SubResource("ArrayMesh_yr5yp")
 skeleton = NodePath("")
 
-[node name="Cube_012" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D" unique_id=170061391]
-transform = Transform3D(100, 0, 0, 0, 0, 100, 0, -100, 0, 1.7203599, 0.0566666, 7.61366e-09)
+[node name="Cube_012" type="BoneAttachment3D" parent="Shotgun model/Skeleton3D"]
+transform = Transform3D(100, 0, 0, 0, 0, 100, 0, -100, 0, 1.72036, 0.0566666, 7.61366e-09)
 bone_name = "Cube.012"
 bone_idx = 12
 
-[node name="Cube_012" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_012" unique_id=251775116]
+[node name="Cube_012" type="MeshInstance3D" parent="Shotgun model/Skeleton3D/Cube_012"]
 mesh = SubResource("ArrayMesh_gd47v")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=951168273]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0529827, 0)
 shape = SubResource("BoxShape3D_58j56")
 
-[node name="Area3D" type="Area3D" parent="." unique_id=1190029099]
+[node name="Area3D" type="Area3D" parent="."]
 collision_layer = 4
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D" unique_id=269841377]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00101981, -0.00520939)
 shape = SubResource("BoxShape3D_qj2j7")
 

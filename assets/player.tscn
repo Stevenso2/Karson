@@ -1,10 +1,9 @@
-[gd_scene format=4 uid="uid://4r8al3ot2h5v"]
+[gd_scene load_steps=36 format=4 uid="uid://4r8al3ot2h5v"]
 
 [ext_resource type="Script" uid="uid://coxis1sim8qyc" path="res://scrips/player.gd" id="1_enlmb"]
 [ext_resource type="PackedScene" uid="uid://d0nli7fikwkrr" path="res://assets/hud.tscn" id="2_2tde0"]
 [ext_resource type="PackedScene" uid="uid://yin8d5biltck" path="res://assets/grapple.tscn" id="3_rug40"]
 [ext_resource type="PackedScene" uid="uid://erooj15k8tku" path="res://assets/shotgun.tscn" id="4_rug40"]
-[ext_resource type="PackedScene" uid="uid://bu3kfunhhcf1j" path="res://assets/Projectile.tscn" id="5_mxi64"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_irju7"]
 radius = 0.3
@@ -1550,48 +1549,41 @@ _data = {
 &"slide": SubResource("Animation_cn88q")
 }
 
-[node name="Player" type="CharacterBody3D" unique_id=49923350 node_paths=PackedStringArray("shotgun_muzzle") groups=["PObj", "Player", "Respawnable"]]
+[node name="Player" type="CharacterBody3D" groups=["PObj", "Player", "Respawnable"]]
 disable_mode = 1
 collision_mask = 131
 collision_priority = 0.1
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 script = ExtResource("1_enlmb")
-ProjectileScene = ExtResource("5_mxi64")
-shotgun_muzzle = NodePath("Camera3D/Shotgun_View/Muzzle")
-accelaration = 4
-decelaration = 2.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=922873260]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_irju7")
 
-[node name="Sliding_Collision" type="CollisionShape3D" parent="." unique_id=536593559]
+[node name="Sliding_Collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.011, 0.445003, -0.061)
 shape = SubResource("CapsuleShape3D_rug40")
 disabled = true
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=419257181]
+[node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.69, -0.19)
 current = true
 
-[node name="Shotgun_View" parent="Camera3D" unique_id=958123878 instance=ExtResource("4_rug40")]
-transform = Transform3D(0.45753825, 0.084127165, 0.8852015, 0.037191316, 0.992833, -0.1135794, -0.8884118, 0.08488875, 0.45113018, 0.04, -0.12, -0.058)
+[node name="Shotgun_View" parent="Camera3D" instance=ExtResource("4_rug40")]
+transform = Transform3D(0.457538, 0.0841272, 0.885202, 0.0371913, 0.992833, -0.113579, -0.888412, 0.0848887, 0.45113, 0.04, -0.12, -0.058)
 visible = false
 ShouldColide = false
 
-[node name="Muzzle" type="Marker3D" parent="Camera3D/Shotgun_View" unique_id=350218409]
-transform = Transform3D(1, 5.5879354e-09, -2.0861626e-07, -1.8626451e-09, 1.0000017, 0, 0, 2.2351742e-08, 1, 0.0045092404, 0.009056568, -0.24308968)
-
-[node name="Grapple_View" parent="Camera3D" unique_id=585429039 instance=ExtResource("3_rug40")]
+[node name="Grapple_View" parent="Camera3D" instance=ExtResource("3_rug40")]
 visible = false
 ShouldColide = false
 
-[node name="Grapple Muzzle" type="Marker3D" parent="Camera3D/Grapple_View" unique_id=1803671969]
+[node name="Grapple Muzzle" type="Marker3D" parent="Camera3D/Grapple_View"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.174678)
 gizmo_extents = 0.06
 
-[node name="GrappleRay" type="RayCast3D" parent="Camera3D" unique_id=657980255]
+[node name="GrappleRay" type="RayCast3D" parent="Camera3D"]
 target_position = Vector3(0, 0, -40)
 collision_mask = 64
 hit_from_inside = true
@@ -1599,7 +1591,7 @@ collide_with_areas = true
 debug_shape_custom_color = Color(0.723534, 0.0189381, 4.81307e-07, 1)
 debug_shape_thickness = 5
 
-[node name="ShotgunRay" type="RayCast3D" parent="Camera3D" unique_id=69982161]
+[node name="ShotgunRay" type="RayCast3D" parent="Camera3D"]
 visible = false
 target_position = Vector3(0, 0, -6)
 collision_mask = 64
@@ -1608,28 +1600,32 @@ collide_with_areas = true
 debug_shape_custom_color = Color(0, 0.0196078, 0.72549, 1)
 debug_shape_thickness = 5
 
-[node name="SGAnimPlayer" type="AnimationPlayer" parent="Camera3D" unique_id=631520731]
-libraries/ = SubResource("AnimationLibrary_yceh7")
+[node name="SGAnimPlayer" type="AnimationPlayer" parent="Camera3D"]
+libraries = {
+&"": SubResource("AnimationLibrary_yceh7")
+}
 
-[node name="GGAnimPlayer" type="AnimationPlayer" parent="Camera3D" unique_id=1835700433]
-libraries/ = SubResource("AnimationLibrary_cn88q")
+[node name="GGAnimPlayer" type="AnimationPlayer" parent="Camera3D"]
+libraries = {
+&"": SubResource("AnimationLibrary_cn88q")
+}
 
-[node name="ReadySateTimer" type="Timer" parent="Camera3D" unique_id=1198210656]
+[node name="ReadySateTimer" type="Timer" parent="Camera3D"]
 one_shot = true
 
-[node name="Grapple Rope" type="MeshInstance3D" parent="Camera3D" unique_id=1155817796]
+[node name="Grapple Rope" type="MeshInstance3D" parent="Camera3D"]
 transform = Transform3D(0.025, 0, 0, 0, 1, 0, 0, 0, 0.025, 0.120802, 1.59976, -0.915121)
 visible = false
 mesh = SubResource("CylinderMesh_rug40")
 
-[node name="pOBJ Pickup" type="Node3D" parent="Camera3D" unique_id=1288228094]
+[node name="pOBJ Pickup" type="Node3D" parent="Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.17769)
 
-[node name="Hud" parent="." unique_id=1169590388 instance=ExtResource("2_2tde0")]
+[node name="Hud" parent="." instance=ExtResource("2_2tde0")]
 offset_right = -1152.0
 offset_bottom = -648.0
 
-[node name="Karlson" type="Skeleton3D" parent="." unique_id=679437532]
+[node name="Karlson" type="Skeleton3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.93733, 0)
 motion_scale = 0.0036832
@@ -1645,7 +1641,7 @@ bones/1/parent = 0
 bones/1/rest = Transform3D(2.13547, 0, 0, 0, -7.63705e-07, 2.13547, 0, -2.13547, -7.63705e-07, 0, 0.227309, 3.56017e-08)
 bones/1/enabled = true
 bones/1/position = Vector3(0, 0.227309, 3.56017e-08)
-bones/1/rotation = Quaternion(-0.70710677, 0, 0, 0.70710677)
+bones/1/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
 bones/1/scale = Vector3(2.13547, 2.13547, 2.13547)
 bones/2/name = "Root"
 bones/2/parent = 0
@@ -1722,14 +1718,14 @@ bones/12/parent = 11
 bones/12/rest = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -0.00105941, 0.293419, 0.0127763)
 bones/12/enabled = true
 bones/12/position = Vector3(0.00677339, 0.290049, 0.0165535)
-bones/12/rotation = Quaternion(0, -0.7071068, 0, 0.7071068)
+bones/12/rotation = Quaternion(0, -0.707107, 0, 0.707107)
 bones/12/scale = Vector3(1, 1, 1)
 bones/13/name = "LeftHand"
 bones/13/parent = 12
 bones/13/rest = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0.00341298, 0.444777, -0.00020921)
 bones/13/enabled = true
 bones/13/position = Vector3(0.00341298, 0.444777, -0.00020921)
-bones/13/rotation = Quaternion(0, 0.7071068, 0, 0.7071068)
+bones/13/rotation = Quaternion(0, 0.707107, 0, 0.707107)
 bones/13/scale = Vector3(1, 1, 1)
 bones/14/name = "mixamorig_LeftHandIndex1_011"
 bones/14/parent = 13
@@ -1778,14 +1774,14 @@ bones/20/parent = 19
 bones/20/rest = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0.00182218, 0.293419, 0.0127765)
 bones/20/enabled = true
 bones/20/position = Vector3(0.00182218, 0.293419, 0.0127765)
-bones/20/rotation = Quaternion(0, 0.7071068, 0, 0.7071068)
+bones/20/rotation = Quaternion(0, 0.707107, 0, 0.707107)
 bones/20/scale = Vector3(1, 1, 1)
 bones/21/name = "RightHand"
 bones/21/parent = 20
 bones/21/rest = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -0.00341301, 0.444777, 0.000799803)
 bones/21/enabled = true
 bones/21/position = Vector3(-0.00341301, 0.444777, 0.000799803)
-bones/21/rotation = Quaternion(0, -0.7071068, 0, 0.7071068)
+bones/21/rotation = Quaternion(0, -0.707107, 0, 0.707107)
 bones/21/scale = Vector3(1, 1, 1)
 bones/22/name = "mixamorig_RightHandIndex1_018"
 bones/22/parent = 21
@@ -1834,7 +1830,7 @@ bones/28/parent = 27
 bones/28/rest = Transform3D(-1, 0, 0, 0, 0, -1, 0, -1, 0, 0.0157453, 0.381931, -0.00113765)
 bones/28/enabled = true
 bones/28/position = Vector3(0.0157453, 0.381931, -0.00113765)
-bones/28/rotation = Quaternion(0, 0.7071068, -0.7071068, 0)
+bones/28/rotation = Quaternion(0, 0.707107, -0.707107, 0)
 bones/28/scale = Vector3(1, 1, 1)
 bones/29/name = "LeftToes"
 bones/29/parent = 28
@@ -1848,7 +1844,7 @@ bones/30/parent = 29
 bones/30/rest = Transform3D(0.0469894, -2.99769e-09, 8.38509e-09, -8.96262e-09, 7.567e-09, 0.0469893, -2.61934e-09, -0.0469893, -1.16415e-10, -0.119104, -0.0918815, -1.09242)
 bones/30/enabled = true
 bones/30/position = Vector3(-0.119104, -0.0918815, -1.09242)
-bones/30/rotation = Quaternion(-0.70710677, 8.714387e-08, -4.772739e-08, 0.70710677)
+bones/30/rotation = Quaternion(-0.707107, 8.71439e-08, -4.77274e-08, 0.707107)
 bones/30/scale = Vector3(0.0469894, 0.0469893, 0.0469893)
 bones/31/name = "RightUpperLeg"
 bones/31/parent = 3
@@ -1869,7 +1865,7 @@ bones/33/parent = 32
 bones/33/rest = Transform3D(-1, 0, 0, 0, 0, -1, 0, -1, 0, -0.0157452, 0.381931, -0.00201577)
 bones/33/enabled = true
 bones/33/position = Vector3(-0.0157452, 0.381931, -0.00201577)
-bones/33/rotation = Quaternion(0, 0.7071068, -0.7071068, 0)
+bones/33/rotation = Quaternion(0, 0.707107, -0.707107, 0)
 bones/33/scale = Vector3(1, 1, 1)
 bones/34/name = "RightToes"
 bones/34/parent = 33
@@ -1883,44 +1879,46 @@ bones/35/parent = 34
 bones/35/rest = Transform3D(0.0469894, -5.23869e-10, -1.72868e-08, 1.68411e-08, 1.86265e-09, 0.0469893, 4.94765e-10, -0.0469893, 1.5134e-09, 0.119104, -0.0918218, -1.09242)
 bones/35/enabled = true
 bones/35/position = Vector3(0.119104, -0.0918218, -1.09242)
-bones/35/rotation = Quaternion(-0.7071068, -1.3043696e-07, 1.2299198e-07, 0.7071068)
+bones/35/rotation = Quaternion(-0.707107, -1.30437e-07, 1.22992e-07, 0.707107)
 bones/35/scale = Vector3(0.0469894, 0.0469893, 0.0469893)
 
-[node name="Object_40" type="MeshInstance3D" parent="Karlson" unique_id=1075806217]
+[node name="Object_40" type="MeshInstance3D" parent="Karlson"]
 mesh = SubResource("ArrayMesh_x2mif")
 skin = SubResource("Skin_hvdor")
 
-[node name="Object_41" type="MeshInstance3D" parent="Karlson" unique_id=696347835]
+[node name="Object_41" type="MeshInstance3D" parent="Karlson"]
 mesh = SubResource("ArrayMesh_eisnd")
 skin = SubResource("Skin_hvdor")
 
-[node name="Object_42" type="MeshInstance3D" parent="Karlson" unique_id=1093740065]
+[node name="Object_42" type="MeshInstance3D" parent="Karlson"]
 mesh = SubResource("ArrayMesh_63l1k")
 skin = SubResource("Skin_hvdor")
 
-[node name="Object_43" type="MeshInstance3D" parent="Karlson" unique_id=1247082223]
+[node name="Object_43" type="MeshInstance3D" parent="Karlson"]
 mesh = SubResource("ArrayMesh_6dwm2")
 skin = SubResource("Skin_hvdor")
 
-[node name="Object_44" type="MeshInstance3D" parent="Karlson" unique_id=1099547266]
+[node name="Object_44" type="MeshInstance3D" parent="Karlson"]
 mesh = SubResource("ArrayMesh_tmx7c")
 skin = SubResource("Skin_hvdor")
 
-[node name="Object_45" type="MeshInstance3D" parent="Karlson" unique_id=900721865]
+[node name="Object_45" type="MeshInstance3D" parent="Karlson"]
 mesh = SubResource("ArrayMesh_l3pjf")
 skin = SubResource("Skin_hvdor")
 
-[node name="Object_46" type="MeshInstance3D" parent="Karlson" unique_id=1617129978]
+[node name="Object_46" type="MeshInstance3D" parent="Karlson"]
 mesh = SubResource("ArrayMesh_qcw8p")
 skin = SubResource("Skin_hvdor")
 
-[node name="BodyAnimationPlayer" type="AnimationPlayer" parent="Karlson" unique_id=290819753]
-libraries/ = SubResource("AnimationLibrary_6ljmh")
-autoplay = &"RESET"
+[node name="BodyAnimationPlayer" type="AnimationPlayer" parent="Karlson"]
+libraries = {
+&"": SubResource("AnimationLibrary_6ljmh")
+}
+autoplay = "RESET"
 
-[node name="Slomo Timer" type="Timer" parent="." unique_id=1814922169]
+[node name="Slomo Timer" type="Timer" parent="."]
 one_shot = true
 
-[node name="WallJump Timer" type="Timer" parent="." unique_id=1508105857]
+[node name="WallJump Timer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
